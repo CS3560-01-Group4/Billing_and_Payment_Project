@@ -7,5 +7,8 @@
  *
  */
 public class Membership {
+    int MembershipID;
+    String MembershipStartDate,MembershipRenewalDate;
+    boolean membershipActive;
 
 }
