@@ -6,9 +6,8 @@
  * @author Cristofer Vargas , , , 
  *
  */
-public class Salesperson {
+public class Salesperson extends Account {
     int salesPersonID;
-    String Name, phoneNumber, emailAddress;
 
     public Salesperson(int salesPersonID, String name, String phoneNumber, String emailAddress) {
         this.salesPersonID = salesPersonID;
@@ -26,28 +25,5 @@ public class Salesperson {
         this.salesPersonID = salesPersonID;
     }
 
-    public String getName() {
-        return Name;
-    }
-
-    public void setName(String name) {
-        Name = name;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmailAddress() {
-        return emailAddress;
-    }
-
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
 
 }

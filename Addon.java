@@ -6,7 +6,7 @@
  * @author Cristofer Vargas , , , 
  *
  */
-public class Addon {
+abstract class Addon {
 
 	private int addonID; //key identifier
 	private String name;
