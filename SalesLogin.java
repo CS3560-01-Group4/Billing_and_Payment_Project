@@ -27,6 +27,8 @@ public class SalesLogin extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                SalesmanGUI salesmanGUI = new SalesmanGUI();
                 /*
                 Add in code for login verification
                  */
