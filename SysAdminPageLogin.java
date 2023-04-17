@@ -25,6 +25,7 @@ public class SysAdminPageLogin extends JFrame{
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                SysAdminGUI sysAdminGUI = new SysAdminGUI();
 
                 /*
                 Add in code for login verification

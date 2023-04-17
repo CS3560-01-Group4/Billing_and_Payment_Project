@@ -1,13 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class SalesmanGUI extends JFrame {
+public class SysAdminGUI extends JFrame {
+
     JMenuBar menuBar;
     JMenu Edit, View;
-    JMenuItem  editCustomerAddress, editCustomerSubscription, editEmailAddress;
-    JMenuItem viewAccountInfo, viewSubscriptions;
+    JMenuItem  editSubcriptions, editAddons;
+    JMenuItem viewSubscriptions, viewAddons;
 
-    SalesmanGUI(){
+    SysAdminGUI(){
         this.setSize(600,600);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setIconImage(new ImageIcon("31-hour.png").getImage());
@@ -18,19 +19,19 @@ public class SalesmanGUI extends JFrame {
         Edit = new JMenu("Edit");
         View = new JMenu("View");
 
-        editCustomerAddress = new JMenuItem("Customer Address");
-        editCustomerSubscription = new JMenuItem("Customer Subscription");
-        editEmailAddress = new JMenuItem("Customer Email Address");
+        editSubcriptions = new JMenuItem("Subscription");
+        editAddons = new JMenuItem("Addons");
 
-        viewAccountInfo = new JMenuItem("Account Info");
+
+        viewAddons = new JMenuItem("Addons");
         viewSubscriptions = new JMenuItem("Subscriptions");
 
-        Edit.add(editCustomerAddress);
-        Edit.add(editCustomerAddress);
-        Edit.add(editEmailAddress);
+        Edit.add(editSubcriptions);
+        Edit.add(editAddons);
 
-        View.add(viewAccountInfo);
+
         View.add(viewSubscriptions);
+        View.add(viewAddons);
 
         menuBar.add(Edit);
         menuBar.add(View);
@@ -39,4 +40,6 @@ public class SalesmanGUI extends JFrame {
         this.setVisible(true);
 
     }
+
+
 }
