@@ -9,6 +9,7 @@ public class CSLoginPage extends JFrame {
     private String retrievedPassword, retreviedUsername;
     private JLabel Password;
     private JButton loginButton;
+    private JButton signUpButton;
 
     CSLoginPage(){
         this.setContentPane(loginPage);
@@ -30,6 +31,14 @@ public class CSLoginPage extends JFrame {
                 Add in code for login verification
                  */
 
+            }
+
+
+        });
+        signUpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SignUpPage sGUI = new SignUpPage();
             }
         });
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
