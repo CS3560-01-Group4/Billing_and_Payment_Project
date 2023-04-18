@@ -1,3 +1,4 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -41,40 +42,44 @@ public class SignUpPage extends JFrame {
                 inputPassword = String.valueOf(password.getPassword());
 
                 //Input validation
-                if(inputName.equals("") || inputEmail.equals("") || inputAddress.equals("") || inputCity.equals("")
-            || inputZip.equals("") || inputState.equals("") || inputPhone.equals("") || inputPassword.equals(""))
-                    JOptionPane.showMessageDialog(SignUpPage, "Invalid input");
-                if(inputName.equals(""))
-                    name.setBackground(new Color(255,102,102));
+                if (inputName.equals(""))
+                    name.setBackground(new Color(255, 102, 102));
                 else
                     name.setBackground(Color.white);
-                if(inputEmail.equals(""))
-                    email.setBackground(new Color(255,102,102));
+                if (inputEmail.equals(""))
+                    email.setBackground(new Color(255, 102, 102));
                 else
                     email.setBackground(Color.white);
-                if(inputAddress.equals(""))
-                    address.setBackground(new Color(255,102,102));
+                if (inputAddress.equals(""))
+                    address.setBackground(new Color(255, 102, 102));
                 else
                     address.setBackground(Color.white);
-                if(inputCity.equals(""))
-                    city.setBackground(new Color(255,102,102));
+                if (inputCity.equals(""))
+                    city.setBackground(new Color(255, 102, 102));
                 else
                     city.setBackground(Color.white);
-                if(inputZip.equals(""))
-                    zip.setBackground(new Color(255,102,102));
+                if (inputZip.equals(""))
+                    zip.setBackground(new Color(255, 102, 102));
                 else
                     zip.setBackground(Color.white);
-                if(inputState.equals(""))
-                    state.setBackground(new Color(255,102,102));
+                if (inputState.equals(""))
+                    state.setBackground(new Color(255, 102, 102));
                 else
                     state.setBackground(Color.white);
-                if(inputPhone.equals(""))
-                    phoneNumber.setBackground(new Color(255,102,102));
+                if (inputPhone.equals(""))
+                    phoneNumber.setBackground(new Color(255, 102, 102));
                 else
                     phoneNumber.setBackground(Color.white);
-                if(inputPassword.equals(""))
-                    password.setBackground(new Color(255,102,102));
-
+                if (inputPassword.equals(""))
+                    password.setBackground(new Color(255, 102, 102));
+                else
+                    password.setBackground(Color.white);
+                if (inputName.equals("") || inputEmail.equals("") || inputAddress.equals("") || inputCity.equals("")
+                        || inputZip.equals("") || inputState.equals("") || inputPhone.equals("") || inputPassword.equals(""))
+                    JOptionPane.showMessageDialog(SignUpPage, "Invalid input");
+                else{
+                    CreditPage enterCredit = new CreditPage();
+                }
             }
         });
         //Input validation
