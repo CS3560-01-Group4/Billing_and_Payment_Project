@@ -15,4 +15,36 @@ public class Customer extends Account {
     public void save(DatabaseManager db) throws SQLException {
         db.saveCustomer(this);
     }
+    
+    public int getID() {
+    	return id;
+    }
+    
+    public String getName() {
+    	return name;
+    }
+    
+    public String getEmail() {
+    	return email;
+    }
+    
+    public int getCreditCardNumber() {
+    	return creditCardNumber;
+    }
+    
+    public void setID(int id) {
+    	this.id = id;
+    }
+    
+    public void setName(String name) {
+    	this.Name = name;
+    }
+    
+    public void setEmail(String email) {
+    	this.email = email;
+    }
+    
+    public void setCreditCardNumber(int creditCardNumber) {
+    	this.creditCardNumber = creditCardNumber;
+    }
 }
