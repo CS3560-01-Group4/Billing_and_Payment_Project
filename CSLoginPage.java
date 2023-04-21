@@ -3,13 +3,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CSLoginPage extends JFrame {
-    private JPanel loginPage = new JPanel();
-    private JPasswordField passwordField = new JPasswordField(20);
-    private JTextField usernameField = new JTextField(20);
-    private JLabel Password = new JLabel("Enter Password");
+    private JPanel loginPage;
+    private JPasswordField passwordField;
+    private JTextField usernameField;
+    private JLabel Password;
     private JLabel username = new JLabel("Enter Username");
-    private JButton loginButton = new JButton("Login");
-    private JButton signUpButton = new JButton("Sign Up");
+    private JButton loginButton;
+    private JButton signUpButton;
+    private JLabel passwordLabel;
     private String retrievedPassword, retreviedUsername;
 
     CSLoginPage(){
@@ -17,27 +18,16 @@ public class CSLoginPage extends JFrame {
         this.setTitle("Customer Login");
         this.setIconImage(new ImageIcon("31-hour.png").getImage());
         this.setSize(600,600);
-        this.add(signUpButton);
-        this.add(loginButton);
+        JFrame frame = this;
         
         usernameField.setBounds(100,20,165,25);
-        this.add(username);
-        this.add(usernameField);
         passwordField.setBounds(100,20,165,25);
-        this.add(Password);
-        this.add(passwordField);
-        
-
-
-
-
-
 
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
             	boolean verified = false;
-            	//save the typed-in user name and password
+            	//save the typed-in username and password
             	retreviedUsername = usernameField.getText();
                 retrievedPassword = String.valueOf(passwordField.getPassword());
                 //verify login with database
@@ -58,16 +48,15 @@ public class CSLoginPage extends JFrame {
             	
             }
 
-
         });
         signUpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SignUpPage sGUI = new SignUpPage();
+                frame.dispose();
+                new SignUpPage();
             }
         });
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
-
 }
