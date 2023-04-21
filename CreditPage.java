@@ -13,7 +13,7 @@ public class CreditPage extends JFrame {
     private JTextField date;
     private JButton nextButton;
 
-    private String inputCard, inputCSV, inputDate, inputMonth;
+    static String inputCard, inputCSV, inputDate, inputMonth;
 
     CreditPage() {
         this.setContentPane(CreditPage);
@@ -86,7 +86,7 @@ public class CreditPage extends JFrame {
                 if(Integer.parseInt(inputMonth) >12 ||Integer.parseInt(inputDate) > 31 || inputCard.length() < 16)
                     JOptionPane.showMessageDialog(CreditPage, "Invalid input");
                 else{
-                    //confirmation page
+                    ConfirmationPage ConfirmationPage = new ConfirmationPage();
                 }
 
             }

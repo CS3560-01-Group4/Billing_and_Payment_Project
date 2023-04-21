@@ -26,7 +26,7 @@ public class SignUpPage extends JFrame {
     private JLabel phoneNumberLabel = new JLabel("Enter Phone Number");
     private JButton nextButton = new JButton("Next");
     private JCheckBox showPasswordCheckBox = new JCheckBox();
-    private String inputName, inputEmail, inputAddress, inputCity, inputZip, inputState, inputPassword,
+    static String inputName, inputEmail, inputAddress, inputCity, inputZip, inputState, inputPassword,
     inputPhone;
 
     SignUpPage(){
