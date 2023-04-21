@@ -3,9 +3,11 @@ import java.awt.*;
 
 public class SalesmanGUI extends JFrame {
     JMenuBar menuBar;
-    JMenu Edit, View;
+    JMenu Edit, View, LogOut;
     JMenuItem  editCustomerAddress, editCustomerSubscription, editEmailAddress;
     JMenuItem viewAccountInfo, viewSubscriptions;
+
+    JMenuItem signOut;
 
     SalesmanGUI(){
         this.setSize(600,600);
@@ -17,6 +19,7 @@ public class SalesmanGUI extends JFrame {
         menuBar = new JMenuBar();
         Edit = new JMenu("Edit");
         View = new JMenu("View");
+        LogOut = new JMenu("Sign out");
 
         editCustomerAddress = new JMenuItem("Customer Address");
         editCustomerSubscription = new JMenuItem("Customer Subscription");
@@ -24,6 +27,7 @@ public class SalesmanGUI extends JFrame {
 
         viewAccountInfo = new JMenuItem("Account Info");
         viewSubscriptions = new JMenuItem("Subscriptions");
+        signOut = new JMenuItem("Sign out");
 
         Edit.add(editCustomerAddress);
         Edit.add(editCustomerAddress);
@@ -32,8 +36,11 @@ public class SalesmanGUI extends JFrame {
         View.add(viewAccountInfo);
         View.add(viewSubscriptions);
 
+        LogOut.add(signOut);
+
         menuBar.add(Edit);
         menuBar.add(View);
+        menuBar.add(signOut);
 
         this.setJMenuBar(menuBar);
         this.setVisible(true);
