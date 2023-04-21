@@ -7,9 +7,11 @@ import java.awt.event.ActionListener;
 
 public class CustomerGUI extends JFrame {
     JMenuBar menuBar;
-    JMenu Edit, View;
+    JMenu Edit, View, LogOut;
     JMenuItem editName, editAddress, editSubscription, editEmailAddress;
     JMenuItem viewAccountInfo, viewSubscriptions;
+
+    JMenuItem signOut;
 
 
 
@@ -24,6 +26,7 @@ public class CustomerGUI extends JFrame {
         menuBar = new JMenuBar();
         Edit = new JMenu("Edit");
         View = new JMenu("View");
+        LogOut = new JMenu("Log out");
 
 
         Edit.add(editName = new JMenuItem("Edit Name"));
@@ -35,8 +38,11 @@ public class CustomerGUI extends JFrame {
         View.add(viewAccountInfo = new JMenuItem("View Account Info"));
         View.add(viewSubscriptions = new JMenuItem("View Subscription"));
 
+        LogOut.add(signOut = new JMenuItem("Sign Out"));
+
         menuBar.add(Edit);
         menuBar.add(View);
+        menuBar.add(LogOut);
 
 
 
