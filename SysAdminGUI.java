@@ -4,9 +4,11 @@ import java.awt.*;
 public class SysAdminGUI extends JFrame {
 
     JMenuBar menuBar;
-    JMenu Edit, View;
+    JMenu Edit, View, LogOut;
     JMenuItem  editSubcriptions, editAddons;
     JMenuItem viewSubscriptions, viewAddons;
+
+    JMenuItem signOutBox;
 
     SysAdminGUI(){
         this.setSize(600,600);
@@ -18,6 +20,7 @@ public class SysAdminGUI extends JFrame {
         menuBar = new JMenuBar();
         Edit = new JMenu("Edit");
         View = new JMenu("View");
+        LogOut = new JMenu("Log out");
 
         editSubcriptions = new JMenuItem("Subscription");
         editAddons = new JMenuItem("Addons");
@@ -26,6 +29,9 @@ public class SysAdminGUI extends JFrame {
         viewAddons = new JMenuItem("Addons");
         viewSubscriptions = new JMenuItem("Subscriptions");
 
+        signOutBox = new JMenuItem("Sign Out");
+
+
         Edit.add(editSubcriptions);
         Edit.add(editAddons);
 
@@ -33,6 +39,9 @@ public class SysAdminGUI extends JFrame {
         View.add(viewSubscriptions);
         View.add(viewAddons);
 
+        LogOut.add(signOutBox);
+
+        menuBar.add(LogOut);
         menuBar.add(Edit);
         menuBar.add(View);
 
