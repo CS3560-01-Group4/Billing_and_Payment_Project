@@ -14,7 +14,7 @@ import java.sql.Statement;
 public class UI{
 
 	public static void main(String args[]) {
-
+    	
 
 		/*
 		Begin construction of the main panel the user will enter upon application startup.
@@ -54,29 +54,21 @@ public class UI{
 				JComboBox comboBox = (JComboBox) e.getSource();
 				String s =  (String) comboBox.getSelectedItem();
 				if(s.equals(userTypes[0])){
-					/*
-					Add in functionality for swapping to Customer Screen.
-
-					 */
+					//swap to Customer Screen.
 					frame.dispose();
 					CSLoginPage loginPage = new CSLoginPage();
-
-
+					
 					System.out.println("C");
 				}
 				else if(s.equals(userTypes[1])){
+					//Swap to SalesPerson screen
+					frame.dispose();
 					SalesLogin loginPage = new SalesLogin();
-
-					System.out.println("S");
 				}
 				else{
+					//swap to Admin screen.
+					frame.dispose();
 					SysAdminPageLogin loginPage = new SysAdminPageLogin();
-
-					/*
-					Add in functionality for swapping to the Sales Representative Screen.
-					 */
-					System.out.println("Sys");
-
 				}
 
 			}

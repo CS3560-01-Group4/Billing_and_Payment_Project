@@ -2,7 +2,8 @@ import java.sql.*;
 
 public class DatabaseManager {
     private Connection connection;
-
+        
+    
     public DatabaseManager(String host, int port, String database, String username, String password) throws SQLException {
         String url = "jdbc:mysql://" + host + ":" + port + "/" + database;
         this.connection = DriverManager.getConnection(url, username, password);
@@ -29,5 +30,21 @@ public class DatabaseManager {
 
     public void close() throws SQLException {
         connection.close();
+    }
+    
+    public boolean searchCustomerCredentials(String user, String pass) {
+    	try {
+    		Statement statement = connection.createStatement();
+        	String sql = "select * from account where username='" + user + "' AND password='" + pass + "';";
+        	ResultSet result = statement.executeQuery(sql);
+        	if(result.next()) {
+        		return true;
+        	}else {
+        		return false;
+        	}
+    	}catch (Exception e) {
+    		System.out.println("error");
+    		return false;
+    	}
     }
 }

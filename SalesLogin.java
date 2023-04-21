@@ -3,13 +3,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SalesLogin extends JFrame {
-    private JPasswordField passwordField;
-    private JTextField usernameField;
-    private JLabel usernameLabel;
-    private JLabel passwordLabel;
+    private JPasswordField passwordField = new JPasswordField(20);
+    private JTextField usernameField = new JTextField(20);
+    private JLabel usernameLabel = new JLabel("Enter Username");
+    private JLabel passwordLabel = new JLabel("Enter Password");
     private String retrievedPassword, retreviedUsername;
-    private JButton loginButton;
-    private JPanel salesPersonPanel;
+    private JButton loginButton = new JButton("Login");//how can a salesperson sign up? 
+    private JPanel salesPersonPanel = new JPanel();
 
 
     SalesLogin(){
@@ -17,9 +17,17 @@ public class SalesLogin extends JFrame {
         this.setTitle("Customer Login");
         this.setIconImage(new ImageIcon("31-hour.png").getImage());
         this.setSize(600,600);
+        this.add(loginButton);
+        
+        usernameField.setBounds(100,20,165,25);
+        this.add(usernameLabel);
+        this.add(usernameField);
+        passwordField.setBounds(100,20,165,25);
+        this.add(passwordLabel);
+        this.add(passwordField);
 
-        retreviedUsername = String.valueOf(passwordField.getPassword());
-        retrievedPassword = usernameField.getText();
+        //retreviedUsername = usernameField.getText();
+        //retrievedPassword = String.valueOf(passwordField.getPassword());
 
 
 
