@@ -26,8 +26,8 @@ public class SalesLogin extends JFrame {
         this.add(passwordLabel);
         this.add(passwordField);
 
-        //retreviedUsername = usernameField.getText();
-        //retrievedPassword = String.valueOf(passwordField.getPassword());
+        retreviedUsername = usernameField.getText();
+        retrievedPassword = String.valueOf(passwordField.getPassword());
 
 
 
@@ -35,11 +35,18 @@ public class SalesLogin extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                SalesmanGUI salesmanGUI = new SalesmanGUI();
-                /*
-                Add in code for login verification
-                 */
+            	boolean verified = false;
+            	try {
+            		DatabaseManager db = new DatabaseManager("localhost", 3306, "gymmembership", "root", "sqlingurmom");
+            		verified = db.searchSalespersonCredentials(retreviedUsername, retrievedPassword);
+            		db.close();
+            	}catch(Exception ex) {
+            		System.out.println("error with database");;
+            	}
+            	if(verified) {
+            		SalesmanGUI salesmanGUI = new SalesmanGUI();
+            		dispose();
+            	}
 
             }
         });

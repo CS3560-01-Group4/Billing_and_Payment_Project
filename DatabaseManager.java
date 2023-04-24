@@ -35,13 +35,29 @@ public class DatabaseManager {
     public boolean searchCustomerCredentials(String user, String pass) {
     	try {
     		Statement statement = connection.createStatement();
-        	String sql = "select * from account where username='" + user + "' AND password='" + pass + "';";
+        	String sql = "select * from customerAccount where username='" + user + "' AND password='" + pass + "';";
         	ResultSet result = statement.executeQuery(sql);
         	if(result.next()) {
         		return true;
         	}else {
         		return false;
         	}
+    	}catch (Exception e) {
+    		System.out.println("error");
+    		return false;
+    	}
+    }
+    
+    public boolean searchSalespersonCredentials(String user, String pass) {
+    	try {
+    		Statement statement = connection.createStatement();
+    		String sql = "select * from salesperson where username='" + user + "' AND password='" + pass + "';";
+    		ResultSet result = statement.executeQuery(sql);
+    		if(result.next()) {
+    			return true;
+    		}else {
+    			return false;
+    		}
     	}catch (Exception e) {
     		System.out.println("error");
     		return false;
