@@ -24,7 +24,7 @@ public class UI{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//close frame when the X is clicked
 		frame.setSize(600, 600);//set the size of the frame
 		frame.setResizable(false);
-		frame.setLayout(new BorderLayout());
+		frame.setLayout(new GridLayout(2,1));
 		frame.add(new JLabel("Welcome. Please select which type of user you are:", JLabel.CENTER), BorderLayout.NORTH);
 
 
