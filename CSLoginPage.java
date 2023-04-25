@@ -32,7 +32,7 @@ public class CSLoginPage extends JFrame {
                 retrievedPassword = String.valueOf(passwordField.getPassword());
                 //verify login with database
                 try {
-                	DatabaseManager db = new DatabaseManager("localhost", 3306, "gymmembership","root", "sqlingurmom");
+                	DatabaseManager db = new DatabaseManager("containers-us-west-34.railway.app", 5939, "railway","root", "91laqZk1CB5VM13WltEE");
                 	validCustomer = db.getCustomerCredentials(retreviedUsername, retrievedPassword);
                 	db.close();
                 }catch (Exception ex) {

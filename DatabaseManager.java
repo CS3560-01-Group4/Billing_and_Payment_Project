@@ -36,18 +36,18 @@ public class DatabaseManager {
     	Customer customer = null;
     	try {
     		Statement statement = connection.createStatement();
-        	String sql = "select * from customerAccount where username='" + user + "' AND password='" + pass + "';";
+        	String sql = "select * from Account where username='" + user + "' AND password='" + pass + "';";
         	ResultSet result = statement.executeQuery(sql);
         	if(result.next()) {
-        		int id = result.getInt("id");
-        		String name = result.getString("name");
-        		String email = result.getString("email");
-        		int creditcard = result.getInt("creditCard");
-        		customer = new Customer(name, email, creditcard);
+        		int id = result.getInt("accountID");
+        		String name = result.getString("username");
+        		String email = result.getString("emailAddress");
+        		//int creditcard = result.getInt("creditCard");
+        		customer = new Customer(id, name, email);
         		return customer;
         	}
     	}catch (Exception e) {
-    		System.out.println("error");
+    		System.out.println("Error");
     	}
     	return customer;
     }
