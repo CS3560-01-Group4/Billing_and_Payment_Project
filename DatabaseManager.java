@@ -32,20 +32,24 @@ public class DatabaseManager {
         connection.close();
     }
     
-    public boolean searchCustomerCredentials(String user, String pass) {
+    public Customer getCustomerCredentials(String user, String pass) {
+    	Customer customer = null;
     	try {
     		Statement statement = connection.createStatement();
         	String sql = "select * from customerAccount where username='" + user + "' AND password='" + pass + "';";
         	ResultSet result = statement.executeQuery(sql);
         	if(result.next()) {
-        		return true;
-        	}else {
-        		return false;
+        		int id = result.getInt("id");
+        		String name = result.getString("name");
+        		String email = result.getString("email");
+        		int creditcard = result.getInt("creditCard");
+        		customer = new Customer(name, email, creditcard);
+        		return customer;
         	}
     	}catch (Exception e) {
     		System.out.println("error");
-    		return false;
     	}
+    	return customer;
     }
     
     public boolean searchSalespersonCredentials(String user, String pass) {
@@ -60,6 +64,28 @@ public class DatabaseManager {
     		}
     	}catch (Exception e) {
     		System.out.println("error");
+    		return false;
+    	}
+    }
+    
+    public boolean updateCustomerName(int id, String newName) {
+    	try {
+    		Statement statement = connection.createStatement();
+    		String sql = "UPDATE customer SET name ='" + newName + "' WHERE customerID='" + id + "';";
+    		statement.executeQuery(sql);
+    		return true;
+    	}catch (Exception e) {
+    		return false;
+    	}
+    }
+    
+    public boolean updateEmail(int id, String newEmail) {
+    	try {
+    		Statement statement = connection.createStatement();
+    		String sql = "UPDATE customer SET emailAddress ='" + newEmail + "' WHERE customerID='" + id + "';";
+    		statement.executeQuery(sql);
+    		return true;
+    	}catch (Exception e) {
     		return false;
     	}
     }

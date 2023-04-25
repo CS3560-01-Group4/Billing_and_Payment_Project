@@ -8,13 +8,13 @@ public class SalesLogin extends JFrame {
     private JLabel usernameLabel = new JLabel("Enter Username");
     private JLabel passwordLabel = new JLabel("Enter Password");
     private String retrievedPassword, retreviedUsername;
-    private JButton loginButton = new JButton("Login");//how can a salesperson sign up? 
+    private JButton loginButton = new JButton("Login");
     private JPanel salesPersonPanel = new JPanel();
 
 
     SalesLogin(){
         this.setContentPane(salesPersonPanel);
-        this.setTitle("Customer Login");
+        this.setTitle("Salesperson Login");
         this.setIconImage(new ImageIcon("31-hour.png").getImage());
         this.setSize(600,600);
         this.add(loginButton);

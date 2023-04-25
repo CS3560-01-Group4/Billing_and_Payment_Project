@@ -12,15 +12,16 @@ public class CustomerGUI extends JFrame {
     JMenu Edit, View, LogOut;
     JMenuItem editName, editAddress, editSubscription, editEmailAddress;
     JMenuItem viewAccountInfo, viewSubscriptions;
-
     JMenuItem signOut;
+    Customer customer = null;
 
 
 
 
 
 
-    CustomerGUI(){
+    CustomerGUI(Customer customer){
+    	this.customer = customer;
         this.setSize(600,600);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLayout(new FlowLayout());
@@ -119,6 +120,7 @@ public class CustomerGUI extends JFrame {
 
         /**
          * Populate the textfields with information from the DB
+         * TODO
          */
         JTextField nameEdit = new JTextField();
         JTextField oldName = new JTextField();
@@ -140,10 +142,22 @@ public class CustomerGUI extends JFrame {
 
         }
 
-        /*
-        Write code to beam result to the DB.
-         */
-
+       //update database
+        boolean completed = false;
+        try {
+        	DatabaseManager db = new DatabaseManager("localhost",3306,"gymmembership","root","sqlingurmom");
+        	completed = db.updateCustomerName(customer.getID(), inputName);
+        	db.close();
+        }catch(Exception ex) {
+        	System.out.println("Error connecting to the database");
+        }
+        
+        if(completed) {
+        	JOptionPane.showMessageDialog(null, "Successfully Updated");
+        }
+        else {
+        	JOptionPane.showMessageDialog(null, "There was an error updating the name");
+        }
 
 
 
@@ -174,7 +188,8 @@ public class CustomerGUI extends JFrame {
         JTextField postalCode = new JTextField();
         /*
         Get the information from the customer DB and display it to the customer
-
+        customer.getAddress();
+        TODO
          */
 
        address.setText("Customer Address");
@@ -271,11 +286,22 @@ public class CustomerGUI extends JFrame {
         }
 
 
-        /**
-         * Write code to beam the new email address to the DB.
-         */
-
-
+        //update email on database
+        boolean completed = false;
+        try {
+        	DatabaseManager db = new DatabaseManager("localhost",3306,"gymmembership","root","sqlingurmom");
+        	completed = db.updateEmail(customer.getID(), inputEmailAddress);
+            db.close();
+        }catch (Exception ex) {
+        	System.out.println("Error connecting to database");
+        }
+        
+        if(completed) {
+        	JOptionPane.showMessageDialog(null, "Email was Successfully Updated");
+        }else {
+        	JOptionPane.showMessageDialog(null, "Email could not be updated");
+        }
+        
 
 
 
@@ -303,6 +329,7 @@ public class CustomerGUI extends JFrame {
     public void EditSubscription(){
         /*
         We need to get access to the DB
+        TODO
          */
 
     }
