@@ -52,10 +52,32 @@ public class ConfirmationPage extends JFrame{
         CreditPage.inputMonth = textField11.getText();
         CreditPage.inputDate = textField12.getText();
 
+        Address address = new Address(SignUpPage.inputAddress, SignUpPage.inputCity,
+                                    SignUpPage.inputZip, SignUpPage.inputState);
+
+        CreditCard creditCard = new CreditCard(CreditPage.inputCard, CreditPage.inputCSV,
+                                                CreditPage.inputMonth, CreditPage.inputDate);
+
+        Customer customer = new Customer(SignUpPage.inputName, SignUpPage.inputEmail, address,
+                                        SignUpPage.inputPhone, SignUpPage.inputPassword, creditCard);
+
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(ConfirmationPage, "Account successfully created");
+                //save to database
+                boolean completed = false;
+                try{
+                    DatabaseManager db = new DatabaseManager("containers-us-west-34.railway.app", 5939, "railway","root", "91laqZk1CB5VM13WltEE");
+                    completed = db.saveCustomer(customer);
+                    db.close();
+                }catch(Exception ex) {
+                    System.out.println(ex);
+                    //JOptionPane.showMessageDialog(null,"There was an error creating your account");
+                }
+
+                if(completed) {
+                    JOptionPane.showMessageDialog(ConfirmationPage, "Account successfully created");
+                }
             }
         });
 

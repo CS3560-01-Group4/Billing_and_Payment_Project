@@ -1,6 +1,13 @@
 public class Address {
     int streetNumber;
-    String streetName, city, zipCode;
+    String streetName, city, zipCode, state;
+
+    public Address(String inputAddress, String inputCity, String inputZip, String inputState) {
+        inputAddress = streetName;
+        inputCity = city;
+        inputZip = zipCode;
+        inputState = state;
+    }
 
     public int getStreetNumber() {
         return streetNumber;
@@ -32,5 +39,12 @@ public class Address {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public String getState() {
+        return state;
+    }
+    public void setState(String state) {
+        this.state = state;
     }
 }

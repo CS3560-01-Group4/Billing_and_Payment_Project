@@ -4,12 +4,20 @@ public class Customer extends Account {
     private int id;
     private String name;
     private String email;
-    private int creditCardNumber;
+    private Address address;
+    private String phone;
+    private String password;
+    private CreditCard creditCard;
 
-    public Customer(String name, String email, int creditCardNumber) {
+
+    public Customer(String name, String email, Address address, String phone, String password, CreditCard creditCard) {
+        //this.id = id;
         this.name = name;
         this.email = email;
-        this.creditCardNumber = creditCardNumber;
+        this.address = address;
+        this.phone = phone;
+        this.password = password;
+        this.creditCard = creditCard;
     }
 
     public void save(DatabaseManager db) throws SQLException {
@@ -28,8 +36,8 @@ public class Customer extends Account {
     	return email;
     }
     
-    public int getCreditCardNumber() {
-    	return creditCardNumber;
+    public CreditCard getCreditCard() {
+    	return creditCard;
     }
     
     public void setID(int id) {
@@ -44,7 +52,15 @@ public class Customer extends Account {
     	this.email = email;
     }
     
-    public void setCreditCardNumber(int creditCardNumber) {
-    	this.creditCardNumber = creditCardNumber;
+    public void setCreditCardNumber(CreditCard creditCard) {
+    	this.creditCard = creditCard;
     }
+
+    public Address getAddress() { return address; }
+
+    public void setAddress(Address address) { this.address = address; }
+
+    public String getPassword() { return password; }
+
+    public void setPassword(String password) { this.password = password; }
 }
