@@ -9,13 +9,33 @@ public class DatabaseManager {
         this.connection = DriverManager.getConnection(url, username, password);
     }
 
-    public void saveCustomer(Customer customer) throws SQLException {
-        String sql = "INSERT INTO customers (name, email, credit_card_number) VALUES (?, ?, ?)";
+    public boolean saveCustomer(Customer customer) throws SQLException {
+        String sql = "INSERT INTO customers (name, email, phoneNumb, password) VALUES (?, ?, ?, ?,)";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, customer.getName());
         statement.setString(2, customer.getEmail());
-        statement.setInt(3, customer.getCreditCardNumber());
+		statement.setString(3, customer.getPhoneNumber());
+        statement.setString(4, customer.getPassword());
         statement.executeUpdate();
+
+		sql = "INSERT INTO Address (street, city, zip, state) VALUES (?,?,?,?);";
+		statement = connection.prepareStatement(sql);
+		Address address = customer.getAddress();
+		statement.setString(1, address.getStreetName() + " " + address.getStreetNumber());
+		statement.setString(2, address.getCity());
+		statement.setString(3, address.getZipCode());
+		statement.setString(4, address.getState());
+		statement.executeUpdate();
+
+		sql = "INSERT INTO CreditCard (creditCardNumber, csv, expMonth, expDay) VALUES (?,?,?,?);";
+		statement = connection.prepareStatement(sql);
+		CreditCard card = customer.getCreditCard();
+		statement.setString(1, card.getCardNumb());
+		statement.setString(2, card.getCsv());
+		statement.setString(3, card.getExpMonth());
+		statement.setString(4, card.getExpDay());
+		statement.executeUpdate();
+		return true;
     }
 
     public void savePurchase(int customerId, Purchase purchase) throws SQLException {
@@ -32,11 +52,11 @@ public class DatabaseManager {
         connection.close();
     }
     
-    public Customer getCustomerCredentials(String user, String pass) {
+   /* public Customer getCustomerCredentials(String user, String pass) {
     	Customer customer = null;
     	try {
     		Statement statement = connection.createStatement();
-        	String sql = "select * from Account where username='" + user + "' AND password='" + pass + "';";
+        	String sql = "select * from Account where username='" + user + "' AND password='" + pass + "'AND accountType='" + "Customer" + "';";
         	ResultSet result = statement.executeQuery(sql);
         	if(result.next()) {
         		int id = result.getInt("accountID");
@@ -50,7 +70,7 @@ public class DatabaseManager {
     		System.out.println("Error");
     	}
     	return customer;
-    }
+    }*/
     
     public boolean searchSalespersonCredentials(String user, String pass) {
     	try {
