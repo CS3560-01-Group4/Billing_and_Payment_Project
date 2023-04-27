@@ -1,22 +1,18 @@
 import java.sql.SQLException;
 
 public class Customer extends Account {
-    private int id;
-    private String name;
-    private String email;
+
     private Address address;
-    private String phone;
-    private String password;
     private CreditCard creditCard;
 
 
-    public Customer(String name, String email, Address address, String phone, String password, CreditCard creditCard) {
+    public Customer(String name, String phone, String email, String password, CreditCard creditCard, Address address) {
         //this.id = id;
-        this.name = name;
-        this.email = email;
+        super.setName(name);
+        super.setEmailAddress(email);
         this.address = address;
-        this.phone = phone;
-        this.password = password;
+        super.setPhoneNumber(phone);
+        super.setPassword(password);
         this.creditCard = creditCard;
     }
 
@@ -28,12 +24,12 @@ public class Customer extends Account {
     	return id;
     }
     
-    public String getName() {
-    	return name;
-    }
+    public String getName() { return super.getName(); }
+
+    public String getPhone() { return super.getPhoneNumber(); }
     
     public String getEmail() {
-    	return email;
+    	return super.getEmailAddress();
     }
     
     public CreditCard getCreditCard() {
@@ -47,9 +43,11 @@ public class Customer extends Account {
     public void setName(String name) {
     	this.Name = name;
     }
+
+    public void setPhone(String phoneN) { super.setPhoneNumber(phoneN); }
     
     public void setEmail(String email) {
-    	this.email = email;
+    	super.setEmailAddress(email);
     }
     
     public void setCreditCardNumber(CreditCard creditCard) {
