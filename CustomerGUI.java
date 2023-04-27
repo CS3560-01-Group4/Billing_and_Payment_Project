@@ -110,43 +110,18 @@ public class CustomerGUI extends JFrame {
 
 
     public void EditName(){
-        String inputName;
-        JFrame editNameWindow = new JFrame();
-        editNameWindow.setSize(600,600);
-        editNameWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        editNameWindow.setLayout(new FlowLayout());
-        editNameWindow.setIconImage(new ImageIcon("31-hour.png").getImage());
-
-
-        /**
-         * Populate the textfields with information from the DB
-         * TODO
-         */
-        JTextField nameEdit = new JTextField();
-        JTextField oldName = new JTextField();
-
-        JLabel nameLabel = new JLabel("Enter New Name");
-        JButton confirmButton = new JButton("Confirm");
-
-
-        editNameWindow.add(nameLabel);
-        editNameWindow.add(nameEdit);
-        editNameWindow.add(confirmButton);
-
-        inputName = nameEdit.getText();
-
-
+        String inputName = JOptionPane.showInputDialog("Enter new name");
         if (inputName.equals("")){
-            nameEdit.setBackground(new Color(255, 102, 102));
-            JOptionPane.showMessageDialog(editNameWindow, "Invalid input");
+            JOptionPane.showMessageDialog(null, "Invalid input");
 
         }
 
        //update database
         boolean completed = false;
         try {
-        	DatabaseManager db = new DatabaseManager("localhost",3306,"gymmembership","root","sqlingurmom");
+        	DatabaseManager db = new DatabaseManager("containers-us-west-34.railway.app",5939,"gymmembership","root","91laqZk1CB5VM13WltEE");
         	completed = db.updateCustomerName(customer.getID(), inputName);
+            System.out.print(customer.getID());
         	db.close();
         }catch(Exception ex) {
         	System.out.println("Error connecting to the database");

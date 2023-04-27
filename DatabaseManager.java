@@ -134,12 +134,14 @@ public class DatabaseManager {
     public boolean updateCustomerName(int id, String newName) {
 		try {
 			Statement statement = connection.createStatement();
-			String sql = "UPDATE customer SET name ='" + newName + "' WHERE customerID='" + id + "';";
-			statement.executeQuery(sql);
+			String sql = "UPDATE Account SET name='" + newName + "'WHERE accountID=" + id;
+			statement.executeUpdate(sql);
 			return true;
-		}catch (Exception e) {
-			return false;
 		}
+        catch (SQLException e) {
+				System.out.println(e);
+				return false;
+			}
     }
     
     public boolean updateEmail(int id, String newEmail) {
