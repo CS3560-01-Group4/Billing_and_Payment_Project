@@ -1,12 +1,12 @@
 public class Address {
-    int addressID;
-    String streetName, city, zipCode, state;
+    private int addressID;
+    private String streetName, city, zipCode, state;
 
     public Address(String inputAddress, String inputCity, String inputZip, String inputState) {
-        inputAddress = streetName;
-        inputCity = city;
-        inputZip = zipCode;
-        inputState = state;
+        streetName = inputAddress;
+        city = inputCity;
+        zipCode = inputZip;
+        state = inputState;
     }
 
     public int getAddressID() {

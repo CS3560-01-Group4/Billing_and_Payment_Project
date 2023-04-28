@@ -7,7 +7,7 @@ public class Customer extends Account {
 
 
     public Customer(String name, String phone, String email, String password, CreditCard creditCard, Address address) {
-        //this.id = id;
+        //super.setId(ID);
         super.setName(name);
         super.setEmailAddress(email);
         this.address = address;

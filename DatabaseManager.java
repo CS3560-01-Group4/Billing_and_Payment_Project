@@ -9,7 +9,8 @@ public class DatabaseManager {
         this.connection = DriverManager.getConnection(url, username, password);
     }
 
-    public boolean saveCustomer(Customer customer) throws SQLException {
+    //given an input Customer, save it to the database
+	public boolean saveCustomer(Customer customer) throws SQLException {
 		//save Account to database
 		String sql = "INSERT INTO Account (name, phoneNumber, emailAddress, password) VALUES (?,?,?,?);";
 		PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -24,20 +25,25 @@ public class DatabaseManager {
 		if(rs.next()) {
 			accountID = rs.getInt(1);
 		}
-		System.out.println(accountID);
+
+		//save Customer
+		sql = "INSERT INTO Customer (Account_accountID) VALUES (?);";
+		PreparedStatement statement4 = connection.prepareStatement(sql);
+		statement4.setInt(1, accountID);
+		statement4.executeUpdate();
 
 		//save Address
-		sql = "INSERT INTO Address (Customer_Account_accountID, streetName, city, zipcode, state) VALUES (?,?,?,?,?);";
+		sql = "INSERT INTO Address (streetName, city, zipcode, state,Customer_Account_accountID) VALUES (?,?,?,?,?);";
 		PreparedStatement statement2 = connection.prepareStatement(sql);
-		statement2.setInt(1, accountID);
-		statement2.setString(2, customer.getAddress().getStreetName());
-		statement2.setString(3, customer.getAddress().getCity());
-		statement2.setString(4, customer.getAddress().getZipCode());
-		statement2.setString(5, customer.getAddress().getState());
+		statement2.setString(1, customer.getAddress().getStreetName());
+		statement2.setString(2, customer.getAddress().getCity());
+		statement2.setString(3, customer.getAddress().getZipCode());
+		statement2.setString(4, customer.getAddress().getState());
+		statement2.setInt(5, accountID);
 		statement2.executeUpdate();
-/*
+
 		//save CreditCard
-		sql = "INSERT INTO CreditCard (creditCardNumb, csv, expMonth, expDay) VALUES (?,?,?,?);";
+		sql = "INSERT INTO CreditCard (creditCardNumb, csv, expMonth, expDay, Customer_Account_accountID) VALUES (?,?,?,?,?);";
 		PreparedStatement statement3 = connection.prepareStatement(sql);
 		statement3.setString(1, customer.getCreditCard().getCardNumb());
 		statement3.setString(2, customer.getCreditCard().getCsv());
@@ -46,12 +52,6 @@ public class DatabaseManager {
 		statement3.setInt(5, accountID);
 		statement3.executeUpdate();
 
-		//save Customer
-		sql = "INSERT INTO Customer (creditCardID, addressID, Account_accountID) VALUES (?, ?, ?,)";
-		PreparedStatement statement4 = connection.prepareStatement(sql);
-		statement4.setInt(1, accountID);
-		statement4.executeUpdate();
-*/
 		return true;
     }
 
@@ -139,9 +139,9 @@ public class DatabaseManager {
 			return true;
 		}
         catch (SQLException e) {
-				System.out.println(e);
-				return false;
-			}
+			System.out.println(e);
+			return false;
+		}
     }
     
     public boolean updateEmail(int id, String newEmail) {
