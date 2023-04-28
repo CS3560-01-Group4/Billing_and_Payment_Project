@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,9 +27,12 @@ public class SysAdminPageLogin extends JFrame{
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                /*
-                Add in code for login verification
-                 */
+                if(retreviedUsername == "admin@root.com" && retrievedPassword == "root") {
+                    dispose();
+                    AdminGUI aGui = new AdminGUI();
+                }else {
+                    JOptionPane.showMessageDialog(null, "Incorrect Credentials");
+                }
             }
         });
 
