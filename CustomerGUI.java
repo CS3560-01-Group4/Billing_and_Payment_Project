@@ -102,7 +102,12 @@ public class CustomerGUI extends JFrame {
         viewAccountInfo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewAccountInfo();
+                try{
+                    ViewAccountInfo(customer);
+                }
+                catch (SQLException exception){
+                    exception.printStackTrace();
+                }
             }
         });
 
@@ -215,51 +220,31 @@ public class CustomerGUI extends JFrame {
     }
 
 
-    public void ViewAccountInfo(){
-        JFrame editEmailAddressWindow = new JFrame();
-        JButton confirmButton = new JButton("Confirm Button");
-        editEmailAddressWindow.setTitle("View Account Info");
-        editEmailAddressWindow.setSize(600,600);
-        editEmailAddressWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        editEmailAddressWindow.setLayout(new FlowLayout());
-        editEmailAddressWindow.setIconImage(new ImageIcon("31-hour.png").getImage());
-
-        JTextField address = new JTextField();
-        JTextField city = new JTextField();
-        JTextField state = new JTextField();
-        JTextField postalCode = new JTextField();
-
-        JLabel addressLabel = new JLabel("Address: ");
-        JLabel cityLabel = new JLabel("City: ");
-        JLabel stateLabel = new JLabel("State: ");
-        JLabel postalLabel = new JLabel("Postal Code: ");
-
-        address.setEditable(false);
-        city.setEditable(false);
-        state.setEditable(false);
-        postalCode.setEditable(false);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public void ViewAccountInfo( Customer customer) throws SQLException{
+        viewCustomerAccount viewAcct = new viewCustomerAccount(customer);
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
