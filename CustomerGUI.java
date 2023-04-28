@@ -60,7 +60,7 @@ public class CustomerGUI extends JFrame {
         editAddress.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EditAddress();
+                EditAddress(customer);
             }
         });
         editSubscription.addActionListener(new ActionListener() {
@@ -120,8 +120,7 @@ public class CustomerGUI extends JFrame {
         boolean completed = false;
         try {
         	DatabaseManager db = new DatabaseManager("containers-us-west-34.railway.app",5939,"gymmembership","root","91laqZk1CB5VM13WltEE");
-        	completed = db.updateCustomerName(customer.getID(), inputName);
-            System.out.print(customer.getID());
+        	completed = db.updateCustomerName(customer.getId(), inputName);
         	db.close();
         }catch(Exception ex) {
         	System.out.println("Error connecting to the database");
@@ -147,93 +146,8 @@ public class CustomerGUI extends JFrame {
     }
 
 
-    public void EditAddress(){
-        String  inputAddress, inputCity, inputZip, inputState;
-
-        JFrame editAddressWindow = new JFrame();
-        editAddressWindow.setSize(600,600);
-        editAddressWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        editAddressWindow.setLayout(new FlowLayout());
-        editAddressWindow.setIconImage(new ImageIcon("31-hour.png").getImage());
-
-
-        JTextField address = new JTextField();
-        JTextField city = new JTextField();
-        JTextField state = new JTextField();
-        JTextField postalCode = new JTextField();
-        /*
-        Get the information from the customer DB and display it to the customer
-        customer.getAddress();
-        TODO
-         */
-
-       address.setText("Customer Address");
-       city.setText("Customer City");
-       state.setText("Customer State");
-       postalCode.setText("Customer Postal Code");
-
-       inputAddress = address.getText();
-       inputCity = city.getText();
-       inputZip = postalCode.getText();
-       inputState = state.getText();
-
-       /*
-       Input validation for editing customer credentials
-        */
-
-        if(inputAddress.equals("")){
-            address.setBackground(new Color(255, 102, 102));
-            
-        } else if (inputCity.equals("")) {
-            city.setBackground(new Color(255, 102, 102));
-            
-        }
-        else if (inputZip.equals("")){
-            postalCode.setBackground(new Color(255, 102, 102));
-        } else if (inputState.equals("")) {
-            state.setBackground(new Color(255, 102, 102));
-            
-        }
-
-        if(inputAddress.equals("") || inputZip.equals("") || inputCity.equals("") ||inputState.equals("") ){
-            JOptionPane.showMessageDialog(editAddressWindow, "Invalid input");
-        }
-
-        state.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char c = e.getKeyChar();
-                if(Character.isDigit(c)){
-                    e.consume();
-                }
-                if(2 == state.getText().length()){
-                    e.consume();
-                }
-
-            }
-        });
-
-
-        postalCode.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                char c = e.getKeyChar();
-                if(!Character.isDigit(c)){
-                    e.consume();
-                }
-
-                if(5 == postalCode.getText().length()){
-                    e.consume();
-                }
-
-            }
-        });
-
-
-
-
-
-
+    public void EditAddress(Customer customer) {
+        EditAddressPage editAddress = new EditAddressPage(customer);
     }
 
 
