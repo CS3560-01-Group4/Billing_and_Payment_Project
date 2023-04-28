@@ -147,10 +147,11 @@ public class DatabaseManager {
     public boolean updateEmail(int id, String newEmail) {
 		try {
 			Statement statement = connection.createStatement();
-			String sql = "UPDATE customer SET emailAddress ='" + newEmail + "' WHERE customerID='" + id + "';";
-			statement.executeQuery(sql);
+			String sql = "UPDATE Account SET emailAddress ='" + newEmail + "' WHERE accountID=" + 1;
+			statement.executeUpdate(sql);
 			return true;
 		}catch (Exception e) {
+			System.out.print(e);
 			return false;
 		}
     }

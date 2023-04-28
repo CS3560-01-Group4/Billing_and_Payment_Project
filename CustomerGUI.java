@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 
 public class CustomerGUI extends JFrame {
     JMenuBar menuBar;
@@ -60,7 +61,11 @@ public class CustomerGUI extends JFrame {
         editAddress.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EditAddress(customer);
+                try {
+                    EditAddress(customer);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
         editSubscription.addActionListener(new ActionListener() {
@@ -146,40 +151,22 @@ public class CustomerGUI extends JFrame {
     }
 
 
-    public void EditAddress(Customer customer) {
+    public void EditAddress(Customer customer) throws SQLException {
         EditAddressPage editAddress = new EditAddressPage(customer);
     }
 
 
     public void EditEmailAddress(){
-        String inputEmailAddress;
-        JButton ConfirmButton = new JButton("Confirm");
+        String inputEmailAddress = JOptionPane.showInputDialog("Enter new email");
 
-        JFrame editEmailAddressWindow = new JFrame();
-        editEmailAddressWindow.setSize(600,600);
-        editEmailAddressWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        editEmailAddressWindow.setLayout(new FlowLayout());
-        editEmailAddressWindow.setIconImage(new ImageIcon("31-hour.png").getImage());
-
-        JTextField newEmailAddress = new JTextField();
-        JTextField oldEmailAddress = new JTextField();
-
-        JLabel emailOld = new JLabel("Current Email Address");
-        JLabel emailNew = new JLabel("New Email Address");
-
-
-        inputEmailAddress = newEmailAddress.getText();
-        if(inputEmailAddress.equals("")){
-            newEmailAddress.setBackground(new Color(255, 102, 102));
-            JOptionPane.showMessageDialog(editEmailAddressWindow, "Invalid input");
-        }
-
+        if (inputEmailAddress.equals(""))
+            JOptionPane.showMessageDialog(null, "Invalid input");
 
         //update email on database
         boolean completed = false;
         try {
-        	DatabaseManager db = new DatabaseManager("localhost",3306,"gymmembership","root","sqlingurmom");
-        	completed = db.updateEmail(customer.getID(), inputEmailAddress);
+            DatabaseManager db = new DatabaseManager("containers-us-west-34.railway.app",5939,"gymmembership","root","91laqZk1CB5VM13WltEE");
+        	completed = db.updateEmail(1, inputEmailAddress);
             db.close();
         }catch (Exception ex) {
         	System.out.println("Error connecting to database");
