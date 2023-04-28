@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 
 public class CustomerGUI extends JFrame {
     JMenuBar menuBar;
@@ -60,7 +61,11 @@ public class CustomerGUI extends JFrame {
         editAddress.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EditAddress(customer);
+                try {
+                    EditAddress(customer);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
         });
         editSubscription.addActionListener(new ActionListener() {
@@ -146,7 +151,7 @@ public class CustomerGUI extends JFrame {
     }
 
 
-    public void EditAddress(Customer customer) {
+    public void EditAddress(Customer customer) throws SQLException {
         EditAddressPage editAddress = new EditAddressPage(customer);
     }
 
