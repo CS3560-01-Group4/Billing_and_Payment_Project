@@ -93,17 +93,14 @@ public class EditAddressPage extends JFrame {
                         String sql = "UPDATE Address SET streetName='" + inputAddress +"', city='" + inputCity + "', zipcode='" + inputZip + "',state='" + inputState +
                                  "' WHERE Customer_Account_accountID=" + 2; //Input primary key
                         statement.executeUpdate(sql);
-                        boolean completed = true;
                         db.close();
+                        JOptionPane.showMessageDialog(null, "Updated");
+                        dispose();
                     }
                     catch (SQLException throwables) {
                         throwables.printStackTrace();
-                    }
-                    if(completed){
-                        JOptionPane.showMessageDialog(null, "Updated");
-                    }
-                    else
                         JOptionPane.showMessageDialog(null, "Error");
+                    }
                 }
             }
         });
