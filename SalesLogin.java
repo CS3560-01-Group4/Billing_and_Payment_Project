@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class SalesLogin extends JFrame {
     private JPasswordField passwordField = new JPasswordField(20);
@@ -26,21 +27,19 @@ public class SalesLogin extends JFrame {
         this.add(passwordLabel);
         this.add(passwordField);
 
-        retreviedUsername = usernameField.getText();
-        retrievedPassword = String.valueOf(passwordField.getPassword());
-
-
-
-
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                retreviedUsername = usernameField.getText();
+                retrievedPassword = String.valueOf(passwordField.getPassword());
+
             	boolean verified = false;
             	try {
             		DatabaseManager db = new DatabaseManager();
             		verified = db.searchSalespersonCredentials(retreviedUsername, retrievedPassword);
             		db.close();
-            	}catch(Exception ex) {
+            	}catch(SQLException ex) {
+
             		System.out.println("error with database");;
             	}
             	if(verified) {
