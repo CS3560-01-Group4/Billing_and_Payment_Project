@@ -34,6 +34,9 @@ public class CustomerGUI extends JFrame {
         View = new JMenu("View");
         LogOut = new JMenu("Log out");
 
+        JLabel welcomeText = new JLabel("Welcome: " + customer.getName());
+        this.add(welcomeText);
+
 
         Edit.add(editName = new JMenuItem("Edit Name"));
         Edit.add(editAddress = new JMenuItem("Edit Address"));
