@@ -58,6 +58,13 @@ public class CustomerGUI extends JFrame {
                 EditName();
             }
         });
+        signOut.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                CSLoginPage loginPage = new CSLoginPage();
+            }
+        });
         editAddress.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
