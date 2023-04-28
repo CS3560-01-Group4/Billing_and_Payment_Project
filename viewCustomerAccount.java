@@ -37,8 +37,8 @@ public class viewCustomerAccount extends JFrame {
             Customer viewAccount = dbConnection.getCustomerCredentials(customer.getEmail(), customer.getPassword());
             addressText.setText(viewAccount.getAddress().getStreetName());
             cityTextField.setText(viewAccount.getAddress().getCity());
-            postalField.setText(viewAccount.getAddress().getCity());
-            stateField.setText(viewAccount.getAddress().getZipCode());
+            postalField.setText(viewAccount.getAddress().getZipCode());
+            stateField.setText(viewAccount.getAddress().getState());
             emailField.setText(viewAccount.getEmail());
             nameText.setText(viewAccount.getName());
 
