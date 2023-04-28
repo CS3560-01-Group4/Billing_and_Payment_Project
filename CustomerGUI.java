@@ -135,7 +135,6 @@ public class CustomerGUI extends JFrame {
         String inputName = JOptionPane.showInputDialog("Enter new name");
         if (inputName.equals("")){
             JOptionPane.showMessageDialog(null, "Invalid input");
-
         }
 
        //update database

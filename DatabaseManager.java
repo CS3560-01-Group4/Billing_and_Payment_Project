@@ -113,7 +113,7 @@ public class DatabaseManager {
 					creditCard = new CreditCard(creditNumb,csv,expMonth,expDay);
 				}
 
-				return new Customer(name, phone, email, pass, creditCard, address);
+				return new Customer(id, name, phone, email, pass, creditCard, address);
 			}
 		}catch (Exception e) {
 			System.out.println(e);
@@ -151,9 +151,10 @@ public class DatabaseManager {
     }
     
     public boolean updateCustomerName(int id, String newName) {
+		System.out.println(id);
 		try {
 			Statement statement = connection.createStatement();
-			String sql = "UPDATE Account SET name='" + newName + "'WHERE accountID=" + id;
+			String sql = "UPDATE Account SET name='" + newName + "' WHERE accountID='" + id + "';";
 			statement.executeUpdate(sql);
 			return true;
 		}

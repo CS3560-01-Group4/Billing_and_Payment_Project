@@ -16,6 +16,16 @@ public class Customer extends Account {
         this.creditCard = creditCard;
     }
 
+    public Customer( int id, String name, String phone, String email, String password, CreditCard creditCard, Address address) {
+        super.setId(id);
+        super.setName(name);
+        super.setEmailAddress(email);
+        this.address = address;
+        super.setPhoneNumber(phone);
+        super.setPassword(password);
+        this.creditCard = creditCard;
+    }
+
     public void save(DatabaseManager db) throws SQLException {
         db.saveCustomer(this);
     }
