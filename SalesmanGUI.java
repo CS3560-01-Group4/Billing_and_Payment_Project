@@ -197,7 +197,7 @@ public class SalesmanGUI extends JFrame {
         //update email on database
         boolean completed = false;
         try {
-            DatabaseManager db = new DatabaseManager("localhost",3306,"gymmembership","root","sqlingurmom");
+            DatabaseManager db = new DatabaseManager();
 //            completed = db.updateEmail(customer.getID(), inputEmailAddress);
             db.close();
         }catch (Exception ex) {

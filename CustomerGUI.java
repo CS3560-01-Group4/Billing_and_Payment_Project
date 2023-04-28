@@ -124,7 +124,7 @@ public class CustomerGUI extends JFrame {
        //update database
         boolean completed = false;
         try {
-        	DatabaseManager db = new DatabaseManager("containers-us-west-34.railway.app",5939,"gymmembership","root","91laqZk1CB5VM13WltEE");
+        	DatabaseManager db = new DatabaseManager();
         	completed = db.updateCustomerName(customer.getId(), inputName);
         	db.close();
         }catch(Exception ex) {
@@ -165,7 +165,7 @@ public class CustomerGUI extends JFrame {
         //update email on database
         boolean completed = false;
         try {
-            DatabaseManager db = new DatabaseManager("containers-us-west-34.railway.app",5939,"gymmembership","root","91laqZk1CB5VM13WltEE");
+            DatabaseManager db = new DatabaseManager();
         	completed = db.updateEmail(1, inputEmailAddress);
             db.close();
         }catch (Exception ex) {

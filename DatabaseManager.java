@@ -4,7 +4,13 @@ public class DatabaseManager {
     private Connection connection;
         
     
-    public DatabaseManager(String host, int port, String database, String username, String password) throws SQLException {
+    public DatabaseManager() throws SQLException {
+		String host = "containers-us-west-34.railway.app";
+		int port = 5939;
+		String database = "gymmembership";
+		String username = "root";
+		String password = "91laqZk1CB5VM13WltEE";
+
         String url = "jdbc:mysql://" + host + ":" + port + "/" + database;
         this.connection = DriverManager.getConnection(url, username, password);
     }

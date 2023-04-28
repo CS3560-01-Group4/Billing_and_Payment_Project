@@ -88,7 +88,7 @@ public class EditAddressPage extends JFrame {
                 else{
                     //open up database
                     try {
-                        DatabaseManager db = new DatabaseManager("containers-us-west-34.railway.app", 5939, "gymmembership", "root", "91laqZk1CB5VM13WltEE");
+                        DatabaseManager db = new DatabaseManager();
                         Statement statement = connection.createStatement();
                         String sql = "UPDATE Address SET streetName='" + inputAddress +"', city='" + inputCity + "', zipcode='" + inputZip + "',state='" + inputState +
                                  "' WHERE Customer_Account_accountID=" + 2; //Input primary key

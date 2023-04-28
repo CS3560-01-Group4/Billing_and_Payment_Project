@@ -67,7 +67,7 @@ public class ConfirmationPage extends JFrame{
                 //save to database
                 boolean completed = false;
                 try{
-                    DatabaseManager db = new DatabaseManager("containers-us-west-34.railway.app", 5939, "gymmembership","root", "91laqZk1CB5VM13WltEE");
+                    DatabaseManager db = new DatabaseManager();
                     completed = db.saveCustomer(customer);
                     db.close();
                 }catch(Exception ex) {

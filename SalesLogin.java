@@ -37,7 +37,7 @@ public class SalesLogin extends JFrame {
             public void actionPerformed(ActionEvent e) {
             	boolean verified = false;
             	try {
-            		DatabaseManager db = new DatabaseManager("localhost", 3306, "gymmembership", "root", "sqlingurmom");
+            		DatabaseManager db = new DatabaseManager();
             		verified = db.searchSalespersonCredentials(retreviedUsername, retrievedPassword);
             		db.close();
             	}catch(Exception ex) {
