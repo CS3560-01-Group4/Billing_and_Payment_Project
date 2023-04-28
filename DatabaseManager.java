@@ -175,4 +175,8 @@ public class DatabaseManager {
 			return false;
 		}
     }
+
+	public void editSubscription() {
+		;
+	}
 }

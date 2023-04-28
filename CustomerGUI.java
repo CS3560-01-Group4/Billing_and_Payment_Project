@@ -103,7 +103,6 @@ public class CustomerGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ViewAccountInfo();
-
             }
         });
 
@@ -153,17 +152,6 @@ public class CustomerGUI extends JFrame {
         else {
         	JOptionPane.showMessageDialog(null, "There was an error updating the name");
         }
-
-
-
-
-
-
-
-
-
-
-        
     }
 
 
@@ -236,12 +224,10 @@ public class CustomerGUI extends JFrame {
         editEmailAddressWindow.setLayout(new FlowLayout());
         editEmailAddressWindow.setIconImage(new ImageIcon("31-hour.png").getImage());
 
-
         JTextField address = new JTextField();
         JTextField city = new JTextField();
         JTextField state = new JTextField();
         JTextField postalCode = new JTextField();
-
 
         JLabel addressLabel = new JLabel("Address: ");
         JLabel cityLabel = new JLabel("City: ");
@@ -252,7 +238,6 @@ public class CustomerGUI extends JFrame {
         city.setEditable(false);
         state.setEditable(false);
         postalCode.setEditable(false);
-
 
 
 
