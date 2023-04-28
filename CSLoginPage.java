@@ -7,7 +7,7 @@ public class CSLoginPage extends JFrame {
     private JPasswordField passwordField;
     private JTextField usernameField;
     private JLabel Password;
-    private JLabel username = new JLabel("Enter Username");
+    private JLabel username = new JLabel("Enter email");
     private JButton loginButton;
     private JButton signUpButton;
     private JLabel passwordLabel;

@@ -71,13 +71,14 @@ public class ConfirmationPage extends JFrame{
                     completed = db.saveCustomer(customer);
                     db.close();
                 }catch(Exception ex) {
-                    System.out.println(ex);
-                    //JOptionPane.showMessageDialog(null,"There was an error creating your account");
+                    JOptionPane.showMessageDialog(null,"There was an error creating your account");
                 }
 
                 if(completed) {
                     JOptionPane.showMessageDialog(ConfirmationPage, "Account successfully created");
                 }
+                dispose();
+                CSLoginPage cs = new CSLoginPage();
             }
         });
 

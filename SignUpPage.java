@@ -118,6 +118,7 @@ public class SignUpPage extends JFrame {
                     JOptionPane.showMessageDialog(SignUpPage, "Invalid input");
                 else{
                     CreditPage enterCredit = new CreditPage();
+                    dispose();
                 }
             }
         });

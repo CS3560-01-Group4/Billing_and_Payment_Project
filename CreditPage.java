@@ -87,6 +87,7 @@ public class CreditPage extends JFrame {
                     JOptionPane.showMessageDialog(CreditPage, "Invalid input");
                 else{
                     ConfirmationPage ConfirmationPage = new ConfirmationPage();
+                    dispose();
                 }
 
             }
