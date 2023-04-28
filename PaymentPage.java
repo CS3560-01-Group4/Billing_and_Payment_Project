@@ -5,23 +5,25 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class CreditPage extends JFrame {
-    private JPanel CreditPage;
+public class PaymentPage extends JFrame {
+    private JPanel PaymentPage;
     private JTextField month;
     private JTextField cardNumber;
     private JPasswordField csv;
     private JTextField date;
     private JButton confirmPaymentButton;
+    private JLabel total;
 
     static String inputCard, inputCSV, inputDate, inputMonth;
 
-    CreditPage() {
-        this.setContentPane(CreditPage);
+    PaymentPage() {
+        this.setContentPane(PaymentPage);
         this.setTitle("Enter Credit Information");
         this.setIconImage(new ImageIcon("31-hour.png").getImage());
         this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+        total.setText("Total: $" +String.valueOf(PurchasePage.total));
         month.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -84,9 +86,9 @@ public class CreditPage extends JFrame {
                 else
                     cardNumber.setBackground(Color.white);
                 if(Integer.parseInt(inputMonth) >12 ||Integer.parseInt(inputDate) > 31 || inputCard.length() < 16)
-                    JOptionPane.showMessageDialog(CreditPage, "Invalid input");
+                    JOptionPane.showMessageDialog(PaymentPage, "Invalid input");
                 else{
-                    ConfirmationPage ConfirmationPage = new ConfirmationPage();
+                    JOptionPane.showMessageDialog(null,"Payment Successful");
                 }
 
             }

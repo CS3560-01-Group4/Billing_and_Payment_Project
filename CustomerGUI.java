@@ -10,8 +10,8 @@ import java.sql.SQLException;
 
 public class CustomerGUI extends JFrame {
     JMenuBar menuBar;
-    JMenu Edit, View, LogOut;
-    JMenuItem editName, editAddress, editSubscription, editEmailAddress;
+    JMenu Edit, Purchase, View, LogOut;
+    JMenuItem editName, editAddress, editSubscription, editEmailAddress, membership;
     JMenuItem viewAccountInfo, viewSubscriptions;
     JMenuItem signOut;
     Customer customer = null;
@@ -30,6 +30,7 @@ public class CustomerGUI extends JFrame {
 
         menuBar = new JMenuBar();
         Edit = new JMenu("Edit");
+        Purchase = new JMenu("Purchase");
         View = new JMenu("View");
         LogOut = new JMenu("Log out");
 
@@ -43,15 +44,24 @@ public class CustomerGUI extends JFrame {
         View.add(viewAccountInfo = new JMenuItem("View Account Info"));
         View.add(viewSubscriptions = new JMenuItem("View Subscription"));
 
+        Purchase.add(membership = new JMenuItem("Subscription"));
+
         LogOut.add(signOut = new JMenuItem("Sign Out"));
 
+        menuBar.add(Purchase);
         menuBar.add(Edit);
         menuBar.add(View);
         menuBar.add(LogOut);
 
 
 
-
+        membership.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Clicked");
+                PurchasePage purchase = new PurchasePage();
+            }
+        });
         editName.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
