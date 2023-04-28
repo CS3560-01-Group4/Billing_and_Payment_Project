@@ -122,17 +122,30 @@ public class DatabaseManager {
     }
     
     public boolean searchSalespersonCredentials(String user, String pass) {
+
+		String sql = "SELECT * " +
+				"FROM Account " +
+				"INNER JOIN Salesperson " +
+				"ON Account.accountID = Salesperson.Account_accountID " +
+				"WHERE password =? " +
+				"AND name =? ";
+
 		try {
-			Statement statement = connection.createStatement();
-			String sql = "select * from salesperson where username='" + user + "' AND password='" + pass + "';";
-			ResultSet result = statement.executeQuery(sql);
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1, pass);
+			statement.setString(2, user);
+
+			ResultSet result = statement.executeQuery();
+
 			if(result.next()) {
+
 				return true;
 			}else {
+				System.out.println("no result");
 				return false;
 			}
-		}catch (Exception e) {
-			System.out.println("error");
+		}catch (SQLException e) {
+			System.out.println(e.getMessage());
 			return false;
 		}
     }
