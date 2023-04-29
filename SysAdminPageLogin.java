@@ -21,13 +21,22 @@ public class SysAdminPageLogin extends JFrame{
         this.setSize(600, 600);
         JFrame frame = this;
 
-        retreviedUsername = String.valueOf(passwordField.getPassword());
-        retrievedPassword = usernameField.getText();
+        retreviedUsername = usernameField.getText();
+        retrievedPassword = String.valueOf(passwordField.getPassword());
 
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(retreviedUsername == "admin@root.com" && retrievedPassword == "root") {
+                boolean verified = false;
+                try {
+                    DatabaseManager db = new DatabaseManager();
+                    verified = db.searchAdmin(retreviedUsername,retrievedPassword);
+                    db.close();
+                }catch(Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Connection failed");
+                }
+
+                if(verified) {
                     dispose();
                     AdminGUI aGui = new AdminGUI();
                 }else {

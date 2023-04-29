@@ -176,6 +176,25 @@ public class DatabaseManager {
 		}
     }
 
+	public boolean searchAdmin(String email, String pass) {
+		boolean verified = false;
+		String sql = "select * from Account join systemadmin " +
+				"on Account.accountID = systemadmin.Account_accountID " +
+				"where  emailAddress=? and password=? and systemadmin.Account_accountID=11;";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1, email);
+			statement.setString(2, pass);
+
+			ResultSet rs = statement.executeQuery();
+			if(rs.next()) {
+				verified = true;
+			}
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return verified;
+	}
 	public void editSubscription() {
 		;
 	}
