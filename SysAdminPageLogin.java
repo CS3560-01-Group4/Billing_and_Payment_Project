@@ -12,7 +12,7 @@ public class SysAdminPageLogin extends JFrame{
     private JButton loginButton;
     private JPasswordField passwordField;
     private JPanel SysAdminLogin;
-    private JButton signupButton;
+
 
     SysAdminPageLogin() {
         this.setContentPane(SysAdminLogin);
@@ -21,12 +21,11 @@ public class SysAdminPageLogin extends JFrame{
         this.setSize(600, 600);
         JFrame frame = this;
 
-        retreviedUsername = usernameField.getText();
-        retrievedPassword = String.valueOf(passwordField.getPassword());
-
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                retreviedUsername = usernameField.getText();
+                retrievedPassword = String.valueOf(passwordField.getPassword());
                 boolean verified = false;
                 try {
                     DatabaseManager db = new DatabaseManager();
@@ -45,13 +44,7 @@ public class SysAdminPageLogin extends JFrame{
             }
         });
 
-        signupButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                new SignUpPage();
-            }
-        });
+
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);

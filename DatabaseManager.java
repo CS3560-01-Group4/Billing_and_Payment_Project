@@ -195,6 +195,8 @@ public class DatabaseManager {
 		}
 		return verified;
 	}
+
+	//update subscription
 	public void editSubscription() {
 		;
 	}

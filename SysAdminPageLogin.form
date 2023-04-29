@@ -45,14 +45,6 @@
         </constraints>
         <properties/>
       </component>
-      <component id="c96ea" class="javax.swing.JButton" binding="signupButton">
-        <constraints>
-          <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Sign Up"/>
-        </properties>
-      </component>
       <component id="6c941" class="javax.swing.JButton" binding="loginButton">
         <constraints>
           <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="5" fill="0" indent="0" use-parent-layout="false"/>
