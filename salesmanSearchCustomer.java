@@ -11,6 +11,7 @@ public class salesmanSearchCustomer extends JFrame {
     private JTextField usernameText;
     private JTextField passwordText;
     private JButton search;
+    private JPanel salesmeanSearchPanel;
 
     boolean completed = false;
 
@@ -23,28 +24,37 @@ public class salesmanSearchCustomer extends JFrame {
      */
 
     salesmanSearchCustomer(int Num) throws SQLException {
-        username = usernameText.getText();
-        password = passwordText.getText();
-        if (username.equals("")){
-            usernameText.setBackground(new Color(255, 102, 102));
-        } else if (password.equals("")) {
-            passwordText.setBackground(new Color(255, 102, 102));
+        this.setContentPane(salesmeanSearchPanel);
+        this.setTitle("Confirmation");
+        this.setIconImage(new ImageIcon("31-hour.png").getImage());
+        this.setSize(600, 600);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setVisible(true);
 
-        }
-
-        if(username.equals("") || password.equals("")){
-            JOptionPane.showMessageDialog(this, "Invalid input");
-
-        }
 
 
         search.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    username = usernameText.getText();
+                    password = passwordText.getText();
+                    if (username.equals("")){
+                        usernameText.setBackground(new Color(255, 102, 102));
+                    } else if (password.equals("")) {
+                        passwordText.setBackground(new Color(255, 102, 102));
+
+                    }
+
+                    if(username.equals("") || password.equals("")){
+                        JOptionPane.showMessageDialog(null, "Invalid input");
+
+                    }
+
                     DatabaseManager dbConnection = new DatabaseManager();
                     Customer searchCustomer = dbConnection.getCustomerCredentials(username,password);
                     if (searchCustomer == null){
+                        JOptionPane.showMessageDialog(null, "Customer does not exist!");
 
                     }
                     else{
@@ -63,6 +73,9 @@ public class salesmanSearchCustomer extends JFrame {
 
             }
         });
+
+
+
 
 
 
