@@ -76,6 +76,11 @@ public class SalesmanGUI extends JFrame {
         viewAccountInfo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    salesmanSearchCustomer viewAccount = new salesmanSearchCustomer(1);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
 
 
             }
@@ -92,17 +97,17 @@ public class SalesmanGUI extends JFrame {
 
 
     public void setEditCustomerAddress() throws SQLException {
-        int context = 2;
+        int flag = 2;
 
-     salesmanSearchCustomer search = new salesmanSearchCustomer(context);
+     salesmanSearchCustomer search = new salesmanSearchCustomer(flag);
 
 
     }
 
 
     public void getCustomerAccountInfo() throws SQLException{
-        int context = 1;
-        salesmanSearchCustomer search = new salesmanSearchCustomer(context);\
+        int flag = 1;
+        salesmanSearchCustomer search = new salesmanSearchCustomer(flag);
 
     }
 
