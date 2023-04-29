@@ -200,4 +200,53 @@ public class DatabaseManager {
 	public void editSubscription() {
 		;
 	}
+
+	// returns an array of Classes from the class table
+	public Class[] getClasses() {
+		// query number of rows
+		String row =
+				"SELECT COUNT(*) AS numOfRows FROM (" +
+					"SELECT addonID, name, classDate, timeSlot, instructorName, classLength, price" +
+					"FROM Addon" +
+					"INNER JOIN Class" +
+					"ON Addon.addonID = Class.Addon.addonID" +
+					"GROUP BY Addon.addonID" +
+				") t";
+
+		String sql =
+				"SELECT addonID, name, classDate, timeSlot, instructorName, classLength, price" +
+				"FROM Addon" +
+				"INNER JOIN Class" +
+				"ON Addon.addonID = Class.Addon_addonID";
+
+		Class[] classes;
+
+		try {
+			PreparedStatement statement = connection.prepareStatement(row);
+			ResultSet result = statement.executeQuery();
+
+			int rowCount = result.getInt("numOfRows");
+			classes = new Class[rowCount];
+
+			statement = connection.prepareStatement(sql);
+			result = statement.executeQuery();
+
+			for (int i = 0; result.next() && i < rowCount; i++) {
+				int addonID = result.getInt("addonID");
+				String name = result.getString("name");
+				String classDate = result.getString("classDate");
+				String timeSlot = result.getString("timeSlot");
+				String instructorName = result.getString("instructorName");
+				int classLength = result.getInt("classLength");
+				double price = result.getDouble("price");
+
+				classes[i] = new Class(name, price, classDate, timeSlot, instructorName, classLength, addonID);
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+
+		return classes;
+	}
 }
