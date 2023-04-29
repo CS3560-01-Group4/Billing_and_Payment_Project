@@ -91,8 +91,8 @@ public class CustomerGUI extends JFrame {
         editSubscription.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EditSubscription();
-
+                //TODO
+                //eventually you should call EditSubscription()
             }
         });
         editEmailAddress.addActionListener(new ActionListener() {
@@ -214,11 +214,13 @@ public class CustomerGUI extends JFrame {
     }
 
 
-    public void EditSubscription(){
-        /*
-        We need to get access to the DB
-        TODO
-         */
+    public void EditSubscription(String newSubscription){
+        try{
+            DatabaseManager db = new DatabaseManager();
+            db.editSubscription(customer.getId(), newSubscription);
+        }catch(Exception ex) {
+            JOptionPane.showMessageDialog(null, "Failed to Update");
+        }
 
     }
 
