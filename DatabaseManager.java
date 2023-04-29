@@ -1,4 +1,6 @@
+import javax.swing.*;
 import java.sql.*;
+import java.time.LocalDate;
 
 public class DatabaseManager {
     private Connection connection;
@@ -176,6 +178,7 @@ public class DatabaseManager {
 		}
     }
 
+	//search database for Admin account, returns true if Admin exists for the given email and password
 	public boolean searchAdmin(String email, String pass) {
 		boolean verified = false;
 		String sql = "select * from Account join systemadmin " +
@@ -196,9 +199,38 @@ public class DatabaseManager {
 		return verified;
 	}
 
-	//update subscription
-	public void editSubscription() {
-		;
+	//update subscription for customer (the membership only, not any potential addons)
+	public void editSubscription(int memberID, String newMembership) {
+		//calculate renewal date
+		String purchaseDate = LocalDate.now().toString();
+		int year = Integer.parseInt(purchaseDate.substring(0,4));
+		int month = Integer.parseInt(purchaseDate.substring(5,7));
+		int day = Integer.parseInt(purchaseDate.substring(8));
+		String renewalStr;
+
+		if(newMembership.equals("weekly")) {
+			renewalStr = java.time.LocalDate.of(year,month,day).plusWeeks(1).toString();
+		}else if(newMembership.equals("monthly")) {
+			renewalStr = java.time.LocalDate.of(year,month,day).plusMonths(6).toString();
+		}else{//yearly
+			renewalStr = java.time.LocalDate.of(year,month,day).plusMonths(12).toString();
+		}
+		System.out.println(renewalStr);
+
+
+		String sql = "update OwnedMembership set Membership_name=?," +
+				"startDate=?, renewalDate=?, status=? where memberID=?;";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1, newMembership);
+			statement.setString(2, purchaseDate);
+			statement.setString(3, renewalStr);
+			statement.setString(4, "Active");
+			statement.setInt(5, memberID);
+			statement.executeUpdate();
+		}catch(Exception e) {
+			System.out.println(e);
+		}
 	}
 
 	// returns an array of Classes from the class table
