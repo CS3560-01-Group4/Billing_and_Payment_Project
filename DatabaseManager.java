@@ -281,4 +281,20 @@ public class DatabaseManager {
 
 		return classes;
 	}
+
+	public void saveEnrollment(int memberID, int membershipName, int addonID) {
+		;
+	}
+
+	public int getOwnedMembership(int id) {
+		return 0;
+	}
+
+	public int getMembership(int memberID) {
+		return 0;
+	}
+
+	public void saveSale(int total, int id, int memberID, int membershipName) {
+		;
+	}
 }

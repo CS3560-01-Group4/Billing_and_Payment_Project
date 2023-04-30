@@ -81,7 +81,7 @@ public class CustomerGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Clicked");
-                PurchasePage purchase = new PurchasePage();
+                PurchasePage purchase = new PurchasePage(customer);
             }
         });
         editName.addActionListener(new ActionListener() {
@@ -110,7 +110,7 @@ public class CustomerGUI extends JFrame {
         editSubscription.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO
+                //TODO launch edit subscription window
                 //eventually you should call EditSubscription()
             }
         });
@@ -243,6 +243,8 @@ public class CustomerGUI extends JFrame {
         try{
             DatabaseManager db = new DatabaseManager();
             db.editSubscription(customer.getId(), newSubscription);
+            //db.editAddon();
+            //db.saveSale();
         }catch(Exception ex) {
             JOptionPane.showMessageDialog(null, "Failed to Update");
         }
