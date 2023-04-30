@@ -254,18 +254,18 @@ public class DatabaseManager {
 		// query number of rows
 		String row =
 				"SELECT COUNT(*) AS numOfRows FROM (" +
-					"SELECT addonID, name, classDate, timeSlot, instructorName, classLength, price" +
-					"FROM Addon" +
-					"INNER JOIN Class" +
-					"ON Addon.addonID = Class.Addon.addonID" +
-					"GROUP BY Addon.addonID" +
-				") t";
+						"SELECT addonID, name, classDate, timeSlot, instructorName, classLength, price" +
+						"FROM Addon" +
+						"INNER JOIN Class" +
+						"ON Addon.addonID = Class.Addon.addonID" +
+						"GROUP BY Addon.addonID" +
+						") t";
 
 		String sql =
 				"SELECT addonID, name, classDate, timeSlot, instructorName, classLength, price" +
-				"FROM Addon" +
-				"INNER JOIN Class" +
-				"ON Addon.addonID = Class.Addon_addonID";
+						"FROM Addon" +
+						"INNER JOIN Class" +
+						"ON Addon.addonID = Class.Addon_addonID";
 
 		Class[] classes;
 
@@ -298,20 +298,112 @@ public class DatabaseManager {
 		return classes;
 	}
 
-	public void saveEnrollment(int memberID, int membershipName, int addonID) {
-		;
+	public void saveEnrollment(int memberID, String membershipName, int addonID) {
+		String sql = "insert into Enrollment(OwnedMembership_memberID, OwnedMembership_Membership_name, Addon_addonID) " +
+				"values (?,?,?);";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1,memberID);
+			statement.setString(2,membershipName);
+			statement.setInt(3,addonID);
+			statement.executeUpdate();
+		}catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 
-	public int getOwnedMembership(int id) {
-		return 0;
+	//given the customer accountID and the membershipName, create/insert a new ownedMemberhsip and return the ownedMembershipID
+	public int createOwnedMembership(int custID, String membershipName) {
+		int memberID = 0;
+		String purchaseDate = LocalDate.now().toString();
+		String renewalDate;
+
+		int year = Integer.parseInt(purchaseDate.substring(0,4));
+		int month = Integer.parseInt(purchaseDate.substring(5,7));
+		int day = Integer.parseInt(purchaseDate.substring(8));
+
+		if(membershipName.equals("weekly")) {
+			renewalDate = java.time.LocalDate.of(year,month,day).plusWeeks(1).toString();
+		}else if(membershipName.equals("monthly")) {
+			renewalDate = java.time.LocalDate.of(year,month,day).plusMonths(6).toString();
+		}else{//yearly
+			renewalDate = java.time.LocalDate.of(year,month,day).plusMonths(12).toString();
+		}
+
+
+		String sql = "insert into OwnedMembership(startDate, renewalDate, status, Membership_name) values (?,?,?,?);";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			statement.setString(1,purchaseDate);
+			statement.setString(2,renewalDate);
+			statement.setString(3,"active");
+			statement.setString(4,membershipName);
+			statement.executeUpdate();
+
+			ResultSet rs = statement.getGeneratedKeys();
+			memberID = 0;
+			if(rs.next()) {
+				memberID = rs.getInt(1);
+			}
+		}catch (Exception e) {
+			System.out.println(e);
+		}
+		return memberID;
 	}
 
 	public int getMembership(int memberID) {
 		return 0;
 	}
 
-	public void saveSale(int total, int id, int memberID, int membershipName) {
-		;
+	public void saveSale(int total, int id, int memberID, String membershipName) {
+		String sql = "insert into MembershipSale" +
+				"(purchaseTime, totalAmount, Customer_Account_accountID, OwnedMembership_memberID, OwnedMembership_Membership_name) " +
+				"values (?,?,?,?,?);";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			statement.setString(1,getStartDate(memberID));
+			statement.setInt(2,total);
+			statement.setInt(3,id);
+			statement.setInt(4,memberID);
+			statement.setString(5,getMembershipName(memberID));
+			statement.executeUpdate();
+		}catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	//get start date associated with the given memberID (returns empty string if no memberID is found)
+	private String getStartDate(int memberID) {
+		String startDate = "";
+		String sql = "select * from OwnedMembership where memberID=?;";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1,memberID);
+			ResultSet rs = statement.executeQuery();
+			if(rs.next()) {
+				startDate = rs.getString("startDate");
+			}
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return startDate;
+	}
+
+	//get membership name associated with the given memberID (returns empty string if no memberID is found)
+	public String getMembershipName(int memberID) {
+		String name = "";
+		String sql = "select * from OwnedMembership where memberID=?;";
+		try{
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1,memberID);
+			ResultSet rs = statement.executeQuery();
+			if(rs.next()) {
+				name = rs.getString("Membership_name");
+			}
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return name;
 	}
 
 

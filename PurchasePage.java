@@ -10,7 +10,9 @@ public class PurchasePage extends JFrame {
     private JCheckBox trainerAddon;
     private JButton makePaymentButton;
     private ButtonGroup group = new ButtonGroup();
-    public static int total, memberID, membershipName, addonID;
+    public static int total;
+    private int memberID, addonID = 2;
+    //TODO change the page layout so it shows the list of specific addons (classes, trainers) with their addonID
 
     PurchasePage(Customer customer) {
         this.setContentPane(PurchasePage);
@@ -25,11 +27,14 @@ public class PurchasePage extends JFrame {
         makePaymentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String membershipName = "";
                 if(monthly.isSelected()){
                     total += 30;
+                    membershipName = "monthly";
                 }
                 else if(yearly.isSelected()) {
                     total += 300;
+                    membershipName = "yearly";
                 }
                 if(classAddon.isSelected()){
                     total += 100;
@@ -42,16 +47,19 @@ public class PurchasePage extends JFrame {
                 //save to database
                 try {
                     DatabaseManager db = new DatabaseManager();
-                    memberID = db.getOwnedMembership(customer.getId());
-                    membershipName = db.getMembership(memberID);
+                    memberID = db.createOwnedMembership(customer.getId(), membershipName);
 
                     if(classAddon.isSelected() || trainerAddon.isSelected()) {
                         db.saveEnrollment(memberID, membershipName, addonID);
                     }
                     db.saveSale(total, customer.getId(), memberID, membershipName);
+                    JOptionPane.showMessageDialog(null, "Successfully Purchased");
                     db.close();
+                    dispose();
                 }catch(Exception ex) {
                     System.out.println(ex);
+                    JOptionPane.showMessageDialog(null, "Failed to Purchase");
+                    dispose();
                 }
             }
         });
