@@ -91,7 +91,7 @@ public class EditAddressPage extends JFrame {
                         DatabaseManager db = new DatabaseManager();
                         Statement statement = connection.createStatement();
                         String sql = "UPDATE Address SET streetName='" + inputAddress +"', city='" + inputCity + "', zipcode='" + inputZip + "',state='" + inputState +
-                                 "' WHERE Customer_Account_accountID=" + 2; //Input primary key
+                                 "'WHERE Customer_Account_accountID='" + customer.getId() + "';"; //Input primary key
                         statement.executeUpdate(sql);
                         db.close();
                         JOptionPane.showMessageDialog(null, "Updated");
