@@ -10,9 +10,9 @@ public class PurchasePage extends JFrame {
     private JCheckBox trainerAddon;
     private JButton makePaymentButton;
     private ButtonGroup group = new ButtonGroup();
-    public static int total;
+    public static int total, memberID, membershipName, addonID;
 
-    PurchasePage() {
+    PurchasePage(Customer customer) {
         this.setContentPane(PurchasePage);
         this.setTitle("Select products");
         this.setIconImage(new ImageIcon("31-hour.png").getImage());
@@ -37,7 +37,22 @@ public class PurchasePage extends JFrame {
                 if(trainerAddon.isSelected()) {
                     total += 200;
                 }
-                PaymentPage payment = new PaymentPage();
+                //PaymentPage payment = new PaymentPage();
+
+                //save to database
+                try {
+                    DatabaseManager db = new DatabaseManager();
+                    memberID = db.getOwnedMembership(customer.getId());
+                    membershipName = db.getMembership(memberID);
+
+                    if(classAddon.isSelected() || trainerAddon.isSelected()) {
+                        db.saveEnrollment(memberID, membershipName, addonID);
+                    }
+                    db.saveSale(total, customer.getId(), memberID, membershipName);
+                    db.close();
+                }catch(Exception ex) {
+                    System.out.println(ex);
+                }
             }
         });
     }
