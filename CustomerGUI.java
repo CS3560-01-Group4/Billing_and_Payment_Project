@@ -11,10 +11,12 @@ import java.sql.SQLException;
 public class CustomerGUI extends JFrame {
     JMenuBar menuBar;
     JMenu Edit, Purchase, View, LogOut;
-    JMenuItem editName, editAddress, editSubscription, editEmailAddress, membership;
-    JMenuItem viewAccountInfo, viewSubscriptions;
+    JMenuItem editName, editAddress, editSubscription, editEmailAddress, membership, editPassword;
+    JMenuItem viewAccountInfo, viewSubscriptions, viewPassword;
     JMenuItem signOut;
     Customer customer = null;
+
+
 
 
 
@@ -34,18 +36,19 @@ public class CustomerGUI extends JFrame {
         View = new JMenu("View");
         LogOut = new JMenu("Log out");
 
-        JLabel welcomeText = new JLabel("Welcome: " + customer.getName());
-        this.add(welcomeText);
+
 
 
         Edit.add(editName = new JMenuItem("Edit Name"));
         Edit.add(editAddress = new JMenuItem("Edit Address"));
         Edit.add(editSubscription = new JMenuItem("Edit Subscription"));
         Edit.add(editEmailAddress = new JMenuItem("Edit Email"));
+        Edit.add(editPassword = new JMenuItem("Edit Password"));
 
 
         View.add(viewAccountInfo = new JMenuItem("View Account Info"));
         View.add(viewSubscriptions = new JMenuItem("View Subscription"));
+        View.add(viewPassword = new JMenuItem("View Password"));
 
         Purchase.add(membership = new JMenuItem("Subscription"));
 
@@ -55,6 +58,22 @@ public class CustomerGUI extends JFrame {
         menuBar.add(Edit);
         menuBar.add(View);
         menuBar.add(LogOut);
+
+
+        editPassword.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setEditPassword();
+
+            }
+        });
+
+        viewPassword.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
 
 
@@ -155,11 +174,14 @@ public class CustomerGUI extends JFrame {
         }
         
         if(completed) {
-        	JOptionPane.showMessageDialog(null, "Successfully Updated");
+        	JOptionPane.showMessageDialog(null, "Name successfully Updated");
         }
         else {
         	JOptionPane.showMessageDialog(null, "There was an error updating the name");
         }
+
+
+
     }
 
 
@@ -178,7 +200,7 @@ public class CustomerGUI extends JFrame {
         boolean completed = false;
         try {
             DatabaseManager db = new DatabaseManager();
-        	completed = db.updateEmail(1, inputEmailAddress);
+        	completed = db.updateEmail(customer.getId(), inputEmailAddress);
             db.close();
         }catch (Exception ex) {
         	System.out.println("Error connecting to database");
@@ -186,9 +208,12 @@ public class CustomerGUI extends JFrame {
         
         if(completed) {
         	JOptionPane.showMessageDialog(null, "Email was Successfully Updated");
+            this.customer.setEmail(inputEmailAddress);
         }else {
         	JOptionPane.showMessageDialog(null, "Email could not be updated");
         }
+
+
         
 
 
@@ -225,10 +250,42 @@ public class CustomerGUI extends JFrame {
     }
 
 
+    public void setEditPassword(){
+        String inputPassword = JOptionPane.showInputDialog("Enter new password");
+
+        if (inputPassword.equals(""))
+            JOptionPane.showMessageDialog(null, "Invalid input");
+
+        //update email on database
+        boolean completed = false;
+        try {
+            DatabaseManager db = new DatabaseManager();
+            completed = db.updatePassword(customer.getId(), inputPassword);
+            db.close();
+        }catch (Exception ex) {
+            System.out.println("Error connecting to database");
+        }
+
+        if(completed) {
+            JOptionPane.showMessageDialog(null, "Password was Successfully Updated");
+            this.customer.setPassword(inputPassword);
+        }else {
+            JOptionPane.showMessageDialog(null, "Password could not be updated");
+        }
+    }
+
+
+    /*
+    This code will break when the account email or the password are updated, so we need to get the new passwords if they have changed.
+     */
     public void ViewAccountInfo( Customer customer) throws SQLException{
+
         viewCustomerAccount viewAcct = new viewCustomerAccount(customer);
 
     }
+
+
+
 
 
 
