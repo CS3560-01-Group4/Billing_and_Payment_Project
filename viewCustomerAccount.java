@@ -14,6 +14,8 @@ public class viewCustomerAccount extends JFrame {
     private JButton exitButton;
     private JTextField nameText;
     private JTextField emailField;
+    private JPasswordField passwordField1;
+    private JCheckBox showPasswordCheckBox;
 
     boolean completed = false;
 
@@ -41,6 +43,7 @@ public class viewCustomerAccount extends JFrame {
             stateField.setText(viewAccount.getAddress().getState());
             emailField.setText(viewAccount.getEmail());
             nameText.setText(viewAccount.getName());
+            passwordField1.setText(viewAccount.getPassword());
 
             addressText.setEditable(false);
             cityTextField.setEditable(false);
@@ -48,6 +51,8 @@ public class viewCustomerAccount extends JFrame {
             stateField.setEditable(false);
             emailField.setEditable(false);
             nameText.setEditable(false);
+            passwordField1.setEditable(false);
+
             dbConnection.close();
 
 
@@ -64,6 +69,12 @@ public class viewCustomerAccount extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+            }
+        });
+        showPasswordCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                passwordField1.setEchoChar('\u0000');
             }
         });
 
