@@ -76,6 +76,9 @@ public class DatabaseManager {
     public void close() throws SQLException {
         connection.close();
     }
+
+
+
     
     public Customer getCustomerCredentials(String email, String pass) {
 		Customer customer = null;
@@ -169,7 +172,7 @@ public class DatabaseManager {
     public boolean updateEmail(int id, String newEmail) {
 		try {
 			Statement statement = connection.createStatement();
-			String sql = "UPDATE Account SET emailAddress ='" + newEmail + "' WHERE accountID=" + 1;
+			String sql = "UPDATE Account SET emailAddress ='" + newEmail + "' WHERE accountID='" + id + "';";
 			statement.executeUpdate(sql);
 			return true;
 		}catch (Exception e) {
@@ -177,6 +180,19 @@ public class DatabaseManager {
 			return false;
 		}
     }
+
+	public boolean updatePassword(int id, String newPassword){
+		try {
+			Statement statement = connection.createStatement();
+			String sql = "UPDATE Account SET password ='" + newPassword + "' WHERE accountID='" + id + "';";
+			statement.executeUpdate(sql);
+			return true;
+		}catch (Exception e) {
+			System.out.print(e);
+			return false;
+		}
+
+	}
 
 	//search database for Admin account, returns true if Admin exists for the given email and password
 	public boolean searchAdmin(String email, String pass) {
@@ -297,4 +313,7 @@ public class DatabaseManager {
 	public void saveSale(int total, int id, int memberID, int membershipName) {
 		;
 	}
+
+
+
 }
