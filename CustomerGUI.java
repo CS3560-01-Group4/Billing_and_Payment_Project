@@ -12,7 +12,7 @@ public class CustomerGUI extends JFrame {
     JMenuBar menuBar;
     JMenu Edit, Purchase, View, LogOut;
     JMenuItem editName, editAddress, editSubscription, editEmailAddress, membership, editPassword;
-    JMenuItem viewAccountInfo, viewSubscriptions, viewPassword;
+    JMenuItem viewAccountInfo, viewSubscriptions;
     JMenuItem signOut;
     Customer customer = null;
 
@@ -48,7 +48,7 @@ public class CustomerGUI extends JFrame {
 
         View.add(viewAccountInfo = new JMenuItem("View Account Info"));
         View.add(viewSubscriptions = new JMenuItem("View Subscription"));
-        View.add(viewPassword = new JMenuItem("View Password"));
+
 
         Purchase.add(membership = new JMenuItem("Subscription"));
 
@@ -68,12 +68,7 @@ public class CustomerGUI extends JFrame {
             }
         });
 
-        viewPassword.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-            }
-        });
 
 
 

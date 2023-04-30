@@ -7,25 +7,25 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class SignUpPage extends JFrame {
-    private JPanel SignUpPage = new JPanel();
-    private JTextField name = new JTextField(20);
-    private JTextField email = new JTextField(20);
-    private JTextField address =  new JTextField(20);
-    private JTextField city = new JTextField(20);
-    private JTextField zip = new JTextField(10);
-    private JTextField state = new JTextField(2);
-    private JPasswordField password = new JPasswordField(20);
-    private JTextField phoneNumber = new JTextField(20);
-    private JLabel nameLabel = new JLabel("Enter Name");
-    private JLabel emailLabel = new JLabel("Enter Email");
-    private JLabel addressLabel = new JLabel("Enter Address");
-    private JLabel cityLabel = new JLabel("City");
-    private JLabel zipLabel = new JLabel("Zipcode");
-    private JLabel stateLabel = new JLabel("State Abbreviation");
-    private JLabel passwordLabel = new JLabel("Enter Password");
-    private JLabel phoneNumberLabel = new JLabel("Enter Phone Number");
-    private JButton nextButton = new JButton("Next");
-    private JCheckBox showPasswordCheckBox = new JCheckBox();
+    private JPanel SignUpPage;
+    private JTextField name;
+    private JTextField email;
+    private JTextField address;
+    private JTextField city;
+    private JTextField zip;
+    private JTextField state;
+    private JPasswordField password;
+    private JTextField phoneNumber;
+    private JLabel nameLabel;
+    private JLabel emailLabel;
+    private JLabel addressLabel;
+    private JLabel cityLabel;
+    private JLabel zipLabel;
+    private JLabel stateLabel;
+    private JLabel passwordLabel;
+    private JLabel phoneNumberLabel;
+    private JButton nextButton;
+    private JCheckBox showPasswordCheckBox;
     static String inputName, inputEmail, inputAddress, inputCity, inputZip, inputState, inputPassword,
     inputPhone;
 
@@ -38,32 +38,7 @@ public class SignUpPage extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         //setup labels and text fields and buttons
-        this.add(nameLabel);
-        name.setBounds(100,20,165,25);
-        this.add(name);
-        this.add(emailLabel);
-        email.setBounds(100,20,165,25);
-        this.add(email);
-        this.add(addressLabel);
-        address.setBounds(100,20,165,25);
-        this.add(address);
-        this.add(cityLabel);
-        city.setBounds(100,20,165,25);
-        this.add(city);
-        this.add(zipLabel);
-        zip.setBounds(100,20,165,25);
-        this.add(zip);
-        this.add(stateLabel);
-        state.setBounds(100,20,165,25);
-        this.add(state);
-        this.add(phoneNumberLabel);
-        phoneNumber.setBounds(100,20,165,25);
-        this.add(phoneNumber);
-        this.add(passwordLabel);
-        password.setBounds(100,20,165,25);
-        this.add(password);
-        
-        this.add(nextButton);
+
         
         
         
