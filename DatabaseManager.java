@@ -461,5 +461,74 @@ public class DatabaseManager {
 	}
 
 
+	//get Addons list given the owned-membershipID
+	public Addon[] getAddons(Membership Omembership) {
+		Addon[] addons = null;
+		String sql = "select * from Enrollment where OwnedMembership_memberID=?" +
+				" and OwnedMembership_Membership_name=?;";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1,Omembership.getMembershipID());
+			statement.setString(2,Omembership.getName());
+			ResultSet rs = statement.executeQuery();
 
+			addons = new Addon[rs.getFetchSize()];
+			//for every addonID found, get the addon object
+			for(int i = 0; i < addons.length; i++) {
+				int addonID = rs.getInt("Addon_addonID");
+				addons[i] = getAddon(addonID);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+
+		return addons;
+	}
+
+	//get Addons list given addonID
+	public Addon getAddon(int addonID) {
+		Addon addon = null;
+		String name = "";
+		double price = 0;
+
+		String sql = "select * from Addon where addonID=?;";
+		try{
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1,addonID);
+			ResultSet rs = statement.executeQuery();
+			if(rs.next()) {
+				name = rs.getString("name");
+				price = rs.getDouble("price");
+			}
+
+			//figure out if addon is a class or personal trainer (and get the details to return it)
+			sql = "select * from Class where addonID=?;";
+			PreparedStatement st = connection.prepareStatement(sql);
+			st.setInt(1,addonID);
+			rs = statement.executeQuery();
+			if(rs.next()) {
+				int  classLength = rs.getInt("classLength");
+				String classDate = rs.getString("classDate");
+				String timeSlot = rs.getString("timeSlot");
+				String instructorName = rs.getString("instructorName");
+				addon = new Class(name, price, classDate, timeSlot, instructorName, classLength, addonID);
+
+			}else {//not a class, but a personal trainer
+				sql = "select * from PersonalTrainer where addonID=?;";
+				PreparedStatement stmt = connection.prepareStatement(sql);
+				stmt.setInt(1,addonID);
+				rs = stmt.executeQuery();
+				if(rs.next()) {
+					int trainerID = rs.getInt("trainerID");
+					String bookingDate = rs.getString("bookingDate");
+					String trainerName = rs.getString("trainerName");
+					addon = new PersonalTrainer(addonID, name, price, trainerName, bookingDate, trainerID);
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+
+		return addon;
+	}
 }

@@ -1,14 +1,13 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ViewSubscriptionGUI extends JFrame {
     private JPanel viewSubscription;
     private JTextField memberIdText, membershipName, statusText, startText, renewalText, priceText;
-    //TODO something for addons list
-    //also the price will show the price of membership, not total price of membership + addon
     private JButton exitButton;
+    private JList jlist;
 
     public ViewSubscriptionGUI(Customer customer) {
         this.setContentPane(viewSubscription);
@@ -17,11 +16,12 @@ public class ViewSubscriptionGUI extends JFrame {
         this.setIconImage(new ImageIcon("31-hour.png").getImage());
 
         this.setVisible(true);
+        Membership membership;
 
         try {
             DatabaseManager db = new DatabaseManager();
-            Membership membership = db.getMembership(customer);
-            db.close();
+            membership = db.getMembership(customer);
+
             memberIdText.setText(Integer.toString(membership.getMembershipID()));
             membershipName.setText( membership.getName() );
             startText.setText(  membership.getMembershipStartDate() );
@@ -39,11 +39,20 @@ public class ViewSubscriptionGUI extends JFrame {
             startText.setEditable(false);
             renewalText.setEditable(false);
             priceText.setEditable(false);
+
+            DefaultListModel<Addon[]> dlm = new DefaultListModel<>();
+            jlist.setModel(dlm);
+            //remember to change the price too (and mayber show the price of each individual one)
+            Addon[] addons = db.getAddons(membership);
+            db.close();
+            dlm.addElement(addons);
+
         }
         catch (Exception e){
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "There was an issue getting Subscription info");
         }
+
 
 
         exitButton.addActionListener(new ActionListener() {

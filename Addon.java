@@ -11,6 +11,7 @@ abstract class Addon {
 	private int addonID; //key identifier
 	private String name;
 	private double price;
+
 	
 	public int getAddonID() {
 		return addonID;
