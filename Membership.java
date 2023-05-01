@@ -7,12 +7,18 @@
  *
  */
 public class Membership {
-    int MembershipID, monthlyBalance;
-    String MembershipStartDate,MembershipRenewalDate;
+    int MembershipID;
+    double price;
+    String MembershipStartDate;
+    String MembershipRenewalDate;
+    String name;
     boolean membershipActive;
 
     Addon[] listOfAddons;
 
+    public Membership() {
+        ;
+    }
 
     public int getMembershipID() {
         return MembershipID;
@@ -46,13 +52,13 @@ public class Membership {
         this.membershipActive = membershipActive;
     }
 
-    public int getMonthlyBalance() {
-        return monthlyBalance;
-    }
+    public String getName() { return name; }
 
-    public void setMonthlyBalance(int monthlyBalance) {
-        this.monthlyBalance = monthlyBalance;
-    }
+    public void setName(String name) { this.name = name; }
+
+    public double getPrice() { return price; }
+
+    public void setPrice(double price) { this.price = price; }
 
 
 }

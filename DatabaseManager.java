@@ -351,8 +351,62 @@ public class DatabaseManager {
 		return memberID;
 	}
 
-	public int getMembership(int memberID) {
-		return 0;
+	public Membership getMembership(Customer customer) {
+		int memberID = getMemberID(customer);
+		Membership membership = new Membership();
+		String sql = "select * from OwnedMembership where memberID=?;";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1,memberID);
+			ResultSet rs = statement.executeQuery();
+			if(rs.next()) {
+				membership.setMembershipID(rs.getInt("memberID"));
+				membership.setName(rs.getString("Membership_name"));
+				membership.setMembershipStartDate(rs.getString("startDate"));
+				membership.setMembershipRenewalDate(rs.getString("renewalDate"));
+
+				String isActive = rs.getString("status");
+				if(isActive.equals("active")) {
+					membership.setMembershipActive(true);
+				}else {
+					membership.setMembershipActive(false);
+				}
+
+				//get the price from the membership table
+				sql = "select * from Membership where name=?;";
+				PreparedStatement st = connection.prepareStatement(sql);
+				st.setString(1, rs.getString("Membership_name"));
+				ResultSet result = st.executeQuery();
+				if(result.next()) {
+					membership.setPrice(result.getDouble("price"));
+				}else {
+					System.out.println("Could not find referencing membership");
+					membership = null;
+				}
+			}
+		}catch (Exception ex) {
+			ex.printStackTrace();
+			membership = null;
+		}
+		return membership;
+	}
+
+	//This method assumes the entry found from the query is the "correct" OwnedMembership (not an old, outdated one)
+	private int getMemberID(Customer customer) {
+		int id = customer.getId();
+		int memberID = -1;
+		String sql = "SELECT * FROM MembershipSale WHERE Customer_Account_accountID=? ORDER BY purchaseID DESC;";
+		try{
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1,id);
+			ResultSet rs = statement.executeQuery();
+			if(rs.next()) {
+				memberID = rs.getInt("OwnedMembership_memberID");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return memberID;
 	}
 
 	public void saveSale(int total, int id, int memberID, String membershipName) {

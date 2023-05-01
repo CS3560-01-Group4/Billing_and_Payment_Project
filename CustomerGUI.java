@@ -129,6 +129,19 @@ public class CustomerGUI extends JFrame {
         });
 
 
+        viewSubscriptions.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    new ViewSubscriptionGUI(customer);
+                }
+                catch (Exception exception){
+                    exception.printStackTrace();
+                }
+            }
+        });
+
+
 
 
 
