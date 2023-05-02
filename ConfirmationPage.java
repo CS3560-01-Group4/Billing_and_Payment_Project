@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class ConfirmationPage extends JFrame{
     private JPanel ConfirmationPage;
@@ -70,7 +71,8 @@ public class ConfirmationPage extends JFrame{
                     DatabaseManager db = new DatabaseManager();
                     completed = db.saveCustomer(customer);
                     db.close();
-                }catch(Exception ex) {
+                }catch(SQLException ex) {
+                    System.out.println(ex.getMessage());
                     JOptionPane.showMessageDialog(null,"There was an error creating your account");
                 }
 
