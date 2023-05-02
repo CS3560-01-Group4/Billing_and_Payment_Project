@@ -2,17 +2,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class salesmanSearchCustomer extends JFrame {
     String username, password;
     private JTextField usernameText;
-    private JTextField passwordText;
     private JButton search;
     private JPanel salesmeanSearchPanel;
     private JButton backButton;
+    private JPasswordField passwordField;
 
     boolean completed = false;
 
@@ -36,11 +34,11 @@ public class salesmanSearchCustomer extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     username = usernameText.getText();
-                    password = passwordText.getText();
+                    password = passwordField.getText();
                     if (username.equals("")) {
                         usernameText.setBackground(new Color(255, 102, 102));
                     } else if (password.equals("")) {
-                        passwordText.setBackground(new Color(255, 102, 102));
+                        passwordField.setBackground(new Color(255, 102, 102));
 
                     }
 

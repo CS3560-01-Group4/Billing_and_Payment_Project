@@ -29,6 +29,8 @@ public class EditAddressPage extends JFrame {
         this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+        this.setLocationRelativeTo(null);
+
         state.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
