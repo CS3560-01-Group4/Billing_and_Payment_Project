@@ -18,7 +18,7 @@ public class PurchasePage extends JFrame {
     public static int total;
 
     private int memberID, addonID = 2;
-    //TODO change the page layout so it shows the list of specific addons (classes, trainers) with their addonID
+
 
     PurchasePage(Customer customer) {
         this.setContentPane(PurchasePage);
@@ -33,14 +33,6 @@ public class PurchasePage extends JFrame {
         group.add(yearly);
 
 
-
-        try {
-            DatabaseManager db = new DatabaseManager();
-
-
-        }catch(Exception ex) {
-            ex.printStackTrace();
-        }
 
         makePaymentButton.addActionListener(new ActionListener() {
             @Override
@@ -84,12 +76,15 @@ public class PurchasePage extends JFrame {
         DefaultTableModel tableModel = new DefaultTableModel();
         AddonTable = new JTable(tableModel);
         PersonalTrainer[] trainers = new PersonalTrainer[0];
+        Class[] classes = new Class[0];
         try {
             DatabaseManager db = new DatabaseManager();
             trainers = db.getTrainers();
             db.getTrainers();
-            if(trainers == null){
-                JOptionPane.showMessageDialog(null, "There are no trainers in the DB");
+            classes = db.getClasses();
+
+            if(trainers == null && classes == null){
+                JOptionPane.showMessageDialog(null, "There are no Addons in the DB");
                 dispose();
             }
             db.close();
@@ -101,15 +96,19 @@ public class PurchasePage extends JFrame {
 
         tableModel.addColumn("Addon");
         tableModel.addColumn("Addon ID");
-        tableModel.addColumn("Trainer Name");
+        tableModel.addColumn("Name");
         tableModel.addColumn("Addon Cost");
-        tableModel.addColumn("Booking Date");
+        tableModel.addColumn("Date");
 
         for (int i = 0; i < trainers.length; i++) {
-            tableModel.addRow(new Object[]{"Trainer", trainers[i].getTrainerID(), trainers[i].getTrainerName(), trainers[i].getPrice(), trainers[i].getBookingDate()});
+            tableModel.addRow(new Object[]{"Trainer", trainers[i].getAddonID(), trainers[i].getTrainerName(), trainers[i].getPrice(), trainers[i].getBookingDate()});
 
         }
 
+        for (int i = 0; i < classes.length; i++) {
+            tableModel.addRow(new Object[]{"Class", classes[i].getAddonID(), classes[i].getName(), classes[i].getPrice(), classes[i].getClassDate()});
+
+        }
 
     }
 }

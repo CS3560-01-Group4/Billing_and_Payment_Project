@@ -255,26 +255,28 @@ public class DatabaseManager {
 		// query number of rows
 		String row =
 				"SELECT COUNT(*) AS numOfRows FROM (" +
-						"SELECT addonID, name, classDate, timeSlot, instructorName, classLength, price" +
-						"FROM Addon" +
-						"INNER JOIN Class" +
-						"ON Addon.addonID = Class.Addon.addonID" +
+						"SELECT addonID, name, classDate, timeSlot, instructorName, classLength, price " +
+						"FROM Addon " +
+						"INNER JOIN Class " +
+						"ON Addon.addonID = Class.Addon_addonID " +
 						"GROUP BY Addon.addonID" +
-						") t";
+						") t;";
 
 		String sql =
-				"SELECT addonID, name, classDate, timeSlot, instructorName, classLength, price" +
-						"FROM Addon" +
-						"INNER JOIN Class" +
-						"ON Addon.addonID = Class.Addon_addonID";
+				"SELECT addonID, name, classDate, timeSlot, instructorName, classLength, price " +
+						"FROM Addon " +
+						"INNER JOIN Class " +
+						"ON Addon.addonID = Class.Addon_addonID;";
 
 		Class[] classes;
 
 		try {
 			PreparedStatement statement = connection.prepareStatement(row);
 			ResultSet result = statement.executeQuery();
-
-			int rowCount = result.getInt("numOfRows");
+			int rowCount = 0;
+			if(result.next()) {
+				rowCount = result.getInt("numOfRows");
+			}
 			classes = new Class[rowCount];
 
 			statement = connection.prepareStatement(sql);
@@ -292,7 +294,7 @@ public class DatabaseManager {
 				classes[i] = new Class(name, price, classDate, timeSlot, instructorName, classLength, addonID);
 			}
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 			return null;
 		}
 
