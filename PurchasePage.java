@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,7 +10,7 @@ public class PurchasePage extends JFrame {
     private JCheckBox classAddon;
     private JCheckBox trainerAddon;
     private JButton makePaymentButton;
-    private JList list1;
+    private JTable AddonTable;
     private ButtonGroup group = new ButtonGroup();
     public static int total;
     private int memberID, addonID = 2;
@@ -24,6 +25,8 @@ public class PurchasePage extends JFrame {
         this.setVisible(true);
         group.add(monthly);
         group.add(yearly);
+
+        createUIComponents();
 
         try {
             DatabaseManager db = new DatabaseManager();
@@ -68,6 +71,18 @@ public class PurchasePage extends JFrame {
                 }
             }
         });
+    }
+
+    private void createUIComponents() {
+        DefaultTableModel tableModel = new DefaultTableModel();
+        AddonTable = new JTable(tableModel);
+        tableModel.addColumn("Addon");
+        tableModel.addColumn("Addon ID");
+        tableModel.addColumn("Trainer Name");
+        tableModel.addColumn("Addon Cost");
+
+
+
     }
 }
 
