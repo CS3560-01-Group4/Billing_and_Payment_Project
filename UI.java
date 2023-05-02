@@ -12,9 +12,11 @@ import java.sql.Statement;
  *
  */
 public class UI{
-
 	public static void main(String args[]) {
-    	
+		UI start = new UI();
+	}
+	UI(){
+
 
 		/*
 		Begin construction of the main panel the user will enter upon application startup.
@@ -57,7 +59,7 @@ public class UI{
 					//swap to Customer Screen.
 					frame.dispose();
 					CSLoginPage loginPage = new CSLoginPage();
-					
+
 					System.out.println("C");
 				}
 				else if(s.equals(userTypes[1])){
@@ -76,18 +78,5 @@ public class UI{
 		centeredPanel.add(userComboBox);
 		frame.add(centeredPanel, BorderLayout.CENTER);
 		frame.setVisible(true);//make frame visible
-
-
-
-
-
-
-
-
-
 	}
-
-
-
-
 }
