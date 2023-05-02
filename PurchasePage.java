@@ -27,6 +27,8 @@ public class PurchasePage extends JFrame {
         this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+        this.setLocationRelativeTo(null);
+
         group.add(monthly);
         group.add(yearly);
 
