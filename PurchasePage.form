@@ -57,7 +57,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="ec4ee" class="javax.swing.JTable" binding="AddonTable" custom-create="true">
+          <component id="ec4ee" class="javax.swing.JTable" binding="trainerTable" custom-create="true">
             <constraints/>
             <properties/>
           </component>
