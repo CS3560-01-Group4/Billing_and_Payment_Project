@@ -17,7 +17,8 @@ public class PurchasePage extends JFrame {
     private ButtonGroup group = new ButtonGroup();
     public static int total;
 
-    private int memberID, addonID = 2;
+    private int memberID;
+    private Addon addons[];
 
 
     PurchasePage(Customer customer) {
@@ -45,16 +46,16 @@ public class PurchasePage extends JFrame {
                     membershipName = "yearly";
                 }
 
-
-                //TODO total += ;
+                //TODO if addon selected, add the addon to the Addons array
 
                 //save to database
                 try {
                     DatabaseManager db = new DatabaseManager();
                     memberID = db.createOwnedMembership(customer.getId(), membershipName);
 
-                    if(classAddon.isSelected() || trainerAddon.isSelected()) {
-                        db.saveEnrollment(memberID, membershipName, addonID);//TODO
+                    for(int i = 0; i < addons.length; i++) {
+                        db.saveEnrollment(memberID, membershipName, addons[i].getAddonID());
+                        total += addons[i].getPrice();
                     }
                     db.saveSale(total, customer.getId(), memberID, membershipName);
                     JOptionPane.showMessageDialog(null, "Successfully Purchased");
