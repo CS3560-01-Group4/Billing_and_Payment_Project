@@ -7,7 +7,7 @@
  *
  */
 public class Membership {
-    int MembershipID;
+    int MembershipID = -1;
     double price;
     String MembershipStartDate;
     String MembershipRenewalDate;
