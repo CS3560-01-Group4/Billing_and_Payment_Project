@@ -42,7 +42,6 @@ public class PurchasePage extends JFrame {
                 if(trainerAddon.isSelected()) {
                     total += 200;
                 }
-                //PaymentPage payment = new PaymentPage();
 
                 //save to database
                 try {

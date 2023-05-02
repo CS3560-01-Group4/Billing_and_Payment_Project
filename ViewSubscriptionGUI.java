@@ -1,13 +1,13 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class ViewSubscriptionGUI extends JFrame {
     private JPanel viewSubscription;
     private JTextField memberIdText, membershipName, statusText, startText, renewalText, priceText;
     private JButton exitButton;
     private JList jlist;
+    private JTextField totalPriceText;
 
     public ViewSubscriptionGUI(Customer customer) {
         this.setContentPane(viewSubscription);
@@ -21,32 +21,42 @@ public class ViewSubscriptionGUI extends JFrame {
         try {
             DatabaseManager db = new DatabaseManager();
             membership = db.getMembership(customer);
-
-            memberIdText.setText(Integer.toString(membership.getMembershipID()));
-            membershipName.setText( membership.getName() );
-            startText.setText(  membership.getMembershipStartDate() );
-            renewalText.setText(    membership.getMembershipRenewalDate()   );
-            priceText.setText(  Double.toString(membership.getPrice())  );
-            if(membership.isMembershipActive()) {
-                statusText.setText("Active");
+            if(membership == null || membership.getMembershipID() == -1) {
+                JOptionPane.showMessageDialog(null, "You have no membership associated with your account");
+                dispose();
             }else{
-                statusText.setText("Disabled");
+                memberIdText.setText(Integer.toString(membership.getMembershipID()));
+                membershipName.setText( membership.getName() );
+                startText.setText(  membership.getMembershipStartDate() );
+                renewalText.setText(    membership.getMembershipRenewalDate()   );
+                priceText.setText(  Double.toString(membership.getPrice())  );
+                if(membership.isMembershipActive()) {
+                    statusText.setText("Active");
+                }else{
+                    statusText.setText("Disabled");
+                }
+
+                memberIdText.setEditable(false);
+                membershipName.setEditable(false);
+                statusText.setEditable(false);
+                startText.setEditable(false);
+                renewalText.setEditable(false);
+                priceText.setEditable(false);
+                totalPriceText.setEditable(false);
+
+                DefaultListModel<String> dlm = new DefaultListModel<>();
+                jlist.setModel(dlm);
+
+                Addon[] addons = db.getAddons(membership);
+                db.close();
+
+                double sum = 0;
+                for(int i = 0; i < addons.length; i++) {
+                    dlm.addElement("            " + addons[i].getName() + "          $" + addons[i].getPrice());
+                    sum += addons[i].getPrice();
+                }
+                totalPriceText.setText(     Double.toString(membership.getPrice() + sum)     );
             }
-
-            memberIdText.setEditable(false);
-            membershipName.setEditable(false);
-            statusText.setEditable(false);
-            startText.setEditable(false);
-            renewalText.setEditable(false);
-            priceText.setEditable(false);
-
-            DefaultListModel<Addon[]> dlm = new DefaultListModel<>();
-            jlist.setModel(dlm);
-            //remember to change the price too (and mayber show the price of each individual one)
-            Addon[] addons = db.getAddons(membership);
-            db.close();
-            dlm.addElement(addons);
-
         }
         catch (Exception e){
             e.printStackTrace();

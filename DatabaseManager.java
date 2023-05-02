@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class DatabaseManager {
     private Connection connection;
@@ -464,17 +465,35 @@ public class DatabaseManager {
 	//get Addons list given the owned-membershipID
 	public Addon[] getAddons(Membership Omembership) {
 		Addon[] addons = null;
+
+		String row =
+				"select count(*) As numOfRows from (" +
+						"SELECT * " +
+						"FROM Enrollment where OwnedMembership_memberID=? " +
+						"and OwnedMembership_Membership_name=?" +
+						") t;";
+
 		String sql = "select * from Enrollment where OwnedMembership_memberID=?" +
 				" and OwnedMembership_Membership_name=?;";
 		try {
+			PreparedStatement st = connection.prepareStatement(row);
+			st.setInt(1,Omembership.getMembershipID());
+			st.setString(2,Omembership.getName());
+			ResultSet r = st.executeQuery();
+			int rowCount = 0;
+			if(r.next()) {
+				rowCount = r.getInt("numOfRows");
+			}
+
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setInt(1,Omembership.getMembershipID());
 			statement.setString(2,Omembership.getName());
 			ResultSet rs = statement.executeQuery();
 
-			addons = new Addon[rs.getFetchSize()];
+			addons = new Addon[rowCount];
 			//for every addonID found, get the addon object
 			for(int i = 0; i < addons.length; i++) {
+				rs.next();
 				int addonID = rs.getInt("Addon_addonID");
 				addons[i] = getAddon(addonID);
 			}
@@ -502,15 +521,15 @@ public class DatabaseManager {
 			}
 
 			//figure out if addon is a class or personal trainer (and get the details to return it)
-			sql = "select * from Class where addonID=?;";
+			sql = "select * from Class where Addon_addonID=?;";
 			PreparedStatement st = connection.prepareStatement(sql);
 			st.setInt(1,addonID);
-			rs = statement.executeQuery();
+			rs = st.executeQuery();
 			if(rs.next()) {
-				int  classLength = rs.getInt("classLength");
 				String classDate = rs.getString("classDate");
 				String timeSlot = rs.getString("timeSlot");
 				String instructorName = rs.getString("instructorName");
+				int  classLength = rs.getInt("classLength");
 				addon = new Class(name, price, classDate, timeSlot, instructorName, classLength, addonID);
 
 			}else {//not a class, but a personal trainer
