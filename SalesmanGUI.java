@@ -18,6 +18,7 @@ public class SalesmanGUI extends JFrame {
         JLabel welcomeText = new JLabel("Welcome: ");
         this.setSize(600,600);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setLocationRelativeTo(null);
         this.setIconImage(new ImageIcon("31-hour.png").getImage());
         this.setTitle("Sales Person account");
         this.setLayout(new FlowLayout());
@@ -62,50 +63,40 @@ public class SalesmanGUI extends JFrame {
         editCustomerAddress.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    salesmanSearchCustomer viewAccount = new salesmanSearchCustomer(2);
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
+                dispose();
+                salesmanSearchCustomer viewAccount = new salesmanSearchCustomer(2);
             }
         });
 
         editCustomerSubscription.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                dispose();
+                new salesmanSearchCustomer(4);
             }
         });
 
         editEmailAddress.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    salesmanSearchCustomer viewAccount = new salesmanSearchCustomer(3);
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
+                dispose();
+                salesmanSearchCustomer viewAccount = new salesmanSearchCustomer(3);
             }
         });
-
 
         viewAccountInfo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    salesmanSearchCustomer viewAccount = new salesmanSearchCustomer(1);
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
-
-
+                dispose();
+                salesmanSearchCustomer viewAccount = new salesmanSearchCustomer(1);
             }
         });
 
         viewSubscriptions.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                dispose();
+                new salesmanSearchCustomer(5);
             }
         });
 
@@ -133,12 +124,4 @@ public class SalesmanGUI extends JFrame {
          */
 
     }
-
-
-
-
-
-
-
-
 }
