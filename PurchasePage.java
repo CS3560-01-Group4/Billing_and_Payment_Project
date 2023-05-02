@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class PurchasePage extends JFrame {
     private JPanel PurchasePage;
@@ -11,8 +12,11 @@ public class PurchasePage extends JFrame {
     private JCheckBox trainerAddon;
     private JButton makePaymentButton;
     private JTable AddonTable;
+
+
     private ButtonGroup group = new ButtonGroup();
     public static int total;
+
     private int memberID, addonID = 2;
     //TODO change the page layout so it shows the list of specific addons (classes, trainers) with their addonID
 
@@ -26,10 +30,11 @@ public class PurchasePage extends JFrame {
         group.add(monthly);
         group.add(yearly);
 
-        createUIComponents();
+
 
         try {
             DatabaseManager db = new DatabaseManager();
+
 
         }catch(Exception ex) {
             ex.printStackTrace();
@@ -76,11 +81,32 @@ public class PurchasePage extends JFrame {
     private void createUIComponents() {
         DefaultTableModel tableModel = new DefaultTableModel();
         AddonTable = new JTable(tableModel);
+        PersonalTrainer[] trainers = new PersonalTrainer[0];
+        try {
+            DatabaseManager db = new DatabaseManager();
+            trainers = db.getTrainers();
+            db.getTrainers();
+            if(trainers == null){
+                JOptionPane.showMessageDialog(null, "There are no trainers in the DB");
+                dispose();
+            }
+            db.close();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "There are no trainers in the DB");
+        }
+
+
         tableModel.addColumn("Addon");
         tableModel.addColumn("Addon ID");
         tableModel.addColumn("Trainer Name");
         tableModel.addColumn("Addon Cost");
+        tableModel.addColumn("Booking Date");
 
+        for (int i = 0; i < trainers.length; i++) {
+            tableModel.addRow(new Object[]{"Trainer", trainers[i].getTrainerID(), trainers[i].getTrainerName(), trainers[i].getPrice(), trainers[i].getBookingDate()});
+
+        }
 
 
     }
