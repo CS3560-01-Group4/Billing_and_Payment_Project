@@ -9,6 +9,7 @@ public class PurchasePage extends JFrame {
     private JCheckBox classAddon;
     private JCheckBox trainerAddon;
     private JButton makePaymentButton;
+    private JList list1;
     private ButtonGroup group = new ButtonGroup();
     public static int total;
     private int memberID, addonID = 2;
@@ -24,24 +25,28 @@ public class PurchasePage extends JFrame {
         group.add(monthly);
         group.add(yearly);
 
+        try {
+            DatabaseManager db = new DatabaseManager();
+
+        }catch(Exception ex) {
+            ex.printStackTrace();
+        }
+
         makePaymentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String membershipName = "";
                 if(monthly.isSelected()){
-                    total += 30;
+                    total += 40;
                     membershipName = "monthly";
                 }
                 else if(yearly.isSelected()) {
-                    total += 300;
+                    total += 480;
                     membershipName = "yearly";
                 }
-                if(classAddon.isSelected()){
-                    total += 100;
-                }
-                if(trainerAddon.isSelected()) {
-                    total += 200;
-                }
+
+
+                //TODO total += ;
 
                 //save to database
                 try {
@@ -49,7 +54,7 @@ public class PurchasePage extends JFrame {
                     memberID = db.createOwnedMembership(customer.getId(), membershipName);
 
                     if(classAddon.isSelected() || trainerAddon.isSelected()) {
-                        db.saveEnrollment(memberID, membershipName, addonID);
+                        db.saveEnrollment(memberID, membershipName, addonID);//TODO
                     }
                     db.saveSale(total, customer.getId(), memberID, membershipName);
                     JOptionPane.showMessageDialog(null, "Successfully Purchased");

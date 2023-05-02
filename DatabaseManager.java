@@ -587,4 +587,50 @@ public class DatabaseManager {
 
 		return status;
 	}
+
+
+	public PersonalTrainer[] getTrainers() {
+		PersonalTrainer[] trainers = null;
+		String rows =
+				"SELECT COUNT(*) AS numOfRows FROM (" +
+						"SELECT addonID, name, bookingDate, trainerName, trainerID, price " +
+						"FROM Addon " +
+						"INNER JOIN PersonalTrainer " +
+						"ON Addon.addonID = PersonalTrainer.Addon_addonID " +
+						"GROUP BY Addon.addonID" +
+						") t;";
+
+		String sql =
+				"SELECT addonID, name, bookingDate, trainerName, trainerID, price " +
+						"FROM Addon " +
+						"INNER JOIN PersonalTrainer " +
+						"ON Addon.addonID = PersonalTrainer.Addon_addonID;";
+		try {
+			PreparedStatement st = connection.prepareStatement(rows);
+			ResultSet r = st.executeQuery();
+			int rowCount = 0;
+			if(r.next()) {
+				rowCount = r.getInt("numOfRows");
+			}
+
+			trainers = new PersonalTrainer[rowCount];
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+			ResultSet rs = statement.executeQuery();
+			for (int i = 0; rs.next() && i < rowCount; i++) {
+				int addonID = rs.getInt("addonID");
+				String name = rs.getString("name");
+				String bookingDate = rs.getString("bookingDate");
+				String trainerName = rs.getString("trainerName");
+				int trainerID = rs.getInt("trainerID");
+				double price = rs.getDouble("price");
+
+				trainers[i] = new PersonalTrainer(addonID,name,price,trainerName,bookingDate,trainerID);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return trainers;
+	}
+
 }
