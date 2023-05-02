@@ -26,6 +26,9 @@ public class Customer extends Account {
         this.creditCard = creditCard;
     }
 
+    public Customer(int id){ super.setId(id);}//should ONLY be used by getCustomer() method in database
+
+
     public void save(DatabaseManager db) throws SQLException {
         db.saveCustomer(this);
     }
