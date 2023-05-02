@@ -2,9 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.sql.Statement;
 
 
 /**
@@ -13,9 +10,7 @@ import java.sql.Statement;
  */
 public class UI{
 
-	public static void main(String args[]) {
-    	
-
+	UI() {
 		/*
 		Begin construction of the main panel the user will enter upon application startup.
 		 */
@@ -26,16 +21,7 @@ public class UI{
 		frame.setResizable(false);
 		frame.setLayout(new GridLayout(2,1));
 		frame.add(new JLabel("Welcome. Please select which type of user you are:", JLabel.CENTER), BorderLayout.NORTH);
-
-
-
 		JPanel centeredPanel = new JPanel();
-
-
-
-
-
-
 
 		/*
 		Create Drop Down styled Menu for user selection
@@ -46,8 +32,6 @@ public class UI{
 		/*
 		Add action listening to the JComboBox userComboBox
 		 */
-
-
 		userComboBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -70,24 +54,11 @@ public class UI{
 					frame.dispose();
 					SysAdminPageLogin loginPage = new SysAdminPageLogin();
 				}
-
 			}
 		});
 		centeredPanel.add(userComboBox);
 		frame.add(centeredPanel, BorderLayout.CENTER);
 		frame.setVisible(true);//make frame visible
-
-
-
-
-
-
-
-
-
+		frame.setLocationRelativeTo(null);
 	}
-
-
-
-
 }

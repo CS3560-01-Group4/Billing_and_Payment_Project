@@ -11,6 +11,7 @@ public class CSLoginPage extends JFrame {
     private JButton loginButton;
     private JButton signUpButton;
     private JLabel passwordLabel;
+    private JButton returnButton;
     private String retrievedPassword, retrievedEmail;
 
     CSLoginPage(){
@@ -56,7 +57,17 @@ public class CSLoginPage extends JFrame {
                 new SignUpPage();
             }
         });
+
+        returnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new UI();
+            }
+        });
+
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+        this.setLocationRelativeTo(null);
     }
 }
