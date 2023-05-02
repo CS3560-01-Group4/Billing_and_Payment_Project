@@ -71,6 +71,8 @@ public class CustomerGUI extends JFrame {
         View.add(viewSubscriptions = new JMenuItem("View Subscription"));
         View.add(viewCardInfo = new JMenuItem("View Credit Card Info"));
 
+        Add = new JMenu("Add");
+
         Add.add(AddAddons = new JMenuItem("Add Addons"));
 
 
