@@ -16,22 +16,19 @@ public class salesmanSearchCustomer extends JFrame {
 
     boolean completed = false;
 
-    String url = "jdbc:mysql://" + "containers-us-west-34.railway.app" + ":" + 5939 + "/" + "gymmembership";
-
-    private Connection connection = DriverManager.getConnection(url, "root", "91laqZk1CB5VM13WltEE");
-    ;
     /*
     Function overloading that is context based, use an INT if you plan to view/edit a customer's account;
     A 1 allows you to view an account, a 2 allows you to edit an account's address
      */
 
-    salesmanSearchCustomer(int Num) throws SQLException {
+    salesmanSearchCustomer(int Num) {
         this.setContentPane(salesmeanSearchPanel);
         this.setTitle("Confirmation");
         this.setIconImage(new ImageIcon("31-hour.png").getImage());
         this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+        this.setLocationRelativeTo(null);
 
 
         search.addActionListener(new ActionListener() {
@@ -70,6 +67,14 @@ public class salesmanSearchCustomer extends JFrame {
                             case 3:
                                 dispose();
                                 CustomerGUI.EditEmailAddress(searchCustomer);
+                                break;
+                            case 4:
+                                dispose();
+                                new PurchasePage(searchCustomer);
+                                break;
+                            case 5:
+                                dispose();
+                                new ViewSubscriptionGUI(searchCustomer);
                                 break;
                         }
                     }
