@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
+import java.text.*;
 
 public class DatabaseManager {
     private Connection connection;
@@ -632,5 +634,44 @@ public class DatabaseManager {
 		}
 		return trainers;
 	}
+
+	//checks OwnedMembership table for all members who have expired memberships and sets their account as "Inactive"
+    public void checkExpired() {
+		String sql =  "select * from OwnedMembership;";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			ResultSet rs = statement.executeQuery();
+			while(rs.next()) {
+				SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
+				Date renewalDate = sdformat.parse(	rs.getString("renewalDate")	);
+				Date currentDate = sdformat.parse(	LocalDate.now().toString()	);;
+				if(renewalDate.compareTo(currentDate) <= 0) {
+					int memberId = rs.getInt("memberID");
+					cancelSubscription(	getCustomerID(memberId)	);
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	//returns the CustomerID given the memberID
+	private Customer getCustomerID(int memberId) {
+		Customer customer = null;
+		String sql = "SELECT * FROM MembershipSale WHERE OwnedMembership_MemberID=? ORDER BY purchaseID DESC;";
+		try{
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1,memberId);
+			ResultSet rs = statement.executeQuery();
+			if(rs.next()) {
+				customer = new Customer(	rs.getInt("Customer_Account_accountID")	);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return customer;
+	}
+
 
 }

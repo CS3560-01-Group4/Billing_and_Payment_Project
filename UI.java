@@ -14,7 +14,7 @@ public class UI {
 	}
 
 	UI() {
-		/*
+        /*
 		Begin construction of the main panel the user will enter upon application startup.
 		 */
 		JFrame frame = new JFrame("31-Hour Fitness");//main frame
@@ -26,13 +26,13 @@ public class UI {
 		frame.add(new JLabel("Welcome. Please select which type of user you are:", JLabel.CENTER), BorderLayout.NORTH);
 		JPanel centeredPanel = new JPanel();
 
-		/*
+        /*
 		Create Drop Down styled Menu for user selection
 		 */
 		String[] userTypes = {"Customer", "Salesman", "System Admin"};
 		JComboBox userComboBox = new JComboBox(userTypes);
 
-		/*
+        /*
 		Add action listening to the JComboBox userComboBox
 		 */
 		userComboBox.addActionListener(new ActionListener() {
@@ -57,6 +57,18 @@ public class UI {
 				}
 			}
 		});
+
+
+		//system checks for expired memberships and sets them as "Inactive"
+		try{
+			DatabaseManager db = new DatabaseManager();
+			db.checkExpired();
+			db.close();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+
+
 		centeredPanel.add(userComboBox);
 		frame.add(centeredPanel, BorderLayout.CENTER);
 		frame.setVisible(true);//make frame visible
