@@ -1,11 +1,7 @@
 import javax.swing.*;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 
 public class CustomerGUI extends JFrame {
@@ -14,7 +10,7 @@ public class CustomerGUI extends JFrame {
     JMenuItem editName, editAddress, editSubscription, editEmailAddress, membership, editPassword, editCreditCardInfo;
     JMenuItem viewAccountInfo, viewSubscriptions, viewCardInfo;
     JMenuItem signOut;
-    Customer customer = null;
+    static Customer customer = null;
 
 
 
@@ -142,7 +138,7 @@ public class CustomerGUI extends JFrame {
         editEmailAddress.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EditEmailAddress();
+                EditEmailAddress(customer);
             }
         });
 
@@ -228,7 +224,7 @@ public class CustomerGUI extends JFrame {
     }
 
 
-    public void EditEmailAddress(){
+    public static void EditEmailAddress(Customer searchCustomer){
         String inputEmailAddress = JOptionPane.showInputDialog("Enter new email");
 
         if (inputEmailAddress.equals(""))
@@ -238,7 +234,7 @@ public class CustomerGUI extends JFrame {
         boolean completed = false;
         try {
             DatabaseManager db = new DatabaseManager();
-        	completed = db.updateEmail(customer.getId(), inputEmailAddress);
+        	completed = db.updateEmail(searchCustomer.getId(), inputEmailAddress);
             db.close();
         }catch (Exception ex) {
         	System.out.println("Error connecting to database");
@@ -246,34 +242,10 @@ public class CustomerGUI extends JFrame {
         
         if(completed) {
         	JOptionPane.showMessageDialog(null, "Email was Successfully Updated");
-            this.customer.setEmail(inputEmailAddress);
+            searchCustomer.setEmail(inputEmailAddress);
         }else {
         	JOptionPane.showMessageDialog(null, "Email could not be updated");
         }
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
 

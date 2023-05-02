@@ -41,6 +41,8 @@ public class SalesLogin extends JFrame {
             		SalesmanGUI salesmanGUI = new SalesmanGUI();
             		dispose();
             	}
+                else
+                    JOptionPane.showMessageDialog(null,"Invalid login credentials");
 
             }
         });

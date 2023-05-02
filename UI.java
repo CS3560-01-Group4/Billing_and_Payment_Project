@@ -9,6 +9,10 @@ import java.awt.event.ActionListener;
  *
  */
 public class UI {
+	public static void main(String[] args){
+		UI ui = new UI();
+	}
+
 	UI() {
 		/*
 		Begin construction of the main panel the user will enter upon application startup.

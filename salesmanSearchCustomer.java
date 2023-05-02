@@ -12,12 +12,14 @@ public class salesmanSearchCustomer extends JFrame {
     private JTextField passwordText;
     private JButton search;
     private JPanel salesmeanSearchPanel;
+    private JButton backButton;
 
     boolean completed = false;
 
     String url = "jdbc:mysql://" + "containers-us-west-34.railway.app" + ":" + 5939 + "/" + "gymmembership";
 
-    private Connection connection = DriverManager.getConnection(url, "root", "91laqZk1CB5VM13WltEE");;
+    private Connection connection = DriverManager.getConnection(url, "root", "91laqZk1CB5VM13WltEE");
+    ;
     /*
     Function overloading that is context based, use an INT if you plan to view/edit a customer's account;
     A 1 allows you to view an account, a 2 allows you to edit an account's address
@@ -32,38 +34,44 @@ public class salesmanSearchCustomer extends JFrame {
         this.setVisible(true);
 
 
-
         search.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     username = usernameText.getText();
                     password = passwordText.getText();
-                    if (username.equals("")){
+                    if (username.equals("")) {
                         usernameText.setBackground(new Color(255, 102, 102));
                     } else if (password.equals("")) {
                         passwordText.setBackground(new Color(255, 102, 102));
 
                     }
 
-                    if(username.equals("") || password.equals("")){
+                    if (username.equals("") || password.equals("")) {
                         JOptionPane.showMessageDialog(null, "Invalid input");
 
                     }
 
                     DatabaseManager dbConnection = new DatabaseManager();
-                    Customer searchCustomer = dbConnection.getCustomerCredentials(username,password);
-                    if (searchCustomer == null){
+                    Customer searchCustomer = dbConnection.getCustomerCredentials(username, password);
+                    if (searchCustomer == null) {
                         JOptionPane.showMessageDialog(null, "Customer does not exist!");
 
-                    }
-                    else{
-                       switch (Num){
-                           case 1: viewCustomerAccount view = new viewCustomerAccount(searchCustomer);
-                           break;
-                           case 2: EditAddressPage edit = new EditAddressPage(searchCustomer);
-                           break;
-                       }
+                    } else {
+                        switch (Num) {
+                            case 1:
+                                dispose();
+                                viewCustomerAccount view = new viewCustomerAccount(searchCustomer);
+                                break;
+                            case 2:
+                                dispose();
+                                EditAddressPage edit = new EditAddressPage(searchCustomer);
+                                break;
+                            case 3:
+                                dispose();
+                                CustomerGUI.EditEmailAddress(searchCustomer);
+                                break;
+                        }
                     }
 
                 } catch (SQLException ex) {
@@ -75,18 +83,12 @@ public class salesmanSearchCustomer extends JFrame {
         });
 
 
-
-
-
-
-
-
-
-
-
-
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SalesmanGUI back = new SalesmanGUI();
+                dispose();
+            }
+        });
     }
-
-
-
 }

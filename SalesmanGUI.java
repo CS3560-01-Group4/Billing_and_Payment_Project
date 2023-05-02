@@ -19,7 +19,7 @@ public class SalesmanGUI extends JFrame {
         this.setSize(600,600);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setIconImage(new ImageIcon("31-hour.png").getImage());
-        this.setTitle("System Admin Main Page");
+        this.setTitle("Sales Person account");
         this.setLayout(new FlowLayout());
 
         menuBar = new JMenuBar();
@@ -51,10 +51,22 @@ public class SalesmanGUI extends JFrame {
         this.setJMenuBar(menuBar);
         this.setVisible(true);
 
+        signOut.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UI back = new UI();
+                dispose();
+            }
+        });
+
         editCustomerAddress.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                try {
+                    salesmanSearchCustomer viewAccount = new salesmanSearchCustomer(2);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
@@ -68,7 +80,11 @@ public class SalesmanGUI extends JFrame {
         editEmailAddress.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                try {
+                    salesmanSearchCustomer viewAccount = new salesmanSearchCustomer(3);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
