@@ -170,7 +170,7 @@ public class CustomerGUI extends JFrame {
         editEmailAddress.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EditEmailAddress();
+                EditEmailAddress(customer);
             }
         });
 
@@ -256,7 +256,7 @@ public class CustomerGUI extends JFrame {
     }
 
 
-    public void EditEmailAddress(){
+    public static void EditEmailAddress(Customer searchCustomer){
         String inputEmailAddress = JOptionPane.showInputDialog("Enter new email");
 
         if (inputEmailAddress.equals(""))
@@ -266,7 +266,7 @@ public class CustomerGUI extends JFrame {
         boolean completed = false;
         try {
             DatabaseManager db = new DatabaseManager();
-            completed = db.updateEmail(customer.getId(), inputEmailAddress);
+            completed = db.updateEmail(searchCustomer.getId(), inputEmailAddress);
             db.close();
         }catch (Exception ex) {
             System.out.println("Error connecting to database");
@@ -274,7 +274,7 @@ public class CustomerGUI extends JFrame {
 
         if(completed) {
             JOptionPane.showMessageDialog(null, "Email was Successfully Updated");
-            this.customer.setEmail(inputEmailAddress);
+            searchCustomer.setEmail(inputEmailAddress);
         }else {
             JOptionPane.showMessageDialog(null, "Email could not be updated");
         }
