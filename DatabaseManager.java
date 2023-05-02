@@ -8,11 +8,11 @@ public class DatabaseManager {
         
     
     public DatabaseManager() throws SQLException {
-		String host = "containers-us-west-34.railway.app";
-		int port = 5939;
-		String database = "gymmembership";
+		String host = "containers-us-west-40.railway.app";
+		int port = 7265;
+		String database = "railway";
 		String username = "root";
-		String password = "91laqZk1CB5VM13WltEE";
+		String password = "8Z3hMtzzWjjpS2u0tkxd";
 
         String url = "jdbc:mysql://" + host + ":" + port + "/" + database;
         this.connection = DriverManager.getConnection(url, username, password);
