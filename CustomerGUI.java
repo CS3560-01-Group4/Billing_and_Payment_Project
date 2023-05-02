@@ -88,6 +88,12 @@ public class CustomerGUI extends JFrame {
         editCreditCardInfo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try {
+                    setEditCreditCardInfo(customer);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+
 
             }
         });
@@ -326,6 +332,7 @@ public class CustomerGUI extends JFrame {
 
 
     public void setEditCreditCardInfo(Customer customer) throws SQLException{
+        CreditPage creditPage = new CreditPage(customer);
 
     }
 
