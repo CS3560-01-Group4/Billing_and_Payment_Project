@@ -11,4 +11,8 @@ public class Class extends Addon{
         this.instructorName = instructorName;
         this.classLength = classLength;
     }
+
+    public String getClassDate() {
+        return classDate;
+    }
 }
