@@ -11,8 +11,8 @@ import java.sql.SQLException;
 public class CustomerGUI extends JFrame {
     JMenuBar menuBar;
     JMenu Edit, Purchase, View, LogOut;
-    JMenuItem editName, editAddress, editSubscription, editEmailAddress, membership, editPassword;
-    JMenuItem viewAccountInfo, viewSubscriptions;
+    JMenuItem editName, editAddress, editSubscription, editEmailAddress, membership, editPassword, editCreditCardInfo;
+    JMenuItem viewAccountInfo, viewSubscriptions, viewCardInfo;
     JMenuItem signOut;
     Customer customer = null;
 
@@ -44,10 +44,12 @@ public class CustomerGUI extends JFrame {
         Edit.add(editSubscription = new JMenuItem("Edit Subscription"));
         Edit.add(editEmailAddress = new JMenuItem("Edit Email"));
         Edit.add(editPassword = new JMenuItem("Edit Password"));
+        Edit.add(editCreditCardInfo = new JMenuItem("Edit Credit Card Info"));
 
 
         View.add(viewAccountInfo = new JMenuItem("View Account Info"));
         View.add(viewSubscriptions = new JMenuItem("View Subscription"));
+        View.add(viewCardInfo = new JMenuItem("View Credit Card Info"));
 
 
         Purchase.add(membership = new JMenuItem("Subscription"));
@@ -64,6 +66,28 @@ public class CustomerGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setEditPassword();
+
+            }
+        });
+
+        viewCardInfo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+
+                try {
+                    setViewCardInfo(customer);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+
+            }
+        });
+
+
+        editCreditCardInfo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
             }
         });
@@ -291,6 +315,17 @@ public class CustomerGUI extends JFrame {
     public void ViewAccountInfo( Customer customer) throws SQLException{
 
         viewCustomerAccount viewAcct = new viewCustomerAccount(customer);
+
+    }
+
+
+    public void setViewCardInfo(Customer customer ) throws SQLException{
+
+        viewCustomerCardInfo viewCard = new viewCustomerCardInfo(customer);
+    }
+
+
+    public void setEditCreditCardInfo(Customer customer) throws SQLException{
 
     }
 
