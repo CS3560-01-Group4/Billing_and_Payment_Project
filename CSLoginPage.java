@@ -5,13 +5,13 @@ import java.awt.event.ActionListener;
 public class CSLoginPage extends JFrame {
     private JPanel loginPage;
     private JPasswordField passwordField;
-    private JTextField usernameField;
-    private JLabel Password;
+    private JTextField emailField;
+    private JLabel emailLabel;
     private JLabel username = new JLabel("Enter email");
     private JButton loginButton;
     private JButton signUpButton;
     private JLabel passwordLabel;
-    private String retrievedPassword, retreviedUsername;
+    private String retrievedPassword, retrievedEmail;
 
     CSLoginPage(){
         this.setContentPane(loginPage);
@@ -20,7 +20,7 @@ public class CSLoginPage extends JFrame {
         this.setSize(600,600);
         JFrame frame = this;
         
-        usernameField.setBounds(100,20,165,25);
+        emailField.setBounds(100,20,165,25);
         passwordField.setBounds(100,20,165,25);
 
         loginButton.addActionListener(new ActionListener() {
@@ -28,12 +28,12 @@ public class CSLoginPage extends JFrame {
             public void actionPerformed(ActionEvent e) {
             	Customer validCustomer = null;
             	//save the typed-in username and password
-            	retreviedUsername = usernameField.getText();
+            	retrievedEmail = emailField.getText();
                 retrievedPassword = String.valueOf(passwordField.getPassword());
                 //verify login with database
                 try {
                 	DatabaseManager db = new DatabaseManager();
-                	validCustomer = db.getCustomerCredentials(retreviedUsername, retrievedPassword);
+                	validCustomer = db.getCustomerCredentials(retrievedEmail, retrievedPassword);
                 	db.close();
                 }catch (Exception ex) {
                 	System.out.println(ex);
