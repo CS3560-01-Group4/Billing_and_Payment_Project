@@ -19,9 +19,9 @@ public class viewCustomerAccount extends JFrame {
 
     boolean completed = false;
 
-    String url = "jdbc:mysql://" + "containers-us-west-34.railway.app" + ":" + 5939 + "/" + "gymmembership";
+    //String url = "jdbc:mysql://" + "containers-us-west-34.railway.app" + ":" + 5939 + "/" + "gymmembership";
 
-    private Connection connection = DriverManager.getConnection(url, "root", "91laqZk1CB5VM13WltEE");;
+    //private Connection connection = DriverManager.getConnection(url, "root", "91laqZk1CB5VM13WltEE");;
 
     viewCustomerAccount(Customer customer) throws SQLException {
         this.setContentPane(viewCustAccount);
