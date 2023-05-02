@@ -393,7 +393,7 @@ public class DatabaseManager {
 	}
 
 	//This method assumes the entry found from the query is the "correct" OwnedMembership (not an old, outdated one)
-	private int getMemberID(Customer customer) {
+	public int getMemberID(Customer customer) {
 		int id = customer.getId();
 		int memberID = -1;
 		String sql = "SELECT * FROM MembershipSale WHERE Customer_Account_accountID=? ORDER BY purchaseID DESC;";
@@ -549,5 +549,42 @@ public class DatabaseManager {
 		}
 
 		return addon;
+	}
+
+	//given the customer, cancel the subscription (set status to inactive in OwnedMembership)
+	public void cancelSubscription(Customer customer) {
+		int memberID = getMemberID(customer);
+		String sql = "update OwnedMembership set status=? where memberID=?;";
+
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1,"Inactive");
+			statement.setInt(2,memberID);
+			statement.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Could not cancel Subscription");
+		}
+
+	}
+
+	//returns true if the membership status is active, false otherwise
+	public boolean getMembershipStatus(int memberID) {
+		boolean status = false;
+		String sql = "select * from OwnedMembership where memberID=?;";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1,memberID);
+			ResultSet rs = statement.executeQuery();
+			if(rs.next()) {
+				if( rs.getString("status").equals("active") ) {
+					status = true;
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+
+		return status;
 	}
 }

@@ -53,6 +53,7 @@ public class PurchasePage extends JFrame {
                     }
                     db.saveSale(total, customer.getId(), memberID, membershipName);
                     JOptionPane.showMessageDialog(null, "Successfully Purchased");
+                    new CustomerGUI(customer);
                     db.close();
                     dispose();
                 }catch(Exception ex) {

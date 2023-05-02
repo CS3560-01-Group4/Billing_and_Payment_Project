@@ -6,11 +6,11 @@ import java.sql.SQLException;
 
 public class CustomerGUI extends JFrame {
     JMenuBar menuBar;
-    JMenu Edit, Purchase, View, LogOut;
-    JMenuItem editName, editAddress, editSubscription, editEmailAddress, membership, editPassword, editCreditCardInfo;
+    JMenu Edit, Purchase, View, LogOut, cancel;
+    JMenuItem editName, editAddress, editAddons, editEmailAddress, membership, editPassword, editCreditCardInfo, cancelItem;
     JMenuItem viewAccountInfo, viewSubscriptions, viewCardInfo;
     JMenuItem signOut;
-    static Customer customer = null;
+    Customer customer = null;
 
 
 
@@ -20,7 +20,7 @@ public class CustomerGUI extends JFrame {
 
 
     CustomerGUI(Customer customer){
-    	this.customer = customer;
+        this.customer = customer;
         this.setSize(600,600);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLayout(new FlowLayout());
@@ -28,7 +28,27 @@ public class CustomerGUI extends JFrame {
 
         menuBar = new JMenuBar();
         Edit = new JMenu("Edit");
-        Purchase = new JMenu("Purchase");
+
+        membership = new JMenuItem("Subscription");
+        cancelItem = new JMenuItem("Cancel Subscription");
+
+        try {
+            DatabaseManager db = new DatabaseManager();
+            int memberID = db.getMemberID(customer);
+            if(memberID == -1 || !db.getMembershipStatus(memberID)) {
+                Purchase = new JMenu("Purchase");
+                Purchase.add(membership);
+                menuBar.add(Purchase);
+            }else {
+                cancel = new JMenu("Subscription");
+                cancel.add(cancelItem);
+                menuBar.add(cancel);
+            }
+            db.close();
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
         View = new JMenu("View");
         LogOut = new JMenu("Log out");
 
@@ -37,7 +57,7 @@ public class CustomerGUI extends JFrame {
 
         Edit.add(editName = new JMenuItem("Edit Name"));
         Edit.add(editAddress = new JMenuItem("Edit Address"));
-        Edit.add(editSubscription = new JMenuItem("Edit Subscription"));
+        Edit.add(editAddons = new JMenuItem("Edit Addons"));
         Edit.add(editEmailAddress = new JMenuItem("Edit Email"));
         Edit.add(editPassword = new JMenuItem("Edit Password"));
         Edit.add(editCreditCardInfo = new JMenuItem("Edit Credit Card Info"));
@@ -48,11 +68,11 @@ public class CustomerGUI extends JFrame {
         View.add(viewCardInfo = new JMenuItem("View Credit Card Info"));
 
 
-        Purchase.add(membership = new JMenuItem("Subscription"));
+
 
         LogOut.add(signOut = new JMenuItem("Sign Out"));
 
-        menuBar.add(Purchase);
+
         menuBar.add(Edit);
         menuBar.add(View);
         menuBar.add(LogOut);
@@ -95,7 +115,19 @@ public class CustomerGUI extends JFrame {
         });
 
 
-
+        cancelItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    DatabaseManager db = new DatabaseManager();
+                    db.cancelSubscription(customer);
+                    db.close();
+                    JOptionPane.showMessageDialog(null, "Your Subscription is canceled");
+                    dispose();
+                    new CustomerGUI(customer);//To refresh menu
+                }catch (Exception ex) { }
+            }
+        });
 
 
         membership.addActionListener(new ActionListener() {
@@ -128,7 +160,7 @@ public class CustomerGUI extends JFrame {
                 }
             }
         });
-        editSubscription.addActionListener(new ActionListener() {
+        editAddons.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO launch edit subscription window
@@ -138,7 +170,7 @@ public class CustomerGUI extends JFrame {
         editEmailAddress.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                EditEmailAddress(customer);
+                EditEmailAddress();
             }
         });
 
@@ -197,21 +229,21 @@ public class CustomerGUI extends JFrame {
             JOptionPane.showMessageDialog(null, "Invalid input");
         }
 
-       //update database
+        //update database
         boolean completed = false;
         try {
-        	DatabaseManager db = new DatabaseManager();
-        	completed = db.updateCustomerName(customer.getId(), inputName);
-        	db.close();
+            DatabaseManager db = new DatabaseManager();
+            completed = db.updateCustomerName(customer.getId(), inputName);
+            db.close();
         }catch(Exception ex) {
-        	System.out.println("Error connecting to the database");
+            System.out.println("Error connecting to the database");
         }
-        
+
         if(completed) {
-        	JOptionPane.showMessageDialog(null, "Name successfully Updated");
+            JOptionPane.showMessageDialog(null, "Name successfully Updated");
         }
         else {
-        	JOptionPane.showMessageDialog(null, "There was an error updating the name");
+            JOptionPane.showMessageDialog(null, "There was an error updating the name");
         }
 
 
@@ -224,7 +256,7 @@ public class CustomerGUI extends JFrame {
     }
 
 
-    public static void EditEmailAddress(Customer searchCustomer){
+    public void EditEmailAddress(){
         String inputEmailAddress = JOptionPane.showInputDialog("Enter new email");
 
         if (inputEmailAddress.equals(""))
@@ -234,18 +266,42 @@ public class CustomerGUI extends JFrame {
         boolean completed = false;
         try {
             DatabaseManager db = new DatabaseManager();
-        	completed = db.updateEmail(searchCustomer.getId(), inputEmailAddress);
+            completed = db.updateEmail(customer.getId(), inputEmailAddress);
             db.close();
         }catch (Exception ex) {
-        	System.out.println("Error connecting to database");
+            System.out.println("Error connecting to database");
         }
-        
+
         if(completed) {
-        	JOptionPane.showMessageDialog(null, "Email was Successfully Updated");
-            searchCustomer.setEmail(inputEmailAddress);
+            JOptionPane.showMessageDialog(null, "Email was Successfully Updated");
+            this.customer.setEmail(inputEmailAddress);
         }else {
-        	JOptionPane.showMessageDialog(null, "Email could not be updated");
+            JOptionPane.showMessageDialog(null, "Email could not be updated");
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 
