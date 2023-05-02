@@ -11,6 +11,7 @@ public class SalesLogin extends JFrame {
     private String retrievedPassword, retreviedUsername;
     private JButton loginButton;
     private JPanel salesPersonPanel;
+    private JButton returnButton;
 
     SalesLogin(){
         this.setContentPane(salesPersonPanel);
@@ -43,7 +44,17 @@ public class SalesLogin extends JFrame {
 
             }
         });
+
+        returnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new UI();
+                dispose();
+            }
+        });
+
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+        this.setLocationRelativeTo(null);
     }
 }

@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,6 +11,7 @@ public class SysAdminPageLogin extends JFrame{
     private JButton loginButton;
     private JPasswordField passwordField;
     private JPanel SysAdminLogin;
+    private JButton returnButton;
 
 
     SysAdminPageLogin() {
@@ -44,9 +44,20 @@ public class SysAdminPageLogin extends JFrame{
             }
         });
 
-
+        returnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new UI();
+                dispose();
+            }
+        });
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+        this.setLocationRelativeTo(null);
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
     }
 }
