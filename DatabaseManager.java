@@ -538,10 +538,9 @@ public class DatabaseManager {
 				stmt.setInt(1,addonID);
 				rs = stmt.executeQuery();
 				if(rs.next()) {
-					int trainerID = rs.getInt("trainerID");
 					String bookingDate = rs.getString("bookingDate");
 					String trainerName = rs.getString("trainerName");
-					addon = new PersonalTrainer(addonID, name, price, trainerName, bookingDate, trainerID);
+					addon = new PersonalTrainer(addonID, name, price, trainerName, bookingDate);
 				}
 			}
 		}catch(Exception e) {
@@ -593,7 +592,7 @@ public class DatabaseManager {
 		PersonalTrainer[] trainers = null;
 		String rows =
 				"SELECT COUNT(*) AS numOfRows FROM (" +
-						"SELECT addonID, name, bookingDate, trainerName, trainerID, price " +
+						"SELECT addonID, name, bookingDate, trainerName, price " +
 						"FROM Addon " +
 						"INNER JOIN PersonalTrainer " +
 						"ON Addon.addonID = PersonalTrainer.Addon_addonID " +
@@ -601,7 +600,7 @@ public class DatabaseManager {
 						") t;";
 
 		String sql =
-				"SELECT addonID, name, bookingDate, trainerName, trainerID, price " +
+				"SELECT addonID, name, bookingDate, trainerName, price " +
 						"FROM Addon " +
 						"INNER JOIN PersonalTrainer " +
 						"ON Addon.addonID = PersonalTrainer.Addon_addonID;";
@@ -622,10 +621,9 @@ public class DatabaseManager {
 				String name = rs.getString("name");
 				String bookingDate = rs.getString("bookingDate");
 				String trainerName = rs.getString("trainerName");
-				int trainerID = rs.getInt("trainerID");
 				double price = rs.getDouble("price");
 
-				trainers[i] = new PersonalTrainer(addonID,name,price,trainerName,bookingDate,trainerID);
+				trainers[i] = new PersonalTrainer(addonID,name,price,trainerName,bookingDate);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
