@@ -33,7 +33,7 @@ public class ViewSubscriptionGUI extends JFrame {
                 if(membership.isMembershipActive()) {
                     statusText.setText("Active");
                 }else{
-                    statusText.setText("Disabled");
+                    statusText.setText("Inactive");
                 }
 
                 memberIdText.setEditable(false);
