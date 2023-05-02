@@ -127,19 +127,19 @@ public class DatabaseManager {
 		return customer;
     }
     
-    public boolean searchSalespersonCredentials(String user, String pass) {
+    public boolean searchSalespersonCredentials(String email, String pass) {
 
 		String sql = "SELECT * " +
 				"FROM Account " +
 				"INNER JOIN Salesperson " +
 				"ON Account.accountID = Salesperson.Account_accountID " +
 				"WHERE password =? " +
-				"AND name =? ";
+				"AND emailAddress =? ";
 
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, pass);
-			statement.setString(2, user);
+			statement.setString(2, email);
 
 			ResultSet result = statement.executeQuery();
 

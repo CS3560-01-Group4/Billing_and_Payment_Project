@@ -5,10 +5,10 @@ import java.sql.SQLException;
 
 public class SalesLogin extends JFrame {
     private JPasswordField passwordField;
-    private JTextField usernameField;
+    private JTextField emailField;
     private JLabel usernameLabel;
     private JLabel passwordLabel;
-    private String retrievedPassword, retreviedUsername;
+    private String retrievedPassword, retreviedEmail;
     private JButton loginButton;
     private JPanel salesPersonPanel;
     private JButton returnButton;
@@ -18,20 +18,20 @@ public class SalesLogin extends JFrame {
         this.setTitle("Salesperson Login");
         this.setIconImage(new ImageIcon("31-hour.png").getImage());
         this.setSize(600,600);
-        usernameField.setBounds(100,20,165,25);
+        emailField.setBounds(100,20,165,25);
         passwordField.setBounds(100,20,165,25);
 
 
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                retreviedUsername = usernameField.getText();
+                retreviedEmail = emailField.getText();
                 retrievedPassword = String.valueOf(passwordField.getPassword());
 
             	boolean verified = false;
             	try {
             		DatabaseManager db = new DatabaseManager();
-            		verified = db.searchSalespersonCredentials(retreviedUsername, retrievedPassword);
+            		verified = db.searchSalespersonCredentials(retreviedEmail, retrievedPassword);
             		db.close();
             	}catch(SQLException ex) {
 
