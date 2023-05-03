@@ -294,55 +294,6 @@ public class CustomerGUI extends JFrame {
                 JOptionPane.showMessageDialog(null, "Email could not be updated");
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        if (inputEmailAddress.equals("")) {
-            JOptionPane.showMessageDialog(null, "Invalid input");
-            new SalesmanGUI();
-        } else {
-            //update email on database
-            boolean completed = false;
-            try {
-                DatabaseManager db = new DatabaseManager();
-                completed = db.updateEmail(searchCustomer.getId(), inputEmailAddress);
-                db.close();
-            } catch (Exception ex) {
-                System.out.println("Error connecting to database");
-            }
-
-            if (completed) {
-                JOptionPane.showMessageDialog(null, "Email was Successfully Updated");
-                searchCustomer.setEmail(inputEmailAddress);
-                new SalesmanGUI();
-            } else {
-                JOptionPane.showMessageDialog(null, "Email could not be updated");
-                new SalesmanGUI();
-            }
-        }
-
     }
 
     public void EditSubscription(String newSubscription){
