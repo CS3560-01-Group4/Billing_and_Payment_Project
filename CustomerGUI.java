@@ -255,7 +255,6 @@ public class CustomerGUI extends JFrame {
     public static void EditEmailAddress(Customer searchCustomer) {
         String inputEmailAddress = JOptionPane.showInputDialog("Enter new email");
 
-<<<<<<< HEAD
         if (inputEmailAddress == null || inputEmailAddress.equals("")) {
             JOptionPane.showMessageDialog(null, "Invalid input");
         }
@@ -302,7 +301,7 @@ public class CustomerGUI extends JFrame {
 
 
 
-=======
+
         if (inputEmailAddress.equals("")) {
             JOptionPane.showMessageDialog(null, "Invalid input");
             new SalesmanGUI();
@@ -326,7 +325,7 @@ public class CustomerGUI extends JFrame {
                 new SalesmanGUI();
             }
         }
->>>>>>> 32c0b79b9a95db87541fb28f86f54a1946dc02bf
+
     }
 
     public void EditSubscription(String newSubscription){
