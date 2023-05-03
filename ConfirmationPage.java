@@ -28,8 +28,9 @@ public class ConfirmationPage extends JFrame{
         this.setContentPane(ConfirmationPage);
         this.setTitle("Confirmation");
         this.setIconImage(new ImageIcon("31-hour.png").getImage());
-        this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(600, 600);
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
         textField1.setText(SignUpPage.inputName);
         textField2.setText(SignUpPage.inputEmail);
@@ -190,7 +191,7 @@ public class ConfirmationPage extends JFrame{
                     textField8.setBackground(new Color(255, 102, 102));
                 else
                     textField8.setBackground(Color.white);
-                if (Integer.parseInt(textField12.getText()) < 22 || Integer.parseInt(textField12.getText()) > 31)
+                if (Integer.parseInt(textField12.getText()) < 23 || Integer.parseInt(textField12.getText()) > 31)
                     textField12.setBackground(new Color(255, 102, 102));
                 else
                     textField12.setBackground(Color.white);

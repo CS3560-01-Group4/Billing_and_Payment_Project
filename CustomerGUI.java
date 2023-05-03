@@ -12,7 +12,7 @@ public class CustomerGUI extends JFrame {
     JMenu Edit, Purchase, View, LogOut, cancel, Add;
     JMenuItem editName, editAddress, editAddons, editEmailAddress, membership, editPassword, editCreditCardInfo, cancelItem;
     JMenuItem viewAccountInfo, viewSubscriptions, viewCardInfo;
-
+    boolean isSubscriber = false;
     JMenuItem AddAddons;
 
 
@@ -58,6 +58,7 @@ public class CustomerGUI extends JFrame {
                 cancel = new JMenu("Subscription");
                 cancel.add(cancelItem);
                 menuBar.add(cancel);
+                isSubscriber = true;
             }
             db.close();
         } catch (Exception ex) {
@@ -148,13 +149,17 @@ public class CustomerGUI extends JFrame {
         AddAddons.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    setAddAddons(customer);
-                    dispose();
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
+                if(isSubscriber) {
+                    try {
+                        setAddAddons(customer);
+                        dispose();
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
-
+                else {
+                    JOptionPane.showMessageDialog(null, "You must be a Subscriber to purchase addons");
+                }
             }
         });
 

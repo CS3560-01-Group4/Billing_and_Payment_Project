@@ -24,9 +24,10 @@ public class viewCustomerCardInfo extends JFrame{
         this.setContentPane(viewCCInfoPanel);
         this.setTitle("Account Information");
         this.setIconImage(new ImageIcon("31-hour.png").getImage());
-        this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(600, 600);
         this.setVisible(true);
+        this.setLocationRelativeTo(null);
 
 
 

@@ -27,10 +27,10 @@ public class CreditPage extends JFrame {
         this.setContentPane(CreditPage);
         this.setTitle("Enter Credit Information");
         this.setIconImage(new ImageIcon("31-hour.png").getImage());
-        this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setVisible(true);
+        this.setSize(600, 600);
         this.setLocationRelativeTo(null);
+        this.setVisible(true);
 
         month.addKeyListener(new KeyAdapter() {
             @Override
@@ -109,6 +109,7 @@ public class CreditPage extends JFrame {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                new CSLoginPage();
                 dispose();
             }
         });
@@ -121,8 +122,9 @@ public class CreditPage extends JFrame {
         this.setContentPane(CreditPage);
         this.setTitle("Enter Credit Information");
         this.setIconImage(new ImageIcon("31-hour.png").getImage());
-        this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(600, 600);
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
 
         month.addKeyListener(new KeyAdapter() {
@@ -151,7 +153,7 @@ public class CreditPage extends JFrame {
                 char c = e.getKeyChar();
                 if (!Character.isDigit(c))
                     e.consume();
-                if (4 == csv.getText().length())
+                if (3 == csv.getText().length())
                     e.consume();
             }
         });
@@ -173,7 +175,8 @@ public class CreditPage extends JFrame {
                 inputCSV = String.valueOf(csv.getPassword());
                 inputDate = date.getText();
                 inputMonth = month.getText();
-                if(Integer.parseInt(inputDate) > 31)
+                System.out.println(inputDate);
+                if(Integer.parseInt(inputDate) > 31 || Integer.parseInt(inputDate) < 23)
                     date.setBackground(new Color(255, 102, 102));
                 else
                     date.setBackground(Color.white);
@@ -186,7 +189,7 @@ public class CreditPage extends JFrame {
                     cardNumber.setBackground(new Color(255, 102, 102));
                 else
                     cardNumber.setBackground(Color.white);
-                if(Integer.parseInt(inputMonth) >12 ||Integer.parseInt(inputDate) > 31 || inputCard.length() < 16)
+                if(Integer.parseInt(inputMonth) >12 ||Integer.parseInt(inputDate) > 31 || Integer.parseInt(inputDate) < 23 || inputCard.length() < 16)
                     JOptionPane.showMessageDialog(CreditPage, "Invalid input");
                 else{
                     try {
@@ -212,7 +215,12 @@ public class CreditPage extends JFrame {
         });
 
 
-
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
 
     }
 }

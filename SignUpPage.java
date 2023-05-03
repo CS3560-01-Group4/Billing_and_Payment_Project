@@ -1,4 +1,3 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -26,6 +25,7 @@ public class SignUpPage extends JFrame {
     private JLabel phoneNumberLabel;
     private JButton nextButton;
     private JCheckBox showPasswordCheckBox;
+    private JButton backButton;
     static String inputName, inputEmail, inputAddress, inputCity, inputZip, inputState, inputPassword,
     inputPhone;
 
@@ -34,9 +34,10 @@ public class SignUpPage extends JFrame {
         this.setContentPane(SignUpPage);
         this.setTitle("Create A New Account");
         this.setIconImage(new ImageIcon("31-hour.png").getImage());
-        this.setSize(600,600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(600,600);
         this.setVisible(true);
+        this.setLocationRelativeTo(null);
         //setup labels and text fields and buttons
 
         
@@ -152,6 +153,13 @@ public class SignUpPage extends JFrame {
                 password.setEchoChar((char)0);
                 if(!showPasswordCheckBox.isSelected())
                     password.setEchoChar('*');
+            }
+        });
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CSLoginPage();
+                dispose();
             }
         });
     }
