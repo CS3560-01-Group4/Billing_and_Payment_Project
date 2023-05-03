@@ -10,13 +10,13 @@ public class addAddon extends JFrame{
     private JTable addonsTable;
     private JButton purchaseButton;
     private JPanel addAddonWindow;
-    private JScrollPane jScrollPane1;
 
     boolean addonSelected;
 
     private int total, addonIDint;
 
     private int memberID;
+    private Integer addonID;
     private Addon chosenAddon;
 
     private String AddonType,AddonID, nameTrainer, price;
@@ -48,9 +48,9 @@ public class addAddon extends JFrame{
                  */
                 if(e.getValueIsAdjusting() && addonsTable.getSelectedRow() !=-1 ){
                     AddonType =(String) model.getValueAt(row,0);
-                    AddonID = (String) model.getValueAt(row,1);
+                    addonID = (Integer) model.getValueAt(row,1);
                     nameTrainer = (String) model.getValueAt(row, 2);
-                    addonIDint = Integer.parseInt(AddonID);
+
                     addonSelected = true;
 
                     System.out.println(model.getValueAt(row,0));
@@ -75,7 +75,7 @@ public class addAddon extends JFrame{
                 if(addonSelected){
                     try {
                         DatabaseManager db = new DatabaseManager();
-                        chosenAddon = db.getAddon(Integer.parseInt(AddonID));
+                        chosenAddon = db.getAddon(addonID.intValue());
                         total += chosenAddon.getPrice();
 
 
@@ -95,7 +95,7 @@ public class addAddon extends JFrame{
 
 
                     for(int i = 0; i < db.getAddons(existingMembership).length; i++){
-                        if(addonIDint == addons[i].getAddonID() && AddonType.equals(addons[i].getName()) ){
+                        if(addonID.intValue() == addons[i].getAddonID() && AddonType.equals(addons[i].getName()) ){
                             JOptionPane.showMessageDialog(null, "You cannot add a duplicate of the same addon! Select a different addon.");
                             dispose();
                             db.close();
