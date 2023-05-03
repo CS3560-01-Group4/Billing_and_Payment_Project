@@ -61,7 +61,6 @@ public class CustomerGUI extends JFrame {
 
         Edit.add(editName = new JMenuItem("Edit Name"));
         Edit.add(editAddress = new JMenuItem("Edit Address"));
-        Edit.add(editAddons = new JMenuItem("Edit Addons"));
         Edit.add(editEmailAddress = new JMenuItem("Edit Email"));
         Edit.add(editPassword = new JMenuItem("Edit Password"));
         Edit.add(editCreditCardInfo = new JMenuItem("Edit Credit Card Info"));
@@ -141,7 +140,12 @@ public class CustomerGUI extends JFrame {
         AddAddons.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addAddon addingAddons = new addAddon(customer);
+                try {
+                    setAddAddons(customer);
+                    dispose();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
 
             }
         });
@@ -152,6 +156,7 @@ public class CustomerGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Clicked");
                 PurchasePage purchase = new PurchasePage(customer);
+                dispose();
             }
         });
         editName.addActionListener(new ActionListener() {
@@ -177,13 +182,7 @@ public class CustomerGUI extends JFrame {
                 }
             }
         });
-        editAddons.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //TODO launch edit subscription window
-                //eventually you should call EditSubscription()
-            }
-        });
+
         editEmailAddress.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -378,6 +377,10 @@ public class CustomerGUI extends JFrame {
     public void setEditCreditCardInfo(Customer customer) throws SQLException{
         CreditPage creditPage = new CreditPage(customer);
 
+    }
+
+    public void setAddAddons(Customer customer) throws SQLException{
+        addAddon addAddons = new addAddon(customer);
     }
 
 

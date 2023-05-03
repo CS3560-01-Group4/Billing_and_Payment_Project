@@ -27,26 +27,26 @@ public class CSLoginPage extends JFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	Customer validCustomer = null;
-            	//save the typed-in username and password
-            	retrievedEmail = emailField.getText();
+                Customer validCustomer = null;
+                //save the typed-in username and password
+                retrievedEmail = emailField.getText();
                 retrievedPassword = String.valueOf(passwordField.getPassword());
                 //verify login with database
                 try {
-                	DatabaseManager db = new DatabaseManager();
-                	validCustomer = db.getCustomerCredentials(retrievedEmail, retrievedPassword);
-                	db.close();
+                    DatabaseManager db = new DatabaseManager();
+                    validCustomer = db.getCustomerCredentials(retrievedEmail, retrievedPassword);
+                    db.close();
                 }catch (Exception ex) {
-                	System.out.println(ex);
+                    System.out.println(ex);
                 }
-            	//launch customer GUI
+                //launch customer GUI
                 if(validCustomer != null) {
-                	dispose();
-                	CustomerGUI cGUI = new CustomerGUI(validCustomer);
+                    dispose();
+                    CustomerGUI cGUI = new CustomerGUI(validCustomer);
                 }else {
-                	JOptionPane.showMessageDialog(null, "Incorrect Login Credentials \nPlease Try Again");
+                    JOptionPane.showMessageDialog(null, "Incorrect Login Credentials \nPlease Try Again");
                 }
-            	
+
             }
 
         });
