@@ -202,7 +202,7 @@ public class DatabaseManager {
 		boolean verified = false;
 		String sql = "select * from Account join systemadmin " +
 				"on Account.accountID = systemadmin.Account_accountID " +
-				"where  emailAddress=? and password=? and systemadmin.Account_accountID=11;";
+				"where  emailAddress=? and password=? and systemadmin.Account_accountID=52;";
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setString(1, email);
@@ -693,6 +693,17 @@ public class DatabaseManager {
 		return cost;
 	}
 
+	public void setMonthlyCost(double newPrice) {
+		String sql = "update Membership set price=? where name='monthly';";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setDouble(1,newPrice);
+			statement.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	//returns the yearly cost from the Membership table
 	public double getYearlyCost() {
 		double cost = 0;
@@ -707,5 +718,16 @@ public class DatabaseManager {
 			e.printStackTrace();
 		}
 		return cost;
+	}
+
+	public void setYearlyCost(double newPrice) {
+		String sql = "update Membership set price=? where name='yearly';";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setDouble(1,newPrice);
+			statement.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
