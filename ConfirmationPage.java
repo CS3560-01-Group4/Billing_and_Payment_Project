@@ -83,7 +83,7 @@ public class ConfirmationPage extends JFrame{
                 char c = e.getKeyChar();
                 if (!Character.isDigit(c))
                     e.consume();
-                if (4 == textField10.getText().length())
+                if (3 == textField10.getText().length())
                     e.consume();
             }
         });
@@ -174,7 +174,7 @@ public class ConfirmationPage extends JFrame{
                     textField4.setBackground(new Color(255, 102, 102));
                 else
                     textField4.setBackground(Color.white);
-                if (textField5.equals("") || textField5.getText().length() > 5)
+                if (textField5.equals("") || textField5.getText().length() > 5 || textField5.getText().length() < 5)
                     textField5.setBackground(new Color(255, 102, 102));
                 else
                     textField5.setBackground(Color.white);
@@ -207,9 +207,9 @@ public class ConfirmationPage extends JFrame{
                 else
                     textField9.setBackground(Color.white);
                 if (Integer.parseInt(textField11.getText()) > 12 || Integer.parseInt(textField12.getText()) > 31 || Integer.parseInt(textField12.getText()) < 23 || textField9.getText().length() < 16
-                        || textField10.getText().length() < 4 || textField1.getText().equals("") || textField2.getText().equals("") || textField3.getText().equals("")
+                        || textField10.getText().length() < 3 || textField1.getText().equals("") || textField2.getText().equals("") || textField3.getText().equals("")
                         || textField4.getText().equals("") || textField5.getText().equals("") || textField6.getText().equals("") || textField7.getText().equals("")
-                        || textField8.getText().equals("") || textField5.getText().length() > 5 || textField6.getText().length() < 2 || textField7.getText().length() < 10)
+                        || textField8.getText().equals("") || textField5.getText().length() > 5 || textField5.getText().length() < 5 || textField6.getText().length() < 2 || textField7.getText().length() < 10)
                     JOptionPane.showMessageDialog(ConfirmationPage, "Invalid input");
                 else {
                     boolean valid = false;

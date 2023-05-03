@@ -94,6 +94,7 @@ public class addAddon extends JFrame{
                     Addon addons[] = db.getAddons(existingMembership);
 
 
+
                     for(int i = 0; i < db.getAddons(existingMembership).length; i++){
                         if(addonID.intValue() == addons[i].getAddonID() && AddonType.equals(addons[i].getName()) ){
                             JOptionPane.showMessageDialog(null, "You cannot add a duplicate of the same addon! Select a different addon.");
@@ -103,8 +104,8 @@ public class addAddon extends JFrame{
                     }
 
 
-                    db.saveEnrollment(memberID, membershipName, chosenAddon.getAddonID());
-                    db.saveSale(total, customer.getId(), memberID, membershipName);
+                    db.saveEnrollment(existingMembership.getMembershipID(), existingMembership.getName(), chosenAddon.getAddonID());
+                    db.saveSale(total, customer.getId(), existingMembership.getMembershipID(), existingMembership.getName());
                     JOptionPane.showMessageDialog(null, "Successfully Purchased");
                     new CustomerGUI(customer);
                     db.close();

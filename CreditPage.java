@@ -58,7 +58,7 @@ public class CreditPage extends JFrame {
                 char c = e.getKeyChar();
                 if (!Character.isDigit(c))
                     e.consume();
-                if (4 == csv.getText().length())
+                if (3 == csv.getText().length())
                     e.consume();
             }
         });

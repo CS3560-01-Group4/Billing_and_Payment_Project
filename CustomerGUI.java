@@ -215,28 +215,8 @@ public class CustomerGUI extends JFrame {
                 }
             }
         });
-
-
-
-
-
         this.setJMenuBar(menuBar);
         this.setVisible(true);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
 
@@ -272,9 +252,10 @@ public class CustomerGUI extends JFrame {
     }
 
 
-    public static void EditEmailAddress(Customer searchCustomer){
+    public static void EditEmailAddress(Customer searchCustomer) {
         String inputEmailAddress = JOptionPane.showInputDialog("Enter new email");
 
+<<<<<<< HEAD
         if (inputEmailAddress == null || inputEmailAddress.equals("")) {
             JOptionPane.showMessageDialog(null, "Invalid input");
         }
@@ -321,8 +302,32 @@ public class CustomerGUI extends JFrame {
 
 
 
-    }
+=======
+        if (inputEmailAddress.equals("")) {
+            JOptionPane.showMessageDialog(null, "Invalid input");
+            new SalesmanGUI();
+        } else {
+            //update email on database
+            boolean completed = false;
+            try {
+                DatabaseManager db = new DatabaseManager();
+                completed = db.updateEmail(searchCustomer.getId(), inputEmailAddress);
+                db.close();
+            } catch (Exception ex) {
+                System.out.println("Error connecting to database");
+            }
 
+            if (completed) {
+                JOptionPane.showMessageDialog(null, "Email was Successfully Updated");
+                searchCustomer.setEmail(inputEmailAddress);
+                new SalesmanGUI();
+            } else {
+                JOptionPane.showMessageDialog(null, "Email could not be updated");
+                new SalesmanGUI();
+            }
+        }
+>>>>>>> 32c0b79b9a95db87541fb28f86f54a1946dc02bf
+    }
 
     public void EditSubscription(String newSubscription){
         try{
@@ -332,7 +337,6 @@ public class CustomerGUI extends JFrame {
         }catch(Exception ex) {
             JOptionPane.showMessageDialog(null, "Failed to Update");
         }
-
     }
 
 
