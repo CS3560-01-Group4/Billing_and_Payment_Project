@@ -35,6 +35,7 @@ CREATE TABLE Address(
 
 CREATE TABLE Membership(
 	name VARCHAR(10),
+    price decimal(5,2),
     CONSTRAINT PK_name PRIMARY KEY(name)
 );
 
