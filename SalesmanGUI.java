@@ -92,8 +92,8 @@ public class SalesmanGUI extends JFrame {
         viewSubscriptions.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
                 new salesmanSearchCustomer(5);
+
             }
         });
 
@@ -116,9 +116,7 @@ public class SalesmanGUI extends JFrame {
     }
 
     public void setEditCustomerSubscription(){
-        /*
-        Update after we add DB functions to get the required info
-         */
+
 
     }
 }
