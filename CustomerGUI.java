@@ -357,33 +357,3 @@ public class CustomerGUI extends JFrame {
     public void setAddAddons(Customer customer) throws SQLException{
         addAddon addAddons = new addAddon(customer);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
