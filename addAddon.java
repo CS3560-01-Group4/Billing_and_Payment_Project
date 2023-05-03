@@ -6,34 +6,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-public class PurchasePage extends JFrame {
-    private JPanel PurchasePage;
-    private JRadioButton monthly;
-    private JRadioButton yearly;
-    private JCheckBox classAddon;
-    private JCheckBox trainerAddon;
-    private JButton makePaymentButton;
-    private JTable trainerTable;
+public class addAddon extends JFrame{
+    private JTable addonsTable;
+    private JButton purchaseButton;
+    private JPanel addAddonWindow;
+    private JScrollPane jScrollPane1;
 
+    boolean addonSelected;
 
-    private ButtonGroup group = new ButtonGroup();
-    public static int total;
+    private int total, addonIDint;
+
+    private int memberID;
+    private Addon chosenAddon;
+
     private String AddonType,AddonID, nameTrainer, price;
     private static String AddonTypes[] = {"Trainer", "Class"};
 
-    boolean addonSelected = false;
-    private Addon chosenAddon;
-
-
-
-    private int memberID;
-    private Addon addons[];
-
-
-    PurchasePage(Customer customer) {
-        
-        
-        this.setContentPane(PurchasePage);
+    addAddon(Customer customer){
+        this.setContentPane(addAddonWindow);
         this.setTitle("Select products");
         this.setIconImage(new ImageIcon("31-hour.png").getImage());
         this.setSize(1200, 600);
@@ -41,25 +31,28 @@ public class PurchasePage extends JFrame {
         this.setVisible(true);
         this.setLocationRelativeTo(null);
 
-        group.add(monthly);
-        group.add(yearly);
 
-        trainerTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+
+
+
+        addonsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                int row = trainerTable.getSelectedRow();
-                DefaultTableModel model = (DefaultTableModel) trainerTable.getModel();
-                addonSelected = true;
+                int row = addonsTable.getSelectedRow();
+                DefaultTableModel model = (DefaultTableModel) addonsTable.getModel();
+
                 /*
                 Prevents double event issue, wtf
 
                  */
-                if(e.getValueIsAdjusting() && trainerTable.getSelectedRow() !=-1 ){
+                if(e.getValueIsAdjusting() && addonsTable.getSelectedRow() !=-1 ){
                     AddonType =(String) model.getValueAt(row,0);
                     AddonID = (String) model.getValueAt(row,1);
                     nameTrainer = (String) model.getValueAt(row, 2);
+                    addonIDint = Integer.parseInt(AddonID);
+                    addonSelected = true;
 
-                    
                     System.out.println(model.getValueAt(row,0));
                     System.out.println(model.getValueAt(row,1));
                     System.out.println(model.getValueAt(row,2));
@@ -74,21 +67,10 @@ public class PurchasePage extends JFrame {
         });
 
 
-
-
-
-        makePaymentButton.addActionListener(new ActionListener() {
+        purchaseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String membershipName = "";
-                if(monthly.isSelected()){
-                    total += 40;
-                    membershipName = "monthly";
-                }
-                else if(yearly.isSelected()) {
-                    total += 480;
-                    membershipName = "yearly";
-                }
 
                 if(addonSelected){
                     try {
@@ -101,19 +83,27 @@ public class PurchasePage extends JFrame {
                         throw new RuntimeException(ex);
                     }
                 }
-                
+
 
 
 
                 //save to database
                 try {
                     DatabaseManager db = new DatabaseManager();
-                    memberID = db.createOwnedMembership(customer.getId(), membershipName);
+                    Membership existingMembership = db.getMembership(customer);
+                    Addon addons[] = db.getAddons(existingMembership);
+
+
+                    for(int i = 0; i < db.getAddons(existingMembership).length; i++){
+                        if(addonIDint == addons[i].getAddonID() && AddonType.equals(addons[i].getName()) ){
+                            JOptionPane.showMessageDialog(null, "You cannot add a duplicate of the same addon! Select a different addon.");
+                            dispose();
+                            db.close();
+                        }
+                    }
 
 
                     db.saveEnrollment(memberID, membershipName, chosenAddon.getAddonID());
-
-
                     db.saveSale(total, customer.getId(), memberID, membershipName);
                     JOptionPane.showMessageDialog(null, "Successfully Purchased");
                     new CustomerGUI(customer);
@@ -126,13 +116,19 @@ public class PurchasePage extends JFrame {
                 }
             }
         });
+
+
+
+
+
+
+
     }
 
-
-
     private void createUIComponents() {
+
         DefaultTableModel tableModel = new DefaultTableModel();
-        trainerTable = new JTable(tableModel);
+        addonsTable = new JTable(tableModel);
         PersonalTrainer[] trainers = new PersonalTrainer[0];
         Class[] classes = new Class[0];
         try {
@@ -150,6 +146,8 @@ public class PurchasePage extends JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "There are no trainers in the DB");
         }
+
+
 
 
         tableModel.addColumn("Addon");
@@ -171,12 +169,8 @@ public class PurchasePage extends JFrame {
         Make's cells uneditable by the user, doesn't allow for a user to fuck up
 
          */
-        trainerTable.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        trainerTable.setDefaultEditor(Object.class, null);
+        addonsTable.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        addonsTable.setDefaultEditor(Object.class, null);
 
     }
-
-
-
 }
-

@@ -6,9 +6,13 @@ import java.sql.SQLException;
 
 public class CustomerGUI extends JFrame {
     JMenuBar menuBar;
-    JMenu Edit, Purchase, View, LogOut, cancel;
+    JMenu Edit, Purchase, View, LogOut, cancel, Add;
     JMenuItem editName, editAddress, editAddons, editEmailAddress, membership, editPassword, editCreditCardInfo, cancelItem;
     JMenuItem viewAccountInfo, viewSubscriptions, viewCardInfo;
+
+    JMenuItem AddAddons;
+
+
     JMenuItem signOut;
     Customer customer = null;
 
@@ -67,6 +71,10 @@ public class CustomerGUI extends JFrame {
         View.add(viewSubscriptions = new JMenuItem("View Subscription"));
         View.add(viewCardInfo = new JMenuItem("View Credit Card Info"));
 
+        Add = new JMenu("Add");
+
+        Add.add(AddAddons = new JMenuItem("Add Addons"));
+
 
 
 
@@ -76,6 +84,7 @@ public class CustomerGUI extends JFrame {
         menuBar.add(Edit);
         menuBar.add(View);
         menuBar.add(LogOut);
+        menuBar.add(Add);
 
 
         editPassword.addActionListener(new ActionListener() {
@@ -126,6 +135,14 @@ public class CustomerGUI extends JFrame {
                     dispose();
                     new CustomerGUI(customer);//To refresh menu
                 }catch (Exception ex) { }
+            }
+        });
+
+        AddAddons.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addAddon addingAddons = new addAddon(customer);
+
             }
         });
 
@@ -309,8 +326,7 @@ public class CustomerGUI extends JFrame {
         try{
             DatabaseManager db = new DatabaseManager();
             db.editSubscription(customer.getId(), newSubscription);
-            //db.editAddon();
-            //db.saveSale();
+
         }catch(Exception ex) {
             JOptionPane.showMessageDialog(null, "Failed to Update");
         }

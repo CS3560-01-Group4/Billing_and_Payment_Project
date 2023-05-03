@@ -102,8 +102,8 @@ public class CreditPage extends JFrame {
     }
 
     CreditPage(Customer customer) throws SQLException {
-        url   = "jdbc:mysql://" + "containers-us-west-34.railway.app" + ":" + 5939 + "/" + "gymmembership";
-        connection = DriverManager.getConnection(url, "root", "91laqZk1CB5VM13WltEE");;
+        url   = "jdbc:mysql://" + "containers-us-west-40.railway.app" + ":" + 7265 + "/" + "railway";
+        connection = DriverManager.getConnection(url, "root", "8Z3hMtzzWjjpS2u0tkxd");;
 
         this.setContentPane(CreditPage);
         this.setTitle("Enter Credit Information");

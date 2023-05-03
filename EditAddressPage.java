@@ -18,9 +18,9 @@ public class EditAddressPage extends JFrame {
     private JTextField address;
     private JButton Update;
     boolean completed = false;
-    String url = "jdbc:mysql://" + "containers-us-west-34.railway.app" + ":" + 5939 + "/" + "gymmembership";
+    String url = "jdbc:mysql://" + "containers-us-west-40.railway.app" + ":" + 7265 + "/" + "railway";
 
-    private Connection connection = DriverManager.getConnection(url, "root", "91laqZk1CB5VM13WltEE");;
+    private Connection connection = DriverManager.getConnection(url, "root", "8Z3hMtzzWjjpS2u0tkxd");;
 
     EditAddressPage(Customer customer) throws SQLException {
         this.setContentPane(EditAddressPage);
