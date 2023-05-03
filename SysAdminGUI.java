@@ -7,9 +7,6 @@ import java.sql.SQLException;
 
 public class SysAdminGUI extends JFrame {
 
-    public static void main(String[] args) {
-        new SysAdminGUI();
-    }
 
     JMenuBar menuBar;
     JMenu Edit, View, LogOut;
