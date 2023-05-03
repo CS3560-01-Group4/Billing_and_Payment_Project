@@ -677,7 +677,7 @@ public class DatabaseManager {
 	//returns the monthly cost from the Membership table
 	public double getMonthlyCost() {
 		double cost = 0;
-		String sql = "select * from Membership where name=monthly;";
+		String sql = "select * from Membership where name='monthly';";
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
 			ResultSet rs = statement.executeQuery();
@@ -693,7 +693,7 @@ public class DatabaseManager {
 	//returns the yearly cost from the Membership table
 	public double getYearlyCost() {
 		double cost = 0;
-		String sql = "select * from Membership where name=yearly;";
+		String sql = "select * from Membership where name='yearly';";
 		try {
 			PreparedStatement statement = connection.prepareStatement(sql);
 			ResultSet rs = statement.executeQuery();

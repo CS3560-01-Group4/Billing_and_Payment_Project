@@ -61,7 +61,6 @@ public class CustomerGUI extends JFrame {
 
         Edit.add(editName = new JMenuItem("Edit Name"));
         Edit.add(editAddress = new JMenuItem("Edit Address"));
-        Edit.add(editAddons = new JMenuItem("Edit Addons"));
         Edit.add(editEmailAddress = new JMenuItem("Edit Email"));
         Edit.add(editPassword = new JMenuItem("Edit Password"));
         Edit.add(editCreditCardInfo = new JMenuItem("Edit Credit Card Info"));
@@ -182,13 +181,7 @@ public class CustomerGUI extends JFrame {
                 }
             }
         });
-        editAddons.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //TODO launch edit subscription window
-                //eventually you should call EditSubscription()
-            }
-        });
+
         editEmailAddress.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
