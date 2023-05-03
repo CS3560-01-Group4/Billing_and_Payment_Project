@@ -317,6 +317,9 @@ public class DatabaseManager {
 		}
 	}
 
+
+
+
 	//given the customer accountID and the membershipName, create/insert a new ownedMemberhsip and return the ownedMembershipID
 	public int createOwnedMembership(int custID, String membershipName) {
 		int memberID = 0;
@@ -537,7 +540,7 @@ public class DatabaseManager {
 				addon = new Class(name, price, classDate, timeSlot, instructorName, classLength, addonID);
 
 			}else {//not a class, but a personal trainer
-				sql = "select * from PersonalTrainer where addonID=?;";
+				sql = "select * from PersonalTrainer where Addon_addonID=?;";
 				PreparedStatement stmt = connection.prepareStatement(sql);
 				stmt.setInt(1,addonID);
 				rs = stmt.executeQuery();
