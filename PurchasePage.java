@@ -114,7 +114,6 @@ public class PurchasePage extends JFrame {
                     db.saveEnrollment(memberID, membershipName, chosenAddon.getAddonID());
                     db.saveSale(total, customer.getId(), memberID, membershipName);
                     JOptionPane.showMessageDialog(null, "Successfully Purchased");
-                    new CustomerGUI(customer);
                     db.close();
                     dispose();
                 }catch(Exception ex) {

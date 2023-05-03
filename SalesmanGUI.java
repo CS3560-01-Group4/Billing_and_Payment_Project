@@ -1,15 +1,18 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.sql.SQLException;
 
 public class SalesmanGUI extends JFrame {
     JMenuBar menuBar;
     JMenu Edit, View, LogOut;
-    JMenuItem  editCustomerAddress, editCustomerSubscription, editEmailAddress;
+    JMenuItem  editCustomerAddress, editCustomerSubscription, editEmailAddress, editCancelMembership;
     JMenuItem viewAccountInfo, viewSubscriptions;
 
     JMenuItem signOut;
@@ -23,13 +26,27 @@ public class SalesmanGUI extends JFrame {
         this.setTitle("Sales Person account");
         this.setLayout(new FlowLayout());
 
+
+        Font f = new Font("sans-serif", Font.BOLD, 20);
+        UIManager.put("Menu.font", f);
+        UIManager.put("MenuItem.font", f);
+
+        try {
+            BufferedImage myPicture = ImageIO.read(new File("interior.jpg"));
+            JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+            add(picLabel);
+        } catch (Exception e) {
+            ;
+        }
+
         menuBar = new JMenuBar();
         Edit = new JMenu("Edit");
         View = new JMenu("View");
         LogOut = new JMenu("Sign out");
 
         editCustomerAddress = new JMenuItem("Customer Address");
-        editCustomerSubscription = new JMenuItem("Customer Subscription");
+        editCustomerSubscription = new JMenuItem("Customer Purchase Subscription");
+        editCancelMembership = new JMenuItem("Cancel Subscription");
         editEmailAddress = new JMenuItem("Customer Email Address");
 
         viewAccountInfo = new JMenuItem("Account Info");
@@ -38,6 +55,7 @@ public class SalesmanGUI extends JFrame {
 
         Edit.add(editCustomerAddress);
         Edit.add(editCustomerSubscription);
+        Edit.add(editCancelMembership);
         Edit.add(editEmailAddress);
 
         View.add(viewAccountInfo);
@@ -70,7 +88,6 @@ public class SalesmanGUI extends JFrame {
         editCustomerSubscription.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
                 new salesmanSearchCustomer(4);
             }
         });
@@ -79,6 +96,13 @@ public class SalesmanGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 salesmanSearchCustomer viewAccount = new salesmanSearchCustomer(3);
+            }
+        });
+
+        editCancelMembership.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                salesmanSearchCustomer cancelAccount = new salesmanSearchCustomer(6);
             }
         });
 

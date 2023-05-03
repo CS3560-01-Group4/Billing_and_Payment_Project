@@ -105,7 +105,6 @@ public class EditAddressPage extends JFrame {
                         JOptionPane.showMessageDialog(null, "Error");
                     }
                 }
-                new CustomerGUI(customer);
                 dispose();
             }
         });

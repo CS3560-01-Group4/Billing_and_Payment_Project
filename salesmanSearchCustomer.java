@@ -63,6 +63,7 @@ public class salesmanSearchCustomer extends JFrame {
                                 EditAddressPage edit = new EditAddressPage(searchCustomer);
                                 break;
                             case 3:
+                                dispose();
                                 CustomerGUI.EditEmailAddress(searchCustomer);
                                 break;
                             case 4:
@@ -72,6 +73,11 @@ public class salesmanSearchCustomer extends JFrame {
                             case 5:
                                 dispose();
                                 new ViewSubscriptionGUI(searchCustomer);
+                                break;
+                            case 6:
+                                dispose();
+                                dbConnection.cancelSubscription(searchCustomer);
+                                JOptionPane.showMessageDialog(null, "Succesfully canceled Subscription");
                                 break;
                         }
                     }
@@ -88,7 +94,6 @@ public class salesmanSearchCustomer extends JFrame {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SalesmanGUI back = new SalesmanGUI();
                 dispose();
             }
         });

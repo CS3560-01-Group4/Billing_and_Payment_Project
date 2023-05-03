@@ -169,7 +169,6 @@ public class CustomerGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Clicked");
                 PurchasePage purchase = new PurchasePage(customer);
-                dispose();
             }
         });
         editName.addActionListener(new ActionListener() {
@@ -257,7 +256,6 @@ public class CustomerGUI extends JFrame {
 
     public void EditAddress(Customer customer) throws SQLException {
         EditAddressPage editAddress = new EditAddressPage(customer);
-        dispose();
     }
 
 
