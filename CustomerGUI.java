@@ -20,15 +20,9 @@ public class CustomerGUI extends JFrame {
     Customer customer = null;
 
 
-
-
-
-
-
-
-    CustomerGUI(Customer customer){
+    CustomerGUI(Customer customer) {
         this.customer = customer;
-        this.setSize(600,600);
+        this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLayout(new FlowLayout());
         this.setIconImage(new ImageIcon("31-hour.png").getImage());
@@ -42,7 +36,7 @@ public class CustomerGUI extends JFrame {
             BufferedImage myPicture = ImageIO.read(new File("interior.jpg"));
             JLabel picLabel = new JLabel(new ImageIcon(myPicture));
             add(picLabel);
-        }catch(Exception e) {
+        } catch (Exception e) {
             ;
         }
 
@@ -56,24 +50,22 @@ public class CustomerGUI extends JFrame {
         try {
             DatabaseManager db = new DatabaseManager();
             int memberID = db.getMemberID(customer);
-            if(memberID == -1 || !db.getMembershipStatus(memberID)) {
+            if (memberID == -1 || !db.getMembershipStatus(memberID)) {
                 Purchase = new JMenu("Purchase");
                 Purchase.add(membership);
                 menuBar.add(Purchase);
-            }else {
+            } else {
                 cancel = new JMenu("Subscription");
                 cancel.add(cancelItem);
                 menuBar.add(cancel);
             }
             db.close();
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 
         View = new JMenu("View");
         LogOut = new JMenu("Log out");
-
-
 
 
         Edit.add(editName = new JMenuItem("Edit Name"));
@@ -93,15 +85,12 @@ public class CustomerGUI extends JFrame {
         LogOut.add(signOut = new JMenuItem("Sign Out"));
 
 
-
-
         menuBar.add(Edit);
         menuBar.add(View);
         menuBar.add(LogOut);
         menuBar.add(Add);
 
         //menuBar.setLayout(new GridBagLayout());
-
 
 
         editPassword.addActionListener(new ActionListener() {
@@ -114,7 +103,7 @@ public class CustomerGUI extends JFrame {
 
         viewCardInfo.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e){
+            public void actionPerformed(ActionEvent e) {
 
                 try {
                     setViewCardInfo(customer);
@@ -151,7 +140,8 @@ public class CustomerGUI extends JFrame {
                     JOptionPane.showMessageDialog(null, "Your Subscription is canceled");
                     dispose();
                     new CustomerGUI(customer);//To refresh menu
-                }catch (Exception ex) { }
+                } catch (Exception ex) {
+                }
             }
         });
 
@@ -211,10 +201,9 @@ public class CustomerGUI extends JFrame {
         viewAccountInfo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try{
+                try {
                     ViewAccountInfo(customer);
-                }
-                catch (SQLException exception){
+                } catch (SQLException exception) {
                     exception.printStackTrace();
                 }
             }
@@ -224,10 +213,9 @@ public class CustomerGUI extends JFrame {
         viewSubscriptions.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try{
+                try {
                     new ViewSubscriptionGUI(customer);
-                }
-                catch (Exception exception){
+                } catch (Exception exception) {
                     exception.printStackTrace();
                 }
             }
@@ -237,12 +225,11 @@ public class CustomerGUI extends JFrame {
     }
 
 
-    public void EditName(){
+    public void EditName() {
         String inputName = JOptionPane.showInputDialog("Enter new name");
-        if (inputName == null || inputName.equals("")){
+        if (inputName == null || inputName.equals("")) {
             JOptionPane.showMessageDialog(null, "Invalid input");
-        }
-        else {
+        } else {
 
             //update database
             boolean completed = false;
@@ -274,8 +261,7 @@ public class CustomerGUI extends JFrame {
 
         if (inputEmailAddress == null || inputEmailAddress.equals("")) {
             JOptionPane.showMessageDialog(null, "Invalid input");
-        }
-        else {
+        } else {
 
             //update email on database
             boolean completed = false;
@@ -296,24 +282,23 @@ public class CustomerGUI extends JFrame {
         }
     }
 
-    public void EditSubscription(String newSubscription){
-        try{
+    public void EditSubscription(String newSubscription) {
+        try {
             DatabaseManager db = new DatabaseManager();
             db.editSubscription(customer.getId(), newSubscription);
 
-        }catch(Exception ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Failed to Update");
         }
     }
 
 
-    public void setEditPassword(){
+    public void setEditPassword() {
         String inputPassword = JOptionPane.showInputDialog("Enter new password");
 
         if (inputPassword == null || inputPassword.equals("")) {
             JOptionPane.showMessageDialog(null, "Invalid input");
-        }
-        else {
+        } else {
             //update email on database
             boolean completed = false;
             try {
@@ -337,23 +322,24 @@ public class CustomerGUI extends JFrame {
     /*
     This code will break when the account email or the password are updated, so we need to get the new passwords if they have changed.
      */
-    public void ViewAccountInfo( Customer customer) throws SQLException{
+    public void ViewAccountInfo(Customer customer) throws SQLException {
 
         viewCustomerAccount viewAcct = new viewCustomerAccount(customer);
 
     }
 
 
-    public void setViewCardInfo(Customer customer ) throws SQLException{
+    public void setViewCardInfo(Customer customer) throws SQLException {
 
         viewCustomerCardInfo viewCard = new viewCustomerCardInfo(customer);
     }
 
 
-    public void setEditCreditCardInfo(Customer customer) throws SQLException{
+    public void setEditCreditCardInfo(Customer customer) throws SQLException {
         CreditPage creditPage = new CreditPage(customer);
     }
 
-    public void setAddAddons(Customer customer) throws SQLException{
+    public void setAddAddons(Customer customer) throws SQLException {
         addAddon addAddons = new addAddon(customer);
     }
+}
