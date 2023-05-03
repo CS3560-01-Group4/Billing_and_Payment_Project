@@ -1,7 +1,10 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.sql.SQLException;
 
 public class CustomerGUI extends JFrame {
@@ -30,6 +33,19 @@ public class CustomerGUI extends JFrame {
         this.setLayout(new FlowLayout());
         this.setIconImage(new ImageIcon("31-hour.png").getImage());
         this.setLocationRelativeTo(null);
+
+        Font f = new Font("sans-serif", Font.BOLD, 20);
+        UIManager.put("Menu.font", f);
+        UIManager.put("MenuItem.font", f);
+
+        try {
+            BufferedImage myPicture = ImageIO.read(new File("interior.jpg"));
+            JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+            add(picLabel);
+        }catch(Exception e) {
+            ;
+        }
+
 
         menuBar = new JMenuBar();
         Edit = new JMenu("Edit");
@@ -74,17 +90,18 @@ public class CustomerGUI extends JFrame {
         Add = new JMenu("Add");
 
         Add.add(AddAddons = new JMenuItem("Add Addons"));
-
-
-
-
         LogOut.add(signOut = new JMenuItem("Sign Out"));
+
+
 
 
         menuBar.add(Edit);
         menuBar.add(View);
         menuBar.add(LogOut);
         menuBar.add(Add);
+
+        //menuBar.setLayout(new GridBagLayout());
+
 
 
         editPassword.addActionListener(new ActionListener() {
@@ -248,6 +265,7 @@ public class CustomerGUI extends JFrame {
 
     public void EditAddress(Customer customer) throws SQLException {
         EditAddressPage editAddress = new EditAddressPage(customer);
+        dispose();
     }
 
 
@@ -258,6 +276,7 @@ public class CustomerGUI extends JFrame {
             JOptionPane.showMessageDialog(null, "Invalid input");
         }
         else {
+
             //update email on database
             boolean completed = false;
             try {
@@ -270,6 +289,7 @@ public class CustomerGUI extends JFrame {
 
             if (completed) {
                 JOptionPane.showMessageDialog(null, "Email was Successfully Updated");
+                searchCustomer.setEmail(inputEmailAddress);
             } else {
                 JOptionPane.showMessageDialog(null, "Email could not be updated");
             }
@@ -337,33 +357,3 @@ public class CustomerGUI extends JFrame {
     public void setAddAddons(Customer customer) throws SQLException{
         addAddon addAddons = new addAddon(customer);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
