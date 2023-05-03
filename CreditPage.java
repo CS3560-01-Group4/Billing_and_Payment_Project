@@ -55,7 +55,7 @@ public class CreditPage extends JFrame {
                 char c = e.getKeyChar();
                 if (!Character.isDigit(c))
                     e.consume();
-                if (3 == csv.getText().length())
+                if (4 == csv.getText().length())
                     e.consume();
             }
         });
@@ -77,20 +77,24 @@ public class CreditPage extends JFrame {
                 inputCSV = String.valueOf(csv.getPassword());
                 inputDate = date.getText();
                 inputMonth = month.getText();
-                if(Integer.parseInt(inputDate) > 31)
+                if (Integer.parseInt(inputDate) < 22 || Integer.parseInt(inputDate) > 31)
                     date.setBackground(new Color(255, 102, 102));
                 else
                     date.setBackground(Color.white);
-                if(Integer.parseInt(inputMonth) >12)
+                if (Integer.parseInt(inputMonth) > 12)
                     month.setBackground(new Color(255, 102, 102));
                 else
                     month.setBackground(Color.white);
-
-                if(inputCard.length() < 16)
+                if (csv.getText().length() < 3)
+                    csv.setBackground(new Color(255, 102, 102));
+                else
+                    csv.setBackground(Color.white);
+                if (inputCard.length() < 16)
                     cardNumber.setBackground(new Color(255, 102, 102));
                 else
                     cardNumber.setBackground(Color.white);
-                if(Integer.parseInt(inputMonth) >12 ||Integer.parseInt(inputDate) > 31 || inputCard.length() < 16)
+                if (Integer.parseInt(inputMonth) > 12 || Integer.parseInt(inputDate) > 31 || inputCard.length() < 16
+            || inputCSV.length() < 3)
                     JOptionPane.showMessageDialog(CreditPage, "Invalid input");
                 else{
                     ConfirmationPage ConfirmationPage = new ConfirmationPage();
@@ -138,7 +142,7 @@ public class CreditPage extends JFrame {
                 char c = e.getKeyChar();
                 if (!Character.isDigit(c))
                     e.consume();
-                if (3 == csv.getText().length())
+                if (4 == csv.getText().length())
                     e.consume();
             }
         });

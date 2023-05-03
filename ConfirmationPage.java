@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 
 public class ConfirmationPage extends JFrame{
@@ -19,6 +21,7 @@ public class ConfirmationPage extends JFrame{
     private JTextField textField10;
     private JTextField textField11;
     private JTextField textField12;
+    String[] emails = {"gmail.com","outlook.com","hotmail.com", "cpp.edu", "icloud.com","yahoo.com"};
 
 
     ConfirmationPage(){
@@ -54,33 +57,195 @@ public class ConfirmationPage extends JFrame{
         CreditPage.inputMonth = textField11.getText();
         CreditPage.inputDate = textField12.getText();
 
+        textField11.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c))
+                    e.consume();
+                if (2 == textField11.getText().length())
+                    e.consume();
+            }
+        });
+        textField12.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c))
+                    e.consume();
+                if (2 == textField12.getText().length())
+                    e.consume();
+            }
+        });
+        textField10.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c))
+                    e.consume();
+                if (4 == textField10.getText().length())
+                    e.consume();
+            }
+        });
+        textField9.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c))
+                    e.consume();
+                if (16 == textField9.getText().length())
+                    e.consume();
+            }
+        });
+        textField5.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if(!Character.isDigit(c))
+                    e.consume();
+                if(5 == textField5.getText().length())
+                    e.consume();
+            }
+        });
+        textField6.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if(Character.isDigit(c))
+                    e.consume();
+                if(2 == textField6.getText().length())
+                    e.consume();
+            }
+        });
+
+        textField7.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if(!Character.isDigit(c))
+                    e.consume();
+                if(10 == textField7.getText().length())
+                    e.consume();
+            }
+        });
+        textField4.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if(Character.isDigit(c))
+                    e.consume();
+            }
+        });
+
+        textField1.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if(Character.isDigit(c))
+                    e.consume();
+            }
+        });
+
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Address address = new Address(SignUpPage.inputAddress, SignUpPage.inputCity,
-                        SignUpPage.inputZip, SignUpPage.inputState);
+                Address address = new Address(textField3.getText(), textField4.getText(),
+                        textField5.getText(), textField6.getText());
 
-                CreditCard creditCard = new CreditCard(CreditPage.inputCard, CreditPage.inputCSV,
-                        CreditPage.inputMonth, CreditPage.inputDate);
+                CreditCard creditCard = new CreditCard(textField9.getText(), textField10.getText(),
+                        textField11.getText(), textField12.getText());
 
                 Customer customer = new Customer(textField1.getText(), textField7.getText(),
                         textField2.getText(), textField8.getText(), creditCard, address);
-                //save to database
-                boolean completed = false;
-                try{
-                    DatabaseManager db = new DatabaseManager();
-                    completed = db.saveCustomer(customer);
-                    db.close();
-                }catch(SQLException ex) {
-                    System.out.println(ex.getMessage());
-                    JOptionPane.showMessageDialog(null,"Username already taken");
+                //User input validation
+                if (textField1.getText().equals(""))
+                    textField1.setBackground(new Color(255, 102, 102));
+                else
+                    textField1.setBackground(Color.white);
+                if (textField2.getText().equals(""))
                     textField2.setBackground(new Color(255, 102, 102));
-                }
+                else
+                    textField2.setBackground(Color.white);
+                if (textField3.getText().equals(""))
+                    textField3.setBackground(new Color(255, 102, 102));
+                else
+                    textField3.setBackground(Color.white);
+                if (textField4.getText().equals(""))
+                    textField4.setBackground(new Color(255, 102, 102));
+                else
+                    textField4.setBackground(Color.white);
+                if (textField5.equals("") || textField5.getText().length() > 5)
+                    textField5.setBackground(new Color(255, 102, 102));
+                else
+                    textField5.setBackground(Color.white);
+                if (textField6.equals("") || textField6.getText().length() < 2)
+                    textField6.setBackground(new Color(255, 102, 102));
+                else
+                    textField6.setBackground(Color.white);
+                if (textField7.getText().equals("") || textField7.getText().length() < 10)
+                    textField7.setBackground(new Color(255, 102, 102));
+                else
+                    textField7.setBackground(Color.white);
+                if (textField8.equals(""))
+                    textField8.setBackground(new Color(255, 102, 102));
+                else
+                    textField8.setBackground(Color.white);
+                if (Integer.parseInt(textField12.getText()) < 22 || Integer.parseInt(textField12.getText()) > 31)
+                    textField12.setBackground(new Color(255, 102, 102));
+                else
+                    textField12.setBackground(Color.white);
+                if (Integer.parseInt(textField11.getText()) > 12)
+                    textField11.setBackground(new Color(255, 102, 102));
+                else
+                    textField11.setBackground(Color.white);
+                if (textField10.getText().length() < 3)
+                    textField10.setBackground(new Color(255, 102, 102));
+                else
+                    textField10.setBackground(Color.white);
+                if (textField9.getText().length() < 16)
+                    textField9.setBackground(new Color(255, 102, 102));
+                else
+                    textField9.setBackground(Color.white);
+                if (Integer.parseInt(textField11.getText()) > 12 || Integer.parseInt(textField12.getText()) > 31 || Integer.parseInt(textField12.getText()) < 23 || textField9.getText().length() < 16
+                        || textField10.getText().length() < 4 || textField1.getText().equals("") || textField2.getText().equals("") || textField3.getText().equals("")
+                        || textField4.getText().equals("") || textField5.getText().equals("") || textField6.getText().equals("") || textField7.getText().equals("")
+                        || textField8.getText().equals("") || textField5.getText().length() > 5 || textField6.getText().length() < 2 || textField7.getText().length() < 10)
+                    JOptionPane.showMessageDialog(ConfirmationPage, "Invalid input");
+                else {
+                    boolean valid = false;
+                    String[] arrOfStr = textField2.getText().split("@", 2);
+                    for (int i = 0; i < 5; i++) {
+                        try {
+                            if (arrOfStr[1].equals(emails[i])) {
+                                valid = true;
+                            }
+                        } catch (Exception a) {
+                        }
 
-                if(completed) {
-                    JOptionPane.showMessageDialog(ConfirmationPage, "Account successfully created");
-                    dispose();
-                    CSLoginPage cs = new CSLoginPage();
+                    }
+                    if (!valid) {
+                        JOptionPane.showMessageDialog(ConfirmationPage, "Invalid email format");
+                        textField2.setBackground(new Color(255, 102, 102));
+                    }
+                    //save to database
+                    if (valid) {
+                        boolean completed = false;
+                        try {
+                            DatabaseManager db = new DatabaseManager();
+                            completed = db.saveCustomer(customer);
+                            db.close();
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+                            JOptionPane.showMessageDialog(null, "Username already taken");
+                            textField2.setBackground(new Color(255, 102, 102));
+                        }
+
+                        if (completed) {
+                            JOptionPane.showMessageDialog(ConfirmationPage, "Account successfully created");
+                            dispose();
+                            CSLoginPage cs = new CSLoginPage();
+                        }
+                    }
                 }
             }
         });

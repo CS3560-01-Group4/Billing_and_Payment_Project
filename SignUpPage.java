@@ -108,6 +108,14 @@ public class SignUpPage extends JFrame {
                     e.consume();
             }
         });
+        city.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if(Character.isDigit(c))
+                    e.consume();
+            }
+        });
         state.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
