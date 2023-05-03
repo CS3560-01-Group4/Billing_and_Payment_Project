@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -53,18 +54,17 @@ public class ConfirmationPage extends JFrame{
         CreditPage.inputMonth = textField11.getText();
         CreditPage.inputDate = textField12.getText();
 
-        Address address = new Address(SignUpPage.inputAddress, SignUpPage.inputCity,
-                                    SignUpPage.inputZip, SignUpPage.inputState);
-
-        CreditCard creditCard = new CreditCard(CreditPage.inputCard, CreditPage.inputCSV,
-                                                CreditPage.inputMonth, CreditPage.inputDate);
-
-        Customer customer = new Customer(SignUpPage.inputName, SignUpPage.inputPhone,
-                                        SignUpPage.inputEmail, SignUpPage.inputPassword, creditCard, address);
-
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Address address = new Address(SignUpPage.inputAddress, SignUpPage.inputCity,
+                        SignUpPage.inputZip, SignUpPage.inputState);
+
+                CreditCard creditCard = new CreditCard(CreditPage.inputCard, CreditPage.inputCSV,
+                        CreditPage.inputMonth, CreditPage.inputDate);
+
+                Customer customer = new Customer(textField1.getText(), textField7.getText(),
+                        textField2.getText(), textField8.getText(), creditCard, address);
                 //save to database
                 boolean completed = false;
                 try{
@@ -73,14 +73,15 @@ public class ConfirmationPage extends JFrame{
                     db.close();
                 }catch(SQLException ex) {
                     System.out.println(ex.getMessage());
-                    JOptionPane.showMessageDialog(null,"There was an error creating your account");
+                    JOptionPane.showMessageDialog(null,"Username already taken");
+                    textField2.setBackground(new Color(255, 102, 102));
                 }
 
                 if(completed) {
                     JOptionPane.showMessageDialog(ConfirmationPage, "Account successfully created");
+                    dispose();
+                    CSLoginPage cs = new CSLoginPage();
                 }
-                dispose();
-                CSLoginPage cs = new CSLoginPage();
             }
         });
 
