@@ -63,7 +63,6 @@ public class SalesmanGUI extends JFrame {
         editCustomerAddress.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
                 salesmanSearchCustomer viewAccount = new salesmanSearchCustomer(2);
             }
         });
@@ -79,7 +78,6 @@ public class SalesmanGUI extends JFrame {
         editEmailAddress.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
                 salesmanSearchCustomer viewAccount = new salesmanSearchCustomer(3);
             }
         });
@@ -87,7 +85,6 @@ public class SalesmanGUI extends JFrame {
         viewAccountInfo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
                 salesmanSearchCustomer viewAccount = new salesmanSearchCustomer(1);
             }
         });
