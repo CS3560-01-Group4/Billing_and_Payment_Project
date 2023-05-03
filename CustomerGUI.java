@@ -141,7 +141,12 @@ public class CustomerGUI extends JFrame {
         AddAddons.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addAddon addingAddons = new addAddon(customer);
+                try {
+                    setAddAddons(customer);
+                    dispose();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
 
             }
         });
@@ -378,6 +383,10 @@ public class CustomerGUI extends JFrame {
     public void setEditCreditCardInfo(Customer customer) throws SQLException{
         CreditPage creditPage = new CreditPage(customer);
 
+    }
+
+    public void setAddAddons(Customer customer) throws SQLException{
+        addAddon addAddons = new addAddon(customer);
     }
 
 
