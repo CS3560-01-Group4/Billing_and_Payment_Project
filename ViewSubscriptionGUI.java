@@ -14,6 +14,7 @@ public class ViewSubscriptionGUI extends JFrame {
         this.setSize(600,600);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setIconImage(new ImageIcon("31-hour.png").getImage());
+        this.setLocationRelativeTo(null);
 
         this.setVisible(true);
         Membership membership;
@@ -24,6 +25,7 @@ public class ViewSubscriptionGUI extends JFrame {
             if(membership == null || membership.getMembershipID() == -1) {
                 JOptionPane.showMessageDialog(null, "You have no membership associated with your account");
                 dispose();
+                new SalesmanGUI();
             }else{
                 memberIdText.setText(Integer.toString(membership.getMembershipID()));
                 membershipName.setText( membership.getName() );

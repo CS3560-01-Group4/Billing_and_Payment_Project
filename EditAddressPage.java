@@ -98,6 +98,7 @@ public class EditAddressPage extends JFrame {
                         db.close();
                         JOptionPane.showMessageDialog(null, "Updated");
                         dispose();
+                        new SalesmanGUI();
                     }
                     catch (SQLException throwables) {
                         throwables.printStackTrace();

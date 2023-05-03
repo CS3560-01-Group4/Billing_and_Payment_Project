@@ -214,28 +214,8 @@ public class CustomerGUI extends JFrame {
                 }
             }
         });
-
-
-
-
-
         this.setJMenuBar(menuBar);
         this.setVisible(true);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
 
@@ -261,9 +241,6 @@ public class CustomerGUI extends JFrame {
         else {
             JOptionPane.showMessageDialog(null, "There was an error updating the name");
         }
-
-
-
     }
 
 
@@ -272,54 +249,33 @@ public class CustomerGUI extends JFrame {
     }
 
 
-    public static void EditEmailAddress(Customer searchCustomer){
+    public static void EditEmailAddress(Customer searchCustomer) {
         String inputEmailAddress = JOptionPane.showInputDialog("Enter new email");
 
-        if (inputEmailAddress.equals(""))
+        if (inputEmailAddress.equals("")) {
             JOptionPane.showMessageDialog(null, "Invalid input");
+            new SalesmanGUI();
+        } else {
+            //update email on database
+            boolean completed = false;
+            try {
+                DatabaseManager db = new DatabaseManager();
+                completed = db.updateEmail(searchCustomer.getId(), inputEmailAddress);
+                db.close();
+            } catch (Exception ex) {
+                System.out.println("Error connecting to database");
+            }
 
-        //update email on database
-        boolean completed = false;
-        try {
-            DatabaseManager db = new DatabaseManager();
-            completed = db.updateEmail(searchCustomer.getId(), inputEmailAddress);
-            db.close();
-        }catch (Exception ex) {
-            System.out.println("Error connecting to database");
+            if (completed) {
+                JOptionPane.showMessageDialog(null, "Email was Successfully Updated");
+                searchCustomer.setEmail(inputEmailAddress);
+                new SalesmanGUI();
+            } else {
+                JOptionPane.showMessageDialog(null, "Email could not be updated");
+                new SalesmanGUI();
+            }
         }
-
-        if(completed) {
-            JOptionPane.showMessageDialog(null, "Email was Successfully Updated");
-            searchCustomer.setEmail(inputEmailAddress);
-        }else {
-            JOptionPane.showMessageDialog(null, "Email could not be updated");
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
-
 
     public void EditSubscription(String newSubscription){
         try{
@@ -329,7 +285,6 @@ public class CustomerGUI extends JFrame {
         }catch(Exception ex) {
             JOptionPane.showMessageDialog(null, "Failed to Update");
         }
-
     }
 
 

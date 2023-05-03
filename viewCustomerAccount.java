@@ -69,6 +69,7 @@ public class viewCustomerAccount extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
+                new SalesmanGUI();
             }
         });
         showPasswordCheckBox.addActionListener(new ActionListener() {
