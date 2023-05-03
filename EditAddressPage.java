@@ -17,6 +17,7 @@ public class EditAddressPage extends JFrame {
     private JTextField state;
     private JTextField address;
     private JButton Update;
+    private JButton backButton;
     boolean completed = false;
     String url = "jdbc:mysql://" + "containers-us-west-40.railway.app" + ":" + 7265 + "/" + "railway";
 
@@ -104,6 +105,13 @@ public class EditAddressPage extends JFrame {
                         JOptionPane.showMessageDialog(null, "Error");
                     }
                 }
+            }
+        });
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CustomerGUI(customer);
+                dispose();
             }
         });
     }

@@ -16,6 +16,7 @@ public class CreditPage extends JFrame {
     private JPasswordField csv;
     private JTextField date;
     private JButton confirmPaymentButton;
+    private JButton backButton;
 
     static String inputCard, inputCSV, inputDate, inputMonth;
 
@@ -29,6 +30,8 @@ public class CreditPage extends JFrame {
         this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+        this.setLocationRelativeTo(null);
+
         month.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -101,6 +104,12 @@ public class CreditPage extends JFrame {
                     dispose();
                 }
 
+            }
+        });
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
             }
         });
     }

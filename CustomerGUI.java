@@ -29,6 +29,7 @@ public class CustomerGUI extends JFrame {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setLayout(new FlowLayout());
         this.setIconImage(new ImageIcon("31-hour.png").getImage());
+        this.setLocationRelativeTo(null);
 
         menuBar = new JMenuBar();
         Edit = new JMenu("Edit");
@@ -241,58 +242,60 @@ public class CustomerGUI extends JFrame {
 
     public void EditName(){
         String inputName = JOptionPane.showInputDialog("Enter new name");
-        if (inputName.equals("")){
+        if (inputName == null || inputName.equals("")){
             JOptionPane.showMessageDialog(null, "Invalid input");
         }
-
-        //update database
-        boolean completed = false;
-        try {
-            DatabaseManager db = new DatabaseManager();
-            completed = db.updateCustomerName(customer.getId(), inputName);
-            db.close();
-        }catch(Exception ex) {
-            System.out.println("Error connecting to the database");
-        }
-
-        if(completed) {
-            JOptionPane.showMessageDialog(null, "Name successfully Updated");
-        }
         else {
-            JOptionPane.showMessageDialog(null, "There was an error updating the name");
+
+            //update database
+            boolean completed = false;
+            try {
+                DatabaseManager db = new DatabaseManager();
+                completed = db.updateCustomerName(customer.getId(), inputName);
+                db.close();
+            } catch (Exception ex) {
+                System.out.println("Error connecting to the database");
+            }
+
+            if (completed) {
+                JOptionPane.showMessageDialog(null, "Name successfully Updated");
+            } else {
+                JOptionPane.showMessageDialog(null, "There was an error updating the name");
+            }
         }
-
-
-
     }
 
 
     public void EditAddress(Customer customer) throws SQLException {
         EditAddressPage editAddress = new EditAddressPage(customer);
+        dispose();
     }
 
 
     public static void EditEmailAddress(Customer searchCustomer){
         String inputEmailAddress = JOptionPane.showInputDialog("Enter new email");
 
-        if (inputEmailAddress.equals(""))
+        if (inputEmailAddress == null || inputEmailAddress.equals("")) {
             JOptionPane.showMessageDialog(null, "Invalid input");
-
-        //update email on database
-        boolean completed = false;
-        try {
-            DatabaseManager db = new DatabaseManager();
-            completed = db.updateEmail(searchCustomer.getId(), inputEmailAddress);
-            db.close();
-        }catch (Exception ex) {
-            System.out.println("Error connecting to database");
         }
+        else {
 
-        if(completed) {
-            JOptionPane.showMessageDialog(null, "Email was Successfully Updated");
-            searchCustomer.setEmail(inputEmailAddress);
-        }else {
-            JOptionPane.showMessageDialog(null, "Email could not be updated");
+            //update email on database
+            boolean completed = false;
+            try {
+                DatabaseManager db = new DatabaseManager();
+                completed = db.updateEmail(searchCustomer.getId(), inputEmailAddress);
+                db.close();
+            } catch (Exception ex) {
+                System.out.println("Error connecting to database");
+            }
+
+            if (completed) {
+                JOptionPane.showMessageDialog(null, "Email was Successfully Updated");
+                searchCustomer.setEmail(inputEmailAddress);
+            } else {
+                JOptionPane.showMessageDialog(null, "Email could not be updated");
+            }
         }
 
 
@@ -336,24 +339,26 @@ public class CustomerGUI extends JFrame {
     public void setEditPassword(){
         String inputPassword = JOptionPane.showInputDialog("Enter new password");
 
-        if (inputPassword.equals(""))
+        if (inputPassword == null || inputPassword.equals("")) {
             JOptionPane.showMessageDialog(null, "Invalid input");
-
-        //update email on database
-        boolean completed = false;
-        try {
-            DatabaseManager db = new DatabaseManager();
-            completed = db.updatePassword(customer.getId(), inputPassword);
-            db.close();
-        }catch (Exception ex) {
-            System.out.println("Error connecting to database");
         }
+        else {
+            //update email on database
+            boolean completed = false;
+            try {
+                DatabaseManager db = new DatabaseManager();
+                completed = db.updatePassword(customer.getId(), inputPassword);
+                db.close();
+            } catch (Exception ex) {
+                System.out.println("Error connecting to database");
+            }
 
-        if(completed) {
-            JOptionPane.showMessageDialog(null, "Password was Successfully Updated");
-            this.customer.setPassword(inputPassword);
-        }else {
-            JOptionPane.showMessageDialog(null, "Password could not be updated");
+            if (completed) {
+                JOptionPane.showMessageDialog(null, "Password was Successfully Updated");
+                this.customer.setPassword(inputPassword);
+            } else {
+                JOptionPane.showMessageDialog(null, "Password could not be updated");
+            }
         }
     }
 
@@ -376,7 +381,6 @@ public class CustomerGUI extends JFrame {
 
     public void setEditCreditCardInfo(Customer customer) throws SQLException{
         CreditPage creditPage = new CreditPage(customer);
-
     }
 
     public void setAddAddons(Customer customer) throws SQLException{
