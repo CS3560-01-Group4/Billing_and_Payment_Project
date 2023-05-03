@@ -18,7 +18,8 @@ public class PurchasePage extends JFrame {
 
     private ButtonGroup group = new ButtonGroup();
     public static int total;
-    private String AddonType,AddonID, nameTrainer, price;
+    private String AddonType, nameTrainer, price;
+    private Integer addonId;
     private static String AddonTypes[] = {"Trainer", "Class"};
 
     boolean addonSelected = false;
@@ -56,7 +57,7 @@ public class PurchasePage extends JFrame {
                  */
                 if(e.getValueIsAdjusting() && trainerTable.getSelectedRow() !=-1 ){
                     AddonType =(String) model.getValueAt(row,0);
-                    AddonID = (String) model.getValueAt(row,1);
+                    addonId = (Integer)  model.getValueAt(row,1);
                     nameTrainer = (String) model.getValueAt(row, 2);
 
                     
@@ -93,8 +94,9 @@ public class PurchasePage extends JFrame {
                 if(addonSelected){
                     try {
                         DatabaseManager db = new DatabaseManager();
-                        chosenAddon = db.getAddon(Integer.parseInt(AddonID));
+                        chosenAddon = db.getAddon(addonId.intValue());
                         total += chosenAddon.getPrice();
+                        db.close();
 
 
                     } catch (SQLException ex) {
@@ -109,11 +111,7 @@ public class PurchasePage extends JFrame {
                 try {
                     DatabaseManager db = new DatabaseManager();
                     memberID = db.createOwnedMembership(customer.getId(), membershipName);
-
-
                     db.saveEnrollment(memberID, membershipName, chosenAddon.getAddonID());
-
-
                     db.saveSale(total, customer.getId(), memberID, membershipName);
                     JOptionPane.showMessageDialog(null, "Successfully Purchased");
                     new CustomerGUI(customer);
