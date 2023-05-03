@@ -63,7 +63,6 @@ public class salesmanSearchCustomer extends JFrame {
                                 EditAddressPage edit = new EditAddressPage(searchCustomer);
                                 break;
                             case 3:
-                                dispose();
                                 CustomerGUI.EditEmailAddress(searchCustomer);
                                 break;
                             case 4:
